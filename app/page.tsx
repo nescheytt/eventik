@@ -14,29 +14,29 @@ import { Button } from '../components/ui/button';
 
 
 // Funciones de formato
-function formatCurrency(amount) {
+function formatCurrency(amount: number) {
   return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(amount);
 }
 
-function formatNumber(number) {
+function formatNumber(number: number) {
   return number.toLocaleString('es-AR');
 }
 
 export default function TicketPage() {
-  const { loading, error, data } = useSuspenseQuery(GET_TICKETS, {
+  const { error, data } = useSuspenseQuery<any>(GET_TICKETS, {
     variables: { product_id: 253 }
   });
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   const tickets = data?.eventMagicTickets || [];
-  let statusDistribution = [];
+  let statusDistribution: any = [];
 
   if (tickets.length > 0) {
     const totalRecords = tickets.length;
-    const totalOrderIdSum = tickets.reduce((sum, { ticket_Price }) => sum + parseInt(ticket_Price), 0);
-    const totalCheckedIn = tickets.filter(({ admission_Status }) => admission_Status === 'Checked In').length;
+    const totalOrderIdSum = tickets.reduce((sum: number, { ticket_Price }: any) => sum + parseInt(ticket_Price), 0);
+    const totalCheckedIn = tickets.filter(({ admission_Status }: any) => admission_Status === 'Checked In').length;
 
     statusDistribution = [
       { status: 'Ventas', count: formatCurrency(totalOrderIdSum), percentage: 0 },
@@ -47,15 +47,16 @@ export default function TicketPage() {
 
 
   // Obtén los valores únicos para "Product Name" y "Variation Name"
-  const uniqueProductNames = [...new Set(tickets.map(ticket => ticket.order_Status))];
-  const uniqueVariationNames = [...new Set(tickets.map(ticket => ticket.variation_Name))];
+  // FIX: Agregar types correctos, por el momento downlevelIteration: true config lo fixea
+  const uniqueProductNames = [...new Set(tickets.map((ticket: any) => ticket.order_Status))];
+  const uniqueVariationNames = [...new Set(tickets.map((ticket: any) => ticket.variation_Name))];
 
   // Convierte estos valores únicos en opciones de filtro
   const productFilterOptions = uniqueProductNames.map(name => ({ label: name, value: name }));
   const variationFilterOptions = uniqueVariationNames.map(name => ({ label: name, value: name }));
 
   // Define las columnas con los filtros, incluyendo las opciones de filtro
-  const columns = originalColumns.map(column => {
+  const columns = originalColumns.map((column: any) => {
     if (column.accessorKey === "order_Status") {
       return createColumnWithFilter(column.accessorKey, "Estado", productFilterOptions);
     }
@@ -68,28 +69,30 @@ export default function TicketPage() {
   return (
     <>
       <div className="border-b">
-          <div className="flex h-16 items-center px-4">
+        <div className="flex h-16 items-center px-4">
           <div className="mr-auto flex items-center space-x-4">
-              <UserNav />
-            </div>
-            <MainNav className="mx-6" />
+            <UserNav />
           </div>
+
+          <MainNav className="mx-6" />
         </div>
+      </div>
+
       <div className="container relative">
         <section>
           <div className='hidden h-full flex-1 flex-col space-y-8 p-8 md:flex'>
             <div className='flex items-center justify-between space-y-2'>
               <div>
                 <h2 className='text-2xl font-bold tracking-tight'>Conferencia TOMATULUGAR: Habitación 24.7</h2>
-                <p className='text-muted-foreground'>
-                  https://evn.tk/ttl-h247
-                </p>
+                <p className='text-muted-foreground'>https://evn.tk/ttl-h247</p>
               </div>
+
               <div className='flex items-center space-x-2'>
                 <Button variant="outline">Copy</Button>
                 <Button variant="outline">Visitar</Button>
               </div>
             </div>
+
             <TicketStatusOverview statusDistribution={statusDistribution} /> {/* Nuevo componente para mostrar la distribución */}
             <DataTable data={tickets} columns={columns} />
           </div>
@@ -99,11 +102,11 @@ export default function TicketPage() {
   );
 }
 
-function createColumnWithFilter(accessorKey, title, filterOptions) {
+function createColumnWithFilter(accessorKey: string, title: string | undefined, filterOptions: { label: any; value: any; }[]) {
   return {
     id: accessorKey,
     accessorKey,
-    header: ({ column }) => (
+    header: ({ column }: any) => (
       <div>
         <DataTableFacetedFilter
           column={column}
@@ -113,7 +116,7 @@ function createColumnWithFilter(accessorKey, title, filterOptions) {
         <DataTableColumnHeader column={column} title={title} />
       </div>
     ),
-    cell: ({ row }) => {
+    cell: ({ row }: any) => {
       let value = row.getValue(accessorKey);
       if (accessorKey === 'order_Status') {
         value = value === 'wc-completed' ? 'Pagada' : value === 'Pending' ? 'Pendiente' : value;
@@ -123,7 +126,7 @@ function createColumnWithFilter(accessorKey, title, filterOptions) {
       }
       return <div>{value}</div>;
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row: { getValue: (arg0: any) => any; }, id: any, value: string | any[]) => {
       return value.includes(row.getValue(id));
     },
   };
