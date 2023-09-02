@@ -6,7 +6,7 @@ export const useFilteredData = () => {
   return useContext(FilteredDataContext);
 };
 
-export const FilteredDataProvider = ({ children, data }) => {
+export const FilteredDataProvider = ({ children, data } : { children: any, data: any }) => {
   return (
     <FilteredDataContext.Provider value={data}>
       {children}

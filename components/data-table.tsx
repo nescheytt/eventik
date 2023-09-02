@@ -28,29 +28,29 @@ import { DataTablePagination } from "../components/data-table-pagination"
 import { DataTableToolbar } from "../components/data-table-toolbar"
 
 // Función de filtro personalizado
-function filterByUniqueValues(rows, id, filterValue) {
-  const counts = {};
+// function filterByUniqueValues(rows, id, filterValue) {
+//   const counts = {};
 
-  if (typeof filterValue === 'string') {
-    filterValue = filterValue.toLowerCase();
-  }
+//   if (typeof filterValue === 'string') {
+//     filterValue = filterValue.toLowerCase();
+//   }
 
-  const filteredRows = rows.filter((row) => {
-    const rowValue = row.values[id];
-    if (typeof rowValue === 'string') {
-      const match = filterValue ? rowValue.toLowerCase().includes(filterValue) : true;
-      if (match) {
-        counts[rowValue] = (counts[rowValue] || 0) + 1;
-      }
-      return match;
-    }
-    return filterValue ? rowValue.includes(filterValue) : true;
-  });
+//   const filteredRows = rows.filter((row) => {
+//     const rowValue = row.values[id];
+//     if (typeof rowValue === 'string') {
+//       const match = filterValue ? rowValue.toLowerCase().includes(filterValue) : true;
+//       if (match) {
+//         counts[rowValue] = (counts[rowValue] || 0) + 1;
+//       }
+//       return match;
+//     }
+//     return filterValue ? rowValue.includes(filterValue) : true;
+//   });
 
-  return { filteredRows, counts }; // Retorna las filas filtradas y los recuentos
-}
+//   return { filteredRows, counts }; // Retorna las filas filtradas y los recuentos
+// }
 
-interface MyColumnDef<TData, TValue> extends ColumnDef<TData, TValue> {
+interface MyColumnDef<TData, TValue> {
   accessorKey: string;
 }
 
