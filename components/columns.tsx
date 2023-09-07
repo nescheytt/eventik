@@ -45,7 +45,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const date = formatDate(row.original.order_Date); 
 
       return (
-        <div className="text-zinc-500">{date}</div>
+        <div className="text-muted-foreground">{date}</div>
       );
     },
   },
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Ticket>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('ticket_ID')} />,
     cell: ({ row }) => {
       return (
-        <div className="text-zinc-500"># {row.original.ticket_ID}</div>
+        <div className="text-muted-foreground"># {row.original.ticket_ID}</div>
       );
     },
   },
@@ -64,7 +64,7 @@ export const columns: ColumnDef<Ticket>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="max-w-[180px] truncate font-medium text-zinc-500">
+          <span className="max-w-[180px] truncate font-medium text-muted-foreground">
             {formatVariationName(row.original.variation_Name)}
           </span>
         </div>
@@ -101,7 +101,7 @@ export const columns: ColumnDef<Ticket>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="max-w-[140px] truncate text-zinc-500">
+          <span className="max-w-[140px] truncate text-muted-foreground">
             {row.original.purchaser_FirstName} {row.original.purchaser_LastName}
           </span>
         </div>
@@ -114,7 +114,7 @@ export const columns: ColumnDef<Ticket>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex">
-          <span className="max-w-[140px] truncate text-zinc-500">
+          <span className="max-w-[140px] truncate text-muted-foreground">
             {row.getValue("purchaser_Email")}
           </span>
         </div>
