@@ -22,7 +22,7 @@ export default function DebouncedInput({
     }, debounce)
 
     return () => clearTimeout(timeout)
-  }, [value])
+  }, [debounce, onChange, value])
 
   return (
     <input {...props} value={value} onChange={e => setValue(e.target.value)} />

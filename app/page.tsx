@@ -15,6 +15,7 @@ import { Button } from '../components/ui/button';
 import formatDate from '../utils/formatDate'
 import { orderStatusTranslate } from "@/utils/valuesTranslate";
 import formatVariationName from "@/utils/formatVariationName";
+import { ButtonCopy } from "@/components/ui/button-copy";
 
 
 // Funciones de formato
@@ -27,8 +28,10 @@ function formatNumber(number: number) {
 }
 
 export default function TicketPage() {
+  const NEXT_PUBLIC_EVENT_PRODUCT_ID = parseInt(process.env.NEXT_PUBLIC_EVENT_PRODUCT_ID!);
+
   const { error, data } = useSuspenseQuery<any>(GET_TICKETS, {
-    variables: { product_id: 253 }
+    variables: { product_id: NEXT_PUBLIC_EVENT_PRODUCT_ID }
   });
 
   // if (loading) return <p>Loading...</p>;
@@ -90,12 +93,11 @@ export default function TicketPage() {
           <div className='hidden h-full flex-1 flex-col space-y-8 p-8 md:flex'>
             <div className='flex items-center justify-between space-y-2'>
               <div>
-                <h2 className='text-2xl font-bold tracking-tight'>Conferencia TOMATULUGAR: Habitación 24.7</h2>
-                <p className='text-muted-foreground'>https://evn.tk/ttl-h247</p>
+                <h2 className='text-2xl font-bold tracking-tight'>{process.env.NEXT_PUBLIC_EVENT_NAME}</h2>
               </div>
 
               <div className='flex items-center space-x-2'>
-                <Button variant="outline">Copy</Button>
+                <ButtonCopy url={process.env.NEXT_PUBLIC_EVENT_URL!} />
                 <Button variant="outline">Visitar</Button>
               </div>
             </div>
@@ -107,7 +109,7 @@ export default function TicketPage() {
       </div>
     </>
   );
-}
+};
 
 function createColumnWithFilter(accessorKey: string, title: string | undefined, filterOptions: { label: any; value: any; }[]) {
   return {
@@ -125,7 +127,7 @@ function createColumnWithFilter(accessorKey: string, title: string | undefined, 
         value = formatVariationName(value);
       };
 
-      return <div className="text-zinc-500">{value}</div>;
+      return <div className="text-muted-foreground">{value}</div>;
     },
     filterFn: (row: { getValue: (arg0: any) => any; }, id: any, value: string | any[]) => {
       return value.includes(row.getValue(id));

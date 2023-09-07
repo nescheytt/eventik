@@ -21,22 +21,31 @@ const TicketStatusOverview: React.FC<TicketStatusOverviewProps> = ({
 }) => {
   return (
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {statusDistribution.map(({ status, count, percentage }) => (
-          <Card key={status}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {status}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-semibold">{count}
-              <span className="text-sm ml-2 text-muted-foreground">
-                {percentage ? `${percentage.toFixed(2)}% of total` : ''}
-              </span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        {statusDistribution.map(({ status, count, percentage }) => {
+          const isStatusTickets = status === 'Entradas'
+
+          return (
+            <Card key={status}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {status}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-semibold">{count}
+                  <span className="text-sm ml-2 text-muted-foreground">
+                    {percentage ? `${percentage.toFixed(2)}% of total` : ''}
+                  </span>
+                  {isStatusTickets && (
+                    <span className="text-base font-normal text-muted-foreground">
+                      de {process.env.NEXT_PUBLIC_EVENT_TOTAL_TICKETS}
+                    </span>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
   );
 };
