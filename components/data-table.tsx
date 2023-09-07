@@ -15,9 +15,9 @@ import {
 } from "@tanstack/react-table"
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-
 import { DataTablePagination } from "../components/data-table-pagination"
 import { DataTableToolbar } from "../components/data-table-toolbar"
+import { Ticket } from '@/types/ticket'
 
 interface MyColumnDef<TData, TValue> {
   accessorKey: string;
@@ -25,7 +25,7 @@ interface MyColumnDef<TData, TValue> {
 
 interface DataTableProps<TData, TValue> {
   columns: MyColumnDef<TData, TValue>[]; // Utiliza MyColumnDef aquí
-  data: TData[];
+  data: Ticket[];
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {

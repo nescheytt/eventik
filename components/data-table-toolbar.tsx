@@ -9,10 +9,11 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import formatVariationName from "@/utils/formatVariationName"
 import queryIdTranslate from "@/utils/queryIdTranslate"
 import { orderStatusTranslate } from "@/utils/valuesTranslate"
+import { Ticket } from "@/types/ticket"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  data: any
+  data: Ticket[];
   globalFilter: string
   setGlobalFilter: (value: string) => void
 }
@@ -22,26 +23,22 @@ type Options = {
   value: string
 }
 
-const orderStatus = [
-  {
-    value: 'wc-completed',
-    label: 'wc-completed'
-  },
-  {
-    value: 'wc-pending',
-    label: 'wc-pending'
-  }
-]
-
 // Componente principal
 export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFilter }: DataTableToolbarProps<TData>) {
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  const uniqueProductNames: any = [...new Set(data?.map((ticket: any) => ticket.order_Status))];
-  const uniqueVariationNames: any = [...new Set(data?.map((ticket: any) => ticket.variation_Name))];
-  const productFilterOptions: Options[] = uniqueProductNames.map((name: any) => ({ label: orderStatusTranslate(name), name, value: name }));
-  const variationFilterOptions: Options[] = uniqueVariationNames.map((name: any) => ({ label: formatVariationName(name), value: name }));
+  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.order_Status))];
+  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.variation_Name))];
+
+  const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
+    label: orderStatusTranslate(name),
+    value: name
+  }));
+  const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
+    label: formatVariationName(name),
+    value: name
+  }));
 
   return (
     <div className="flex items-center justify-between">
@@ -58,14 +55,14 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
           <DataTableFacetedFilter
             column={table.getColumn("order_Status")}
             title={queryIdTranslate('order_Status')}
-            options={orderStatus}
+            options={orderStatusOptions}
           />
         )}
         {table.getColumn("variation_Name") && (
           <DataTableFacetedFilter
             column={table.getColumn("variation_Name")}
             title={queryIdTranslate('variation_Name')}
-            options={variationFilterOptions}
+            options={variationNameOptions}
           />
         )}
         
