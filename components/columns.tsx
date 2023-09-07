@@ -3,51 +3,140 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions"
-
-export type Ticket = {
-  order_Date: string;
-  order_ID: string;
-  order_Status: string;
-  variation_Name: string;
-  ticket_ID: string;
-  ticket_Price: string;
-  admission_Status: string;
-  attendee_Name: string;
-  attendee_LastName: string;
-  attendee_Email: string;
-  attendee_Telephone: string;
-  purchaser_FirstName: string;
-  purchaser_LastName: string;
-  purchaser_Email: string;
-  purchaser_Phone: string;
-  created_Manually: string;
-};
-
-const createColumn = (accessorKey: keyof Ticket, title: string): ColumnDef<Ticket> => ({
-  accessorKey,
-  header: ({ column }) => <DataTableColumnHeader column={column} title={title} />,
-  cell: ({ row }) => <div>{row.getValue(accessorKey)}</div>,
-});
+import formatDate from "@/utils/formatDate";
+import formatVariationName from "@/utils/formatVariationName";
+import { Ticket } from "@/types/ticket";
+import queryIdTranslate from "@/utils/queryIdTranslate";
+import { admissionStatusTranslate, orderStatusTranslate } from "@/utils/valuesTranslate";
 
 export const columns: ColumnDef<Ticket>[] = [
-  createColumn("order_Date", "Fecha"),
-  createColumn("order_ID", "Pedido"),
-  createColumn("order_Status", "Estado"),
-  createColumn("variation_Name", "Tipo Entrada"),
-  createColumn("ticket_ID", "Entrada"),
-  createColumn("ticket_Price", "Precio"),
-  createColumn("admission_Status", "¿Admitido?"),
-  createColumn("attendee_Name", "Nombre Asistente"),
-  createColumn("attendee_LastName", "Apellido Asistente"),
-  createColumn("attendee_Email", "Email Asistente"),
-  createColumn("attendee_Telephone", "Teléfono Asistente"),
-  createColumn("purchaser_FirstName", "Nombre Comprador"),
-  createColumn("purchaser_LastName", "Apellido Comprador"),
-  createColumn("purchaser_Email", "Purchaser Email"),
-  createColumn("purchaser_Phone", "Purchaser Phone"),
-  createColumn("created_Manually", "¿Manual?"),
   {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    accessorKey: 'order_ID',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('order_ID')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex">
+          <span className="max-w-[65px] truncate font-medium"># {row.original.order_ID}</span>
+        </div>
+      );
+    },
   },
+  {
+    accessorKey: 'order_Status',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('order_Status')} />,
+    cell: ({ row }) => {
+      let value = orderStatusTranslate(row.getValue('order_Status'));
+      const pending = value === "Pendiente";
+
+      return (
+        <div className={`${!pending ? 'bg-green-50' : 'bg-orange-50'} px-2 py-1 w-fit  rounded-md flex justify-center`}>
+          <p className={`${!pending ? 'text-green-700' : 'text-orange-700'} text-xs font-semibold leading-4 `}>{value}</p>  
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
+    accessorKey: 'order_Date',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('order_Date')} />,
+    cell: ({ row }) => {
+      const date = formatDate(row.original.order_Date); 
+
+      return (
+        <div className="text-zinc-500">{date}</div>
+      );
+    },
+  },
+  {
+    accessorKey: 'ticket_ID',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('ticket_ID')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="text-zinc-500"># {row.original.ticket_ID}</div>
+      );
+    },
+  },
+  {
+    accessorKey: 'variation_Name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('variation_Name')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex">
+          <span className="max-w-[180px] truncate font-medium text-zinc-500">
+            {formatVariationName(row.original.variation_Name)}
+          </span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
+    id: "attendee",
+    accessorFn: ( row: any ) => {
+      const values = ['attendee_Name', 'attendee_LastName'].map(key => row[key]);
+      return `${values.join(" ")}`;
+    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('attendee')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex">
+          <span className="max-w-[140px] truncate font-medium">
+            {row.original.attendee_Name} {row.original.attendee_LastName}
+          </span>
+        </div>
+      )
+    }
+  },
+  {
+    id: "purchaser",
+    accessorFn: ( row: any ) => {
+      const values = ['purchaser_FirstName', 'purchaser_LastName'].map(key => row[key]);
+      return `${values.join(" ")}`;
+    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('purchaser')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex">
+          <span className="max-w-[140px] truncate text-zinc-500">
+            {row.original.purchaser_FirstName} {row.original.purchaser_LastName}
+          </span>
+        </div>
+      )
+    }
+  },
+  {
+    accessorKey: "purchaser_Email",
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('purchaser_Email')} />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex">
+          <span className="max-w-[140px] truncate text-zinc-500">
+            {row.getValue("purchaser_Email")}
+          </span>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'admission_Status',
+    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate('admission_Status')} />,
+    cell: ({ row }) => {
+      const pending = admissionStatusTranslate(row.original.admission_Status) === 'Pendiente';
+      const styleAccessed = 'bg-black text-white border-white'
+
+      return (
+        <div className={`${!pending && styleAccessed} px-2 py-1 w-fit flex justify-center border rounded-md`}>
+          <p className="text-xs font-medium leading-4">{admissionStatusTranslate(row.original.admission_Status)}</p>
+        </div>
+      );
+    },
+  },
+  // {
+  //   id: "actions",
+  //   cell: ({ row }) => <DataTableRowActions row={row} />
+  // },
 ];
