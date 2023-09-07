@@ -29,7 +29,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const pending = value === "Pendiente";
 
       return (
-        <div className={`${!pending ? 'bg-green-50' : 'bg-orange-50'} px-2 py-1 w-fit  rounded-md flex justify-center`}>
+        <div className={`${!pending ? 'bg-green-50' : 'bg-orange-50'} px-2 py-1 w-fit rounded-md flex justify-center`}>
           <p className={`${!pending ? 'text-green-700' : 'text-orange-700'} text-xs font-semibold leading-4 `}>{value}</p>  
         </div>
       );
@@ -129,14 +129,14 @@ export const columns: ColumnDef<Ticket>[] = [
       const styleAccessed = 'bg-black text-white border-white'
 
       return (
-        <div className={`${!pending && styleAccessed} px-2 py-1 w-fit flex justify-center border rounded-md`}>
+        <div className={`${!pending && styleAccessed} max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md`}>
           <p className="text-xs font-medium leading-4">{admissionStatusTranslate(row.original.admission_Status)}</p>
         </div>
       );
     },
   },
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => <DataTableRowActions row={row} />
-  // },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />
+  },
 ];
