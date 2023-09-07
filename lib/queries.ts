@@ -1,6 +1,7 @@
-import { gql } from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
+import type { Ticket } from '@/types/ticket';
 
-export const GET_TICKETS = gql`
+export const GET_TICKETS: TypedDocumentNode<Ticket> = gql`
 query GetTickets($product_id: Int) {
   eventMagicTickets(product_id: $product_id) {
     order_Date

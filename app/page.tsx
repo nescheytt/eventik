@@ -2,6 +2,7 @@
 
 import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
 import { GET_TICKETS } from '../lib/queries';
+
 import { columns as originalColumns } from '../components/columns';
 import { DataTable } from '../components/data-table';
 import { UserNav } from '../components/user-nav'
@@ -11,6 +12,9 @@ import TicketStatusOverview from '../components/TicketStatusOverview';
 import { MainNav } from '../components/main-nav';
 import { Button } from '../components/ui/button';
 
+import formatDate from '../utils/formatDate'
+import { orderStatusTranslate } from "@/utils/valuesTranslate";
+import formatVariationName from "@/utils/formatVariationName";
 
 
 // Funciones de formato
@@ -57,12 +61,15 @@ export default function TicketPage() {
 
   // Define las columnas con los filtros, incluyendo las opciones de filtro
   const columns = originalColumns.map((column: any) => {
-    if (column.accessorKey === "order_Status") {
-      return createColumnWithFilter(column.accessorKey, "Estado", productFilterOptions);
-    }
-    if (column.accessorKey === "variation_Name") {
-      return createColumnWithFilter(column.accessorKey, "Tipo de Entrada", variationFilterOptions);
-    }
+    // if (column.accessorKey === "order_Status") {
+    //   return createColumnWithFilter(column.accessorKey, "Estado", productFilterOptions);
+    // }
+    // if (column.accessorKey === "variation_Name") {
+    //   return createColumnWithFilter(column.accessorKey, "Tipo de Entrada", variationFilterOptions);
+    // }
+    // if (column.accessorKey === "order_Date") {
+    //   return createColumnWithFilter(column.accessorKey, "Fecha", variationFilterOptions);
+    // }
     return column;
   });
 
@@ -106,25 +113,19 @@ function createColumnWithFilter(accessorKey: string, title: string | undefined, 
   return {
     id: accessorKey,
     accessorKey,
-    header: ({ column }: any) => (
-      <div>
-        <DataTableFacetedFilter
-          column={column}
-          title={title}
-          options={filterOptions}
-        />
-        <DataTableColumnHeader column={column} title={title} />
-      </div>
-    ),
+    header: ({ column }: any) => <DataTableColumnHeader column={column} title={title} />,
     cell: ({ row }: any) => {
       let value = row.getValue(accessorKey);
+
       if (accessorKey === 'order_Status') {
-        value = value === 'wc-completed' ? 'Pagada' : value === 'Pending' ? 'Pendiente' : value;
-      }
-      if (accessorKey === 'admission_Status') {
-        value = value === 'Not Checked In' ? 'Sin admitir' : value;
-      }
-      return <div>{value}</div>;
+        value = orderStatusTranslate(value)
+      };
+
+      if (accessorKey === 'variation_Name') {
+        value = formatVariationName(value);
+      };
+
+      return <div className="text-zinc-500">{value}</div>;
     },
     filterFn: (row: { getValue: (arg0: any) => any; }, id: any, value: string | any[]) => {
       return value.includes(row.getValue(id));

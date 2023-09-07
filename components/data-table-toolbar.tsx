@@ -2,48 +2,69 @@
 
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
-
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from "./data-table-view-options"
+import DebouncedInput from "./ui/DebouncedInput"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import formatVariationName from "@/utils/formatVariationName"
+import queryIdTranslate from "@/utils/queryIdTranslate"
+import { orderStatusTranslate } from "@/utils/valuesTranslate"
+import { Ticket } from "@/types/ticket"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
+  data: Ticket[];
+  globalFilter: string
+  setGlobalFilter: (value: string) => void
 }
 
-// ... (otros imports)
+type Options = {
+  label: string
+  value: string
+}
 
 // Componente principal
-export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFilter }: DataTableToolbarProps<TData>) {
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  // Función para actualizar filtros de múltiples columnas
-  const updateFilters = (value: string) => {
-    const columnsToFilter = [
-      "attendee_Email", 
-      "attendee_Name", 
-      "attendee_LastName", 
-      "purchaser_Email", 
-      "purchaser_FirstName", 
-      "purchaser_LastName", 
-      "order_ID"
-    ];
-    columnsToFilter.forEach(columnKey => {
-      table.getColumn(columnKey)?.setFilterValue(value);
-    });
-  };
+  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.order_Status))];
+  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.variation_Name))];
+
+  const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
+    label: orderStatusTranslate(name),
+    value: name
+  }));
+  const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
+    label: formatVariationName(name),
+    value: name
+  }));
 
   return (
     <div className="flex items-center justify-between">
       {/* Filtro de tareas */}
       <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Buscar..."
-          onChange={(event) => updateFilters(event.target.value)}
-          className="h-8 w-[150px] lg:w-[250px]"
+        <DebouncedInput
+          value={globalFilter ?? ''}
+          placeholder="Buscar"
+          onChange={value => setGlobalFilter(String(value))}
+          className="h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
         />
+
+        {table.getColumn("order_Status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("order_Status")}
+            title={queryIdTranslate('order_Status')}
+            options={orderStatusOptions}
+          />
+        )}
+        {table.getColumn("variation_Name") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("variation_Name")}
+            title={queryIdTranslate('variation_Name')}
+            options={variationNameOptions}
+          />
+        )}
         
         {/* Botón para restablecer filtros */}
         {isFiltered && (
@@ -62,4 +83,4 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
       <DataTableViewOptions table={table} />
     </div>
   );
-}
+};
