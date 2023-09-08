@@ -3,21 +3,21 @@ import formatCurrency from '@/utils/formatCurrency'
 import formatNumber from '@/utils/formatNumber'
 import getVariantNameData from '@/utils/getVariantNameData'
 
-type Variations = {
+interface Tickets {
   variation_Name: string
   ticket_Count: number
   ticket_Price: string
 }
 
-type TicketStatus = {
-  status: string
+type StatusDistribution = {
   count: string
+  status: string
   percentage: number
-  tickets: Variations[]
+  tickets: Tickets[]
 }
 
 export default function getStatusDistributionData(tickets: Ticket[]) {
-  let statusDistribution: TicketStatus[] = []
+  let statusDistribution: StatusDistribution[] = []
 
   if (tickets.length > 0) {
     const totalRecords = tickets.length

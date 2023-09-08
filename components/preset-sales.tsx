@@ -14,8 +14,10 @@ import formatVariationName from '@/utils/formatVariationName'
 import formatCurrency from '@/utils/formatCurrency'
 import formatNumber from '@/utils/formatNumber'
 
-type Tickets = Ticket & {
+type Tickets = {
+  variation_Name: string
   ticket_Count: number
+  ticket_Price: string
 }
 
 type Preset = {
