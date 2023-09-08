@@ -1,4 +1,3 @@
-import type { Ticket } from '@/types/ticket'
 import Link from 'next/link'
 import {
   Dialog,
@@ -20,6 +19,15 @@ type Tickets = {
   ticket_Price: string
 }
 
+function getTotalCount(tickets: Tickets[]) {
+  const total = tickets.reduce((acc, { ticket_Count }) => {
+    const count = ticket_Count
+    return acc + count;
+  }, 0);
+
+  return formatNumber(total)
+}
+
 type Preset = {
   count: string;
   status: string,
@@ -28,15 +36,7 @@ type Preset = {
 }
 
 export default function PresetSales({ count, status, percentage, tickets } : Preset) {
-  const totalCount = tickets.reduce((acc, { ticket_Count }) => {
-    const count = ticket_Count
-    return acc + count;
-  }, 0);
-
-  const totalPrice = tickets.reduce((acc, { ticket_Price }) => {
-    const price = parseInt(ticket_Price)
-    return acc + price;
-  }, 0);
+  const totalCount = getTotalCount(tickets)
 
   return (
     <Dialog>
@@ -86,8 +86,8 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
 
             <TableRow>
               <TableCell className="pl-0 pt-5">Total</TableCell>
-              <TableCell className="text-right text-primary">{formatNumber(totalCount)}</TableCell>
-              <TableCell className="pr-0 text-right font-bold">{formatCurrency(totalPrice)}</TableCell>
+              <TableCell className="text-right text-primary">{totalCount}</TableCell>
+              <TableCell className="pr-0 text-right font-bold">{count}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
