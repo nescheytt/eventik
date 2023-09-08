@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import formatVariationName from '@/utils/formatVariationName'
-import Link from 'next/link'
 
 type Variations = {
   variation_Name: string
@@ -32,14 +32,14 @@ export default function PresetSales({
   tickets
 } : { count: string, status: string, percentage: number, tickets: Variations[] }) {
 
-  const totalCount = tickets.reduce((acc, ticket) => {
-    const number = ticket.ticket_Count
-    return acc + number;
+  const totalCount = tickets.reduce((acc, { ticket_Count }) => {
+    const count = ticket_Count
+    return acc + count;
   }, 0);
 
-  const totalPrice = tickets.reduce((acc, ticket) => {
-    const number = parseInt(ticket.ticket_Price)
-    return acc + number;
+  const totalPrice = tickets.reduce((acc, { ticket_Price }) => {
+    const price = parseInt(ticket_Price)
+    return acc + price;
   }, 0);
 
   return (
@@ -52,7 +52,8 @@ export default function PresetSales({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className='text-2xl font-semibold'>{count}
+            <div className='text-2xl font-semibold'>
+              {count}
               <span className='text-sm ml-2 text-muted-foreground'>
                 {percentage ? `${percentage.toFixed(2)}% of total` : ''}
               </span>
@@ -97,7 +98,9 @@ export default function PresetSales({
 
         <DialogFooter>
           <div className="flex flex-col">
-            <p className="text-muted-foreground text-sm">Estos montos no están considerados los descuentos que MercadoPago realizará, por ejemplo su comisión por procesamiento del pago, Ingresos Brutos, y/o Retenciones.</p>
+            <p className="text-muted-foreground text-sm">
+              Estos montos no están considerados los descuentos que MercadoPago realizará, por ejemplo su comisión por procesamiento del pago, Ingresos Brutos, y/o Retenciones.
+            </p>
             <Link href="/" className="text-red-600 text-sm">Conocer más.</Link>
           </div>
         </DialogFooter>
