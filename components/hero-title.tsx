@@ -1,15 +1,22 @@
 import { Button } from '@/components/ui/button'
 import { ButtonCopy } from '@/components/ui/button-copy'
+import { CopyIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 
 export default function HeroTitle() {
   return (
-    <div className='flex items-center justify-between space-y-2'>
+    <section className='flex items-center justify-between'>
       <h2 className='text-2xl font-bold tracking-tight'>{process.env.NEXT_PUBLIC_EVENT_NAME}</h2>
 
-      <div className='flex items-center space-x-2'>
-        <ButtonCopy url={process.env.NEXT_PUBLIC_EVENT_URL!} />
-        <Button variant="outline">Visitar</Button>
+      <div className='flex items-center gap-x-2'>
+        <ButtonCopy variant='secondary' className='gap-1' url={process.env.NEXT_PUBLIC_EVENT_URL!}>
+          <CopyIcon />
+        </ButtonCopy>
+
+        <Button variant='secondary' className='gap-1'>
+          <ExternalLinkIcon />
+          <span>Visitar</span>
+        </Button>
       </div>
-    </div>
+    </section>
   )
 }

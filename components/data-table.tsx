@@ -13,22 +13,18 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { columns } from '../components/columns';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DataTablePagination } from "../components/data-table-pagination"
 import { DataTableToolbar } from "../components/data-table-toolbar"
 import { Ticket } from '@/types/ticket'
 
-interface MyColumnDef<TData, TValue> {
-  accessorKey: string;
-}
-
 interface DataTableProps<TData, TValue> {
-  columns: MyColumnDef<TData, TValue>[]; // Utiliza MyColumnDef aquí
   data: Ticket[];
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>({ data }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
@@ -59,7 +55,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="space-y-4">
+    <section className="space-y-4">
       <DataTableToolbar table={table} data={data} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
 
       <div className="rounded-md border">
@@ -103,6 +99,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       </div>
       
       <DataTablePagination table={table} />
-    </div>
+    </section>
   )
 }
