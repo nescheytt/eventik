@@ -1,3 +1,4 @@
+import type { Ticket } from '@/types/ticket'
 import Link from 'next/link'
 import {
   Dialog,
@@ -13,19 +14,18 @@ import formatVariationName from '@/utils/formatVariationName'
 import formatCurrency from '@/utils/formatCurrency'
 import formatNumber from '@/utils/formatNumber'
 
-type Variations = {
-  variation_Name: string
+type Tickets = Ticket & {
   ticket_Count: number
-  ticket_Price: string
 }
 
-export default function PresetTickets({
-  count,
-  status,
-  percentage,
-  tickets
-} : { count: string, status: string, percentage: number, tickets: Variations[] }) {
+type Preset = {
+  count: string;
+  status: string,
+  percentage: number
+  tickets: Tickets[]
+}
 
+export default function PresetTickets({ count, status, percentage, tickets } : Preset) {
   const totalCount = tickets.reduce((acc, { ticket_Count }) => {
     const count = ticket_Count
     return acc + count;

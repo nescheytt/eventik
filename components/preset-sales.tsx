@@ -1,3 +1,4 @@
+import type { Ticket } from '@/types/ticket'
 import Link from 'next/link'
 import {
   Dialog,
@@ -10,28 +11,21 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import formatVariationName from '@/utils/formatVariationName'
+import formatCurrency from '@/utils/formatCurrency'
+import formatNumber from '@/utils/formatNumber'
 
-type Variations = {
-  variation_Name: string
+type Tickets = Ticket & {
   ticket_Count: number
-  ticket_Price: string
 }
 
-function formatCurrency(amount: number) {
-  return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(amount)
+type Preset = {
+  count: string;
+  status: string,
+  percentage: number
+  tickets: Tickets[]
 }
 
-function formatNumber(number: number) {
-  return number.toLocaleString('es-AR')
-}
-
-export default function PresetSales({
-  count,
-  status,
-  percentage,
-  tickets
-} : { count: string, status: string, percentage: number, tickets: Variations[] }) {
-
+export default function PresetSales({ count, status, percentage, tickets } : Preset) {
   const totalCount = tickets.reduce((acc, { ticket_Count }) => {
     const count = ticket_Count
     return acc + count;
