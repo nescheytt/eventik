@@ -1,34 +1,35 @@
+import { QueryID } from '@/types/query-id'
 export default function queryIdTranslate(id: string): string | undefined {
   if (typeof id !== 'string') {
     throw new Error("El valor debe ser un string");
   }
 
   // basics ids
-  if (id === 'order_Date') return 'Fecha';
-  if (id === 'order_ID') return 'Pedido';
-  if (id === 'order_Status') return 'Estado';
-  if (id === 'product_Name') return 'Producto';
-  if (id === 'variation_Name') return 'Tipo de entrada';
-  if (id === 'ticket_ID') return 'Entrada';
-  if (id === 'ticket_Number') return 'Número de entrada';
-  if (id === 'ticket_Price') return 'Precio de entrada';
-  if (id === 'admission_Status') return '¿Admitido?';
+  if (id === QueryID.ORDER_DATE) return 'Fecha';
+  if (id === QueryID.ORDER_ID) return 'Pedido';
+  if (id === QueryID.ORDER_STATUS) return 'Estado';
+  if (id === QueryID.PRODUCT_NAME) return 'Producto';
+  if (id === QueryID.VARIATION_NAME) return 'Tipo de entrada';
+  if (id === QueryID.TICKET_ID) return 'Entrada';
+  if (id === QueryID.TICKET_NUMBER) return 'Número de entrada';
+  if (id === QueryID.TICKET_PRICE) return 'Precio de entrada';
+  if (id === QueryID.ADMISSION_STATUS) return '¿Admitido?';
   // assistant ids
-  if (id === 'attendee') return 'Asistente';
-  if (id === 'attendee_Name') return 'Nombre asistente';
-  if (id === 'attendee_LastName') return 'Apellido asistente';
-  if (id === 'attendee_Email') return 'Email asistente';
-  if (id === 'attendee_Telephone') return 'Teléfono asistente';
+  if (id === QueryID.ATTENDEE) return 'Asistente';
+  if (id === QueryID.ATTENDEE_FIRST_NAME) return 'Nombre asistente';
+  if (id === QueryID.ATTENDEE_LAST_NAME) return 'Apellido asistente';
+  if (id === QueryID.ATTENDEE_EMAIL) return 'Email asistente';
+  if (id === QueryID.ATTENDEE_PHONE) return 'Teléfono asistente';
   // payer ids
-  if (id === 'purchaser') return 'Pagador';
-  if (id === 'purchaser_FirstName') return 'Nombre pagador';
-  if (id === 'purchaser_LastName') return 'Apellido pagador';
-  if (id === 'purchaser_Email') return 'Email pagador';
-  if (id === 'purchaser_Phone') return 'Teléfono pagador';
+  if (id === QueryID.PURCHASER) return 'Pagador';
+  if (id === QueryID.PURCHASER_FIRST_NAME) return 'Nombre pagador';
+  if (id === QueryID.PURCHASER_LAST_NAME) return 'Apellido pagador';
+  if (id === QueryID.PURCHASER_EMAIL) return 'Email pagador';
+  if (id === QueryID.PURCHASER_PHONE) return 'Teléfono pagador';
   // extras ids
-  if (id === 'created_Manually') return 'Creado manualmente';
-  if (id === 'payment_Method') return 'Método de pago';
-  if (id === 'payment_Type') return 'Tipo de pago';
+  if (id === QueryID.CREATED_MANUALLY) return 'Creado manualmente';
+  if (id === QueryID.PAYMENT_METHOD) return 'Método de pago';
+  if (id === QueryID.PAYMENT_TYPE) return 'Tipo de pago';
 
   return undefined;
 };
