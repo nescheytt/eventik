@@ -9,7 +9,7 @@ import TicketStatusOverview from '@/components/ticket-status-overview'
 const NEXT_PUBLIC_EVENT_PRODUCT_ID = parseInt(process.env.NEXT_PUBLIC_EVENT_PRODUCT_ID!)
 
 export default function TicketPage() {
-  const { error, data } = useSuspenseQuery<any>(GET_TICKETS, {
+  const { error, data } = useSuspenseQuery(GET_TICKETS, {
     variables: { product_id: NEXT_PUBLIC_EVENT_PRODUCT_ID }
   })
   

@@ -1,4 +1,5 @@
 export type Ticket = {
+  eventMagicTickets: never[];
   order_Date: string;
   order_ID: string;
   order_Status: string;

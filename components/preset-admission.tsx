@@ -2,15 +2,18 @@ import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Ticket } from '@/types/ticket'
-import { count } from 'console'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+
+type Variations = {
+  variation_Name: string
+  ticket_Count: number
+  ticket_Price: string
+}
 
 export default function PresetAdmission({
   children,
@@ -18,7 +21,7 @@ export default function PresetAdmission({
   status,
   percentage,
   tickets
-} : { children?: React.ReactNode, count: string, status: string, percentage: number, tickets: Ticket[] }) {
+} : { children?: React.ReactNode, count: string, status: string, percentage: number, tickets: Variations[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
