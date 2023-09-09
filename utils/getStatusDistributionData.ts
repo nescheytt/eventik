@@ -10,7 +10,7 @@ type StatusDistribution = {
   count: string
   status: string
   percentage: number
-  tickets: GetAdmissionData[] | GetVariantNameData[]
+  tickets: GetVariantNameData[] | GetAdmissionData
 }
 
 export default function getStatusDistributionData(tickets: Ticket[]) {
@@ -22,7 +22,7 @@ export default function getStatusDistributionData(tickets: Ticket[]) {
     const totalCheckedIn = tickets.filter(({ admission_Status }: any) => admission_Status === 'Checked In').length
 
     const dataSales: GetVariantNameData[] = getVariantNameData(tickets)
-    const dataAdmission: GetAdmissionData[] = getAdmissionData(tickets)
+    const dataAdmission: GetAdmissionData = getAdmissionData(tickets)
 
     statusDistribution = [
       { status: 'Ventas', count: formatCurrency(totalOrderIdSum), percentage: 0, tickets: dataSales },

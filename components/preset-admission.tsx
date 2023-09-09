@@ -1,7 +1,7 @@
+import type { GetAdmissionData } from '@/utils/getAdmissionData'
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -10,21 +10,19 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import formatVariationName from '@/utils/formatVariationName'
 
-type Tickets = {
-  variation_Name: string
-  totalCompletedWithChecked: number
-  totalCompletedWithNotChecked: number
-  percentage: number
-}
-
 type Preset = {
   count: string
   status: string
   percentage: number
-  tickets: Tickets[]
+  tickets: GetAdmissionData
 }
 
 export default function PresetAdmission({ count, status, percentage, tickets } : Preset) {
+  const {
+    admissions,
+    totalData: { totalPercentageAdmission, totalAdmission, totalCurrentAdmission }
+  } = tickets
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,11 +33,9 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className='text-2xl font-semibold'>
-              {count}
-              <span className='text-sm ml-2 text-muted-foreground'>
-                {percentage ? `${percentage.toFixed(2)}% of total` : ''}
-              </span>
+            <div className="flex items-center gap-x-2">
+              <span className='text-2xl text-primary font-bold'>{totalCurrentAdmission}</span>
+              <span className='text-muted-foreground'>de {totalAdmission}</span>
             </div>
           </CardContent>
         </Card>
@@ -47,20 +43,34 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
 
       <DialogContent className='sm:max-w-[475px]'>
         <DialogHeader>
-          <DialogTitle>{status}</DialogTitle>
+          <DialogTitle>Admisiones</DialogTitle>
         </DialogHeader>
+
+        <Card className='shadow'>
+          <div className='flex'>
+            <div className="w-full p-6 flex items-center justify-center gap-x-2">
+              <span className='text-3xl text-primary font-bold'>{totalPercentageAdmission}%</span>
+              <span className='text-muted-foreground font-semibold'>Admitidos</span>
+            </div>
+
+            <div className="w-full p-6 flex items-center justify-center gap-x-1 border-l">
+              <span className='text-3xl text-primary font-bold'>{totalCurrentAdmission}</span>
+              <span className='text-muted-foreground font-semibold before:content-["/"] before:mx-1'>{totalAdmission}</span>
+            </div>
+          </div>
+        </Card>
 
         <Table>
           <TableBody>
-            {tickets.map((ticket) => {
-              const { variation_Name, totalCompletedWithChecked, totalCompletedWithNotChecked, percentage } = ticket
-              
+            {admissions.map((admission) => {
+              const { variation_Name, percentageForVariationName, totalCompletedWithChecked, totalCompletedWithNotChecked } = admission
+
               return (
                 <TableRow key={variation_Name}>
                   <TableCell className="px-0 text-primary">{formatVariationName(variation_Name)}</TableCell>
                   <TableCell className='pr-0 flex items-center justify-end'>
                     <div className='px-2 w-fit border rounded-md'>
-                      <span className="font-bold text-xs">{percentage}%</span> 
+                      <span className="font-bold text-xs">{percentageForVariationName}%</span> 
                     </div>
                   </TableCell>
                   <TableCell className="pr-0">
