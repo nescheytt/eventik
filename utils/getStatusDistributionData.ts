@@ -1,16 +1,18 @@
 import type { Ticket } from '@/types/ticket'
-import type { GetAdmissionData } from '@/utils/getAdmissionData'
 import type { GetVariantNameData } from '@/utils/getVariantNameData'
+import type { GetTicketData } from '@/utils/getTicketData'
+import type { GetAdmissionData } from '@/utils/getAdmissionData'
 import formatCurrency from '@/utils/formatCurrency'
 import formatNumber from '@/utils/formatNumber'
 import getVariantNameData from '@/utils/getVariantNameData'
 import getAdmissionData from '@/utils/getAdmissionData'
+import getTicketData from '@/utils/getTicketData'
 
 type StatusDistribution = {
   count: string
   status: string
   percentage: number
-  tickets: GetVariantNameData[] | GetAdmissionData
+  data: any // TODO: add types
 }
 
 export default function getStatusDistributionData(tickets: Ticket[]) {
@@ -22,12 +24,13 @@ export default function getStatusDistributionData(tickets: Ticket[]) {
     const totalCheckedIn = tickets.filter(({ admission_Status }: any) => admission_Status === 'Checked In').length
 
     const dataSales: GetVariantNameData[] = getVariantNameData(tickets)
+    const dataTickets: GetTicketData = getTicketData(tickets)
     const dataAdmission: GetAdmissionData = getAdmissionData(tickets)
 
     statusDistribution = [
-      { status: 'Ventas', count: formatCurrency(totalOrderIdSum), percentage: 0, tickets: dataSales },
-      { status: 'Entradas', count: formatNumber(totalRecords), percentage: 0, tickets: dataSales },
-      { status: 'Admisión', count: formatNumber(totalCheckedIn), percentage: (totalCheckedIn / totalRecords) * 100, tickets: dataAdmission },
+      { status: 'Ventas', count: formatCurrency(totalOrderIdSum), percentage: 0, data: dataSales },
+      { status: 'Entradas', count: formatNumber(totalRecords), percentage: 0, data: dataTickets },
+      { status: 'Admisión', count: formatNumber(totalCheckedIn), percentage: (totalCheckedIn / totalRecords) * 100, data: dataAdmission },
     ]
   }
 

@@ -10,22 +10,22 @@ export default function TicketStatusOverview({ tickets } : { tickets: Ticket[] }
 
   return (
     <section className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-      {statusDistribution.map(({ status, count, percentage, tickets }) => {
+      {statusDistribution.map(({ status, count, percentage, data }) => {
         if (status === StatusDistribution.VENTAS) {
           return (
-            <PresetSales key={status} percentage={percentage} count={count} status={status} tickets={tickets} />
+            <PresetSales key={status} percentage={percentage} count={count} status={status} tickets={data} />
           )
         }
 
         if (status === StatusDistribution.ENTRADAS) {
           return (
-            <PresetTickets key={status} percentage={percentage} count={count} status={status} tickets={tickets} />
+            <PresetTickets key={status} percentage={percentage} count={count} status={status} data={data} />
           )
         }
 
         if (status === StatusDistribution.ADMISION) {
           return (
-            <PresetAdmission key={status} percentage={percentage} count={count} status={status} tickets={tickets} />
+            <PresetAdmission key={status} percentage={percentage} count={count} status={status} tickets={data} />
           )
         }
 

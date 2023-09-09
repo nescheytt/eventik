@@ -9,6 +9,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import formatVariationName from '@/utils/formatVariationName'
+import { Badge } from '@/components/ui/badge'
 
 type Preset = {
   count: string
@@ -69,13 +70,13 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
                 <TableRow key={variation_Name}>
                   <TableCell className="px-0 text-primary">{formatVariationName(variation_Name)}</TableCell>
                   <TableCell className='pr-0 flex items-center justify-end'>
-                    <div className='px-2 w-fit border rounded-md'>
-                      <span className="font-bold text-xs">{percentageForVariationName}%</span> 
-                    </div>
+                    <Badge variant="outline" className="rounded-md px-2">
+                      <span className="font-semibold text-xs">{percentageForVariationName}%</span> 
+                    </Badge>
                   </TableCell>
                   <TableCell className="pr-0">
                     <div className="text-right">
-                      <span className='text-primary font-bold'>{totalCompletedWithChecked}</span>
+                      <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
                       <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
                     </div>
                   </TableCell>
