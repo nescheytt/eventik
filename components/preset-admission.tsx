@@ -1,5 +1,3 @@
-import type { Ticket } from '@/types/ticket'
-import Link from 'next/link'
 import {
   Dialog,
   DialogContent,
@@ -9,35 +7,24 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
+import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import formatVariationName from '@/utils/formatVariationName'
-import formatCurrency from '@/utils/formatCurrency'
-import formatNumber from '@/utils/formatNumber'
 
 type Tickets = {
   variation_Name: string
-  ticket_Count: number
-  ticket_Price: string
+  totalCompletedWithChecked: number
+  totalCompletedWithNotChecked: number
+  percentage: number
 }
 
 type Preset = {
-  count: string;
-  status: string,
+  count: string
+  status: string
   percentage: number
   tickets: Tickets[]
 }
 
 export default function PresetAdmission({ count, status, percentage, tickets } : Preset) {
-  const totalCount = tickets.reduce((acc, { ticket_Count }) => {
-    const count = ticket_Count
-    return acc + count;
-  }, 0);
-
-  const totalPrice = tickets.reduce((acc, { ticket_Price }) => {
-    const price = parseInt(ticket_Price)
-    return acc + price;
-  }, 0);
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -64,42 +51,29 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
         </DialogHeader>
 
         <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="pl-0">Tipo de entrada</TableHead>
-              <TableHead className="w-[50px]">Cant.</TableHead>
-              <TableHead className="pr-0 w-[120px] text-right">Monto</TableHead>
-            </TableRow>
-          </TableHeader>
           <TableBody>
             {tickets.map((ticket) => {
-              const { variation_Name, ticket_Count, ticket_Price } = ticket
-
+              const { variation_Name, totalCompletedWithChecked, totalCompletedWithNotChecked, percentage } = ticket
+              
               return (
-                <TableRow key={variation_Name} className="border-0">
-                  <TableCell className="pl-0">{formatVariationName(variation_Name)}</TableCell>
-                  <TableCell className="text-right text-primary">{formatNumber(ticket_Count)}</TableCell>
-                  <TableCell className="pr-0 text-right font-bold">{formatCurrency(parseInt(ticket_Price))}</TableCell>
+                <TableRow key={variation_Name}>
+                  <TableCell className="px-0 text-primary">{formatVariationName(variation_Name)}</TableCell>
+                  <TableCell className='pr-0 flex items-center justify-end'>
+                    <div className='px-2 w-fit border rounded-md'>
+                      <span className="font-bold text-xs">{percentage}%</span> 
+                    </div>
+                  </TableCell>
+                  <TableCell className="pr-0">
+                    <div className="text-right">
+                      <span className='text-primary font-bold'>{totalCompletedWithChecked}</span>
+                      <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
+                    </div>
+                  </TableCell>
                 </TableRow>
               )
             })}
-
-            <TableRow>
-              <TableCell className="pl-0 pt-5">Total</TableCell>
-              <TableCell className="text-right text-primary">{formatNumber(totalCount)}</TableCell>
-              <TableCell className="pr-0 text-right font-bold">{formatCurrency(totalPrice)}</TableCell>
-            </TableRow>
           </TableBody>
-        </Table>
-
-        <DialogFooter>
-          <div className="flex flex-col">
-            <p className="text-muted-foreground text-sm">
-              Estos montos no están considerados los descuentos que MercadoPago realizará, por ejemplo su comisión por procesamiento del pago, Ingresos Brutos, y/o Retenciones.
-            </p>
-            <Link href="/" className="text-red-600 text-sm">Conocer más.</Link>
-          </div>
-        </DialogFooter>
+        </Table>  
       </DialogContent>
     </Dialog>
   )

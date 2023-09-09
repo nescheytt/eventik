@@ -22,15 +22,15 @@ type Tickets = {
 function getTotalCount(tickets: Tickets[]) {
   const total = tickets.reduce((acc, { ticket_Count }) => {
     const count = ticket_Count
-    return acc + count;
-  }, 0);
+    return acc + count
+  }, 0)
 
   return formatNumber(total)
 }
 
 type Preset = {
-  count: string;
-  status: string,
+  count: string
+  status: string
   percentage: number
   tickets: Tickets[]
 }
