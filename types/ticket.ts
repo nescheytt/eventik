@@ -1,9 +1,12 @@
 export type Ticket = {
+  eventMagicTickets: never[];
   order_Date: string;
   order_ID: string;
   order_Status: string;
+  product_name: string;
   variation_Name: string;
   ticket_ID: string;
+  ticket_Number: string;
   ticket_Price: string;
   admission_Status: string;
   attendee_Name: string;
@@ -15,4 +18,6 @@ export type Ticket = {
   purchaser_Email: string;
   purchaser_Phone: string;
   created_Manually: string;
+  payment_Method: string;
+  payment_Type: string;
 };
