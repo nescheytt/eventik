@@ -1,14 +1,16 @@
 "use client"
 
+import type { Ticket } from "@/types/ticket"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
+
 import { Button } from "@/components/ui/button"
-import { DataTableViewOptions } from "./data-table-view-options"
-import DebouncedInput from "./ui/debounced-input"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import DebouncedInput from "@/components/ui/debounced-input"
+import { DataTableViewOptions } from "@/components/data-table-view-options"
+import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
+
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
 import { orderStatusTranslate } from "@/utils/setTranslateValues"
-import { Ticket } from "@/types/ticket"
 import { formattedVariationName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
