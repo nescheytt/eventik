@@ -1,3 +1,4 @@
+import type { GetSalesData, TicketData } from '@/utils/getSalesData'
 import Link from 'next/link'
 import {
   Dialog,
@@ -21,30 +22,8 @@ import {
   TableCell } from '@/components/ui/table'
 import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
-type Tickets = {
-  variation_Name: string
-  ticket_Count: number
-  ticket_Price: string
-}
-
-function getTotalCount(tickets: Tickets[]) {
-  const total = tickets.reduce((acc, { ticket_Count }) => {
-    const count = ticket_Count
-    return acc + count
-  }, 0)
-
-  return formattedNumber(total)
-}
-
-type Preset = {
-  count: string
-  status: string
-  percentage: number
-  tickets: Tickets[]
-}
-
-export default function PresetSales({ count, status, percentage, tickets } : Preset) {
-  const totalCount = getTotalCount(tickets)
+export default function PresetSales({ data } : { data: GetSalesData }) {
+  const { variations, totalData: { totalCount, totalPrice }  } = data
 
   return (
     <Dialog>
@@ -52,15 +31,12 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
         <Card className='cursor-pointer'> 
           <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
             <CardTitle className='text-sm font-medium'>
-              {status}
+              Ventas
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className='text-2xl font-semibold'>
-              {count}
-              <span className='text-sm ml-2 text-muted-foreground'>
-                {percentage ? `${percentage.toFixed(2)}% of total` : ''}
-              </span>
+              {totalPrice}
             </div>
           </CardContent>
         </Card>
@@ -68,7 +44,7 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
 
       <DialogContent className='sm:max-w-[475px]'>
         <DialogHeader>
-          <DialogTitle>{status}</DialogTitle>
+          <DialogTitle>Ventas</DialogTitle>
         </DialogHeader>
 
         <Table>
@@ -80,14 +56,14 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tickets.map((ticket) => {
-              const { variation_Name, ticket_Count, ticket_Price } = ticket
+            {variations.map((ticket) => {
+              const { variation_Name, ticketCount, ticketPrice } = ticket
 
               return (
                 <TableRow key={variation_Name} className="border-0">
                   <TableCell className="pl-0">{formattedVariationName(variation_Name)}</TableCell>
-                  <TableCell className="text-right text-primary">{formattedNumber(ticket_Count)}</TableCell>
-                  <TableCell className="pr-0 text-right font-bold">{formattedAmount(parseInt(ticket_Price))}</TableCell>
+                  <TableCell className="text-right text-primary">{ticketCount}</TableCell>
+                  <TableCell className="pr-0 text-right font-bold">{ticketPrice}</TableCell>
                 </TableRow>
               )
             })}
@@ -95,7 +71,7 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
             <TableRow>
               <TableCell className="pl-0 pt-5">Total</TableCell>
               <TableCell className="text-right text-primary">{totalCount}</TableCell>
-              <TableCell className="pr-0 text-right font-bold">{count}</TableCell>
+              <TableCell className="pr-0 text-right font-bold">{totalPrice}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

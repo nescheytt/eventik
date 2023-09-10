@@ -4,14 +4,20 @@ type TicketData = {
   variation_Name: string
   totalCompleted: number
   totalCompletedWithChecked: number
+  totalTickets: number
   totalRemain: number
 }
 
-export type GetTicketData = {
-  tickets: TicketData[]
+type TotalTicketData = {
+  totalCompleted: number
 }
 
-export default function getTicketData(data: Ticket[]): GetTicketData {
+export type GetTicketsData = {
+  tickets: TicketData[]
+  totalData: TotalTicketData
+}
+
+export default function getTicketsData(data: Ticket[]): GetTicketsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let tickets: TicketData[] = []
 
@@ -24,8 +30,9 @@ export default function getTicketData(data: Ticket[]): GetTicketData {
     if (!acc.find((variation: TicketData) => variation.variation_Name === variationName)) {
       acc.push({
         variation_Name: variationName,
+        totalCompleted: 0,
         totalCompletedWithChecked: 0,
-        totalCompleted: 700, // TODO: por el momento queda harcodeado hasta definir el valor
+        totalTickets: 700, // TODO: por el momento queda harcodeado hasta definir el valor
         totalRemain: 0
       })
     }
@@ -37,24 +44,32 @@ export default function getTicketData(data: Ticket[]): GetTicketData {
       })
     }
 
-    // Actualizamos el contador de tickets completados sin check-in
-    // if (ticket.order_Status === "wc-completed" && ticket.admission_Status === "Not Checked In") {
-    //   acc.find((variation: TicketData) => {
-    //     return variation.variation_Name === variationName && variation.totalCompleted++
-    //   })
-    // }
+    // Actualizamos el contador de tickets con estado "wc-completed"
+    if (ticket.order_Status === "wc-completed") {
+      acc.find((variation: TicketData) => {
+        return variation.variation_Name === variationName && variation.totalCompleted++
+      })
+    }
 
-    // Calculamos el porcentaje
+    // Calculamos la cantidad de tickets que quedan disponibles
     acc.find((variation: TicketData) => {
-      variation.totalRemain = variation.totalCompleted - variation.totalCompletedWithChecked
+      variation.totalRemain = variation.totalTickets - variation.totalCompletedWithChecked
     })
 
     // Devolvemos el arreglo acumulado
     return acc
   }, [])
 
-  // Devolvemos el arreglo con las variaciones
+  const totalData = sumTotalTicketsData(tickets)
+
+  // Devolvemos el arreglo con los tickets
+  return { tickets, totalData }
+}
+
+function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
+  const totalCompleted = data.reduce((acc, item) => acc + item.totalCompleted, 0)
+
   return {
-    tickets
+    totalCompleted,
   }
 }

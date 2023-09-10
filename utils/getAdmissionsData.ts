@@ -13,12 +13,12 @@ type TotalAdmisionData = {
   totalCurrentAdmission: number
 }
 
-export type GetAdmissionData = {
+export type GetAdmissionsData = {
   admissions: AdmissionData[]
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionData(tickets: Ticket[]): GetAdmissionData {
+export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 
@@ -63,7 +63,7 @@ export default function getAdmissionData(tickets: Ticket[]): GetAdmissionData {
   // Obtenemos los datos totales de las admisiones
   const totalData = sumTotalAdmissionData(admissions)
 
-  // Devolvemos el arreglo con las variaciones
+  // Devolvemos el arreglo con las admisiones y su dato extra totalData
   return {
     admissions,
     totalData
