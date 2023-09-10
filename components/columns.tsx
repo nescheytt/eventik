@@ -5,14 +5,14 @@ import { ColumnDef } from '@tanstack/react-table'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 import { Ticket } from '@/types/ticket'
-import queryIdTranslate from '@/utils/queryIdTranslate'
-import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/valuesTranslate'
+import setTranslateQueryId from '@/utils/setTranslateQueryId'
+import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
 import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'
 
 export const columns: ColumnDef<Ticket>[] = [
   {
     accessorKey: QueryID.ORDER_ID,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ORDER_ID)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_ID)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
@@ -23,7 +23,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.ORDER_STATUS,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ORDER_STATUS)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_STATUS)} />,
     cell: ({ row }) => {
       let value = orderStatusTranslate(row.getValue(QueryID.ORDER_STATUS))
       const pending = value === 'Pendiente'
@@ -40,7 +40,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.ORDER_DATE,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ORDER_DATE)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_DATE)} />,
     cell: ({ row }) => {
       const date = formattedDate(row.getValue(QueryID.ORDER_DATE))
 
@@ -51,7 +51,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.TICKET_ID,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.TICKET_ID)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_ID)} />,
     cell: ({ row }) => {
       return (
         <div className='text-muted-foreground'># {row.getValue(QueryID.TICKET_ID)}</div>
@@ -60,7 +60,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.VARIATION_NAME,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.VARIATION_NAME)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.VARIATION_NAME)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
@@ -80,7 +80,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const values = [QueryID.ATTENDEE_FIRST_NAME, QueryID.ATTENDEE_LAST_NAME].map(key => row[key])
       return `${values.join(' ')}`
     },
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ATTENDEE)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ATTENDEE)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
@@ -97,7 +97,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const values = [QueryID.PURCHASER_FIRST_NAME, QueryID.PURCHASER_LAST_NAME].map(key => row[key])
       return `${values.join(' ')}`
     },
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.PURCHASER)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.PURCHASER)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
@@ -110,7 +110,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.PURCHASER_EMAIL,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.PURCHASER_EMAIL)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.PURCHASER_EMAIL)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
@@ -123,7 +123,7 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     accessorKey: QueryID.ADMISSION_STATUS,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ADMISSION_STATUS)} />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ADMISSION_STATUS)} />,
     cell: ({ row }) => {
       const pending = admissionStatusTranslate(row.original.admission_Status) === 'Pendiente'
       const styleAccessed = 'bg-black text-white border-white'

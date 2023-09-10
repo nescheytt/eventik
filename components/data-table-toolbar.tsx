@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button"
 import { DataTableViewOptions } from "./data-table-view-options"
 import DebouncedInput from "./ui/debounced-input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import queryIdTranslate from "@/utils/queryIdTranslate"
-import { orderStatusTranslate } from "@/utils/valuesTranslate"
+import setTranslateQueryId from "@/utils/setTranslateQueryId"
+import { orderStatusTranslate } from "@/utils/setTranslateValues"
 import { Ticket } from "@/types/ticket"
 import { formattedVariationName } from "@/utils/setFormatValues"
 
@@ -54,14 +54,14 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
         {table.getColumn("order_Status") && (
           <DataTableFacetedFilter
             column={table.getColumn("order_Status")}
-            title={queryIdTranslate('order_Status')}
+            title={setTranslateQueryId('order_Status')}
             options={orderStatusOptions}
           />
         )}
         {table.getColumn("variation_Name") && (
           <DataTableFacetedFilter
             column={table.getColumn("variation_Name")}
-            title={queryIdTranslate('variation_Name')}
+            title={setTranslateQueryId('variation_Name')}
             options={variationNameOptions}
           />
         )}
