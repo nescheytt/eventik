@@ -1,4 +1,5 @@
 import type { Ticket } from '@/types/ticket'
+import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
 type TicketData = {
   variation_Name: string
@@ -9,7 +10,7 @@ type TicketData = {
 }
 
 type TotalTicketData = {
-  totalCompleted: number
+  totalCompleted: string
 }
 
 export type GetTicketsData = {
@@ -61,15 +62,31 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
   }, [])
 
   const totalData = sumTotalTicketsData(tickets)
+  const formattedTicketsData = formattedVariationValues(tickets)
 
   // Devolvemos el arreglo con los tickets
-  return { tickets, totalData }
+  return { tickets: formattedTicketsData, totalData }
 }
 
 function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
   const totalCompleted = data.reduce((acc, item) => acc + item.totalCompleted, 0)
+  const formattedTotalCompleted = formattedNumber(totalCompleted)
 
   return {
-    totalCompleted,
+    totalCompleted: formattedTotalCompleted,
   }
+}
+
+function formattedVariationValues(data: TicketData[]): any[] {
+  const formattedData = data.map(ticket => {
+    return {
+      variation_Name: formattedVariationName(ticket.variation_Name),
+      totalCompleted: formattedNumber(ticket.totalCompleted),
+      totalCompletedWithChecked: formattedNumber(ticket.totalCompletedWithChecked),
+      totalTickets: formattedNumber(ticket.totalTickets),
+      totalRemain: formattedNumber(ticket.totalRemain)
+    }
+  })
+
+  return formattedData
 }

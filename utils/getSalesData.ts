@@ -51,26 +51,29 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
   }, [])
 
   const totalData = sumTotalSalesData(variations)
-  const formattedData = formattedVariations(variations)
+  const formattedSalesData = formattedVariationValues(variations)
 
   // Devolvemos el arreglo con las variaciones
   return {
-    variations: formattedData,
+    variations: formattedSalesData,
     totalData
   }
 }
 
 function sumTotalSalesData(data: TicketData[]): TotalSalesData {
-  const totalCount = formattedNumber(data.reduce((acc, item) => acc + item.ticketCount, 0))
-  const totalPrice = formattedAmount(data.reduce((acc, item) => acc + item.ticketTotalPrice, 0))
+  const totalCount = data.reduce((acc, item) => acc + item.ticketCount, 0)
+  const totalPrice = data.reduce((acc, item) => acc + item.ticketTotalPrice, 0)
+
+  const formattedTotalCount = formattedNumber(totalCount)
+  const formattedTotalPrice = formattedAmount(totalPrice)
 
   return {
-    totalCount,
-    totalPrice,
+    totalCount: formattedTotalCount,
+    totalPrice: formattedTotalPrice,
   }
 }
 
-function formattedVariations(data: TicketData[]): any {
+function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
     return {
       variation_Name: formattedVariationName(ticket.variation_Name),
