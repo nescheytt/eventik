@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import queryIdTranslate from "@/utils/queryIdTranslate"
+import setTranslateQueryId from "@/utils/setTranslateQueryId"
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
@@ -27,7 +27,7 @@ export function DataTableViewOptions<TData>({
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 lg:flex"
+          className="ml-auto hidden h-9 lg:flex"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
           Columnas
@@ -50,7 +50,7 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {queryIdTranslate(column.id)}
+                {setTranslateQueryId(column.id)}
               </DropdownMenuCheckboxItem>
             )
           })}

@@ -1,4 +1,5 @@
 import type { Ticket } from '@/types/ticket'
+import { formattedNumber } from '@/utils/setFormatValues'
 
 type AdmissionData = {
   variation_Name: string
@@ -9,16 +10,16 @@ type AdmissionData = {
 
 type TotalAdmisionData = {
   totalPercentageAdmission: number
-  totalAdmission: number
-  totalCurrentAdmission: number
+  totalAdmission: string
+  totalCurrentAdmission: string
 }
 
-export type GetAdmissionData = {
+export type GetAdmissionsData = {
   admissions: AdmissionData[]
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionData(tickets: Ticket[]): GetAdmissionData {
+export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 
@@ -63,7 +64,7 @@ export default function getAdmissionData(tickets: Ticket[]): GetAdmissionData {
   // Obtenemos los datos totales de las admisiones
   const totalData = sumTotalAdmissionData(admissions)
 
-  // Devolvemos el arreglo con las variaciones
+  // Devolvemos el arreglo con las admisiones y su dato extra totalData
   return {
     admissions,
     totalData
@@ -75,9 +76,12 @@ function sumTotalAdmissionData(data: AdmissionData[]): TotalAdmisionData {
   const totalAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithNotChecked, 0)
   const totalCurrentAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithChecked, 0)
 
+  const formattedTotalAdmission = formattedNumber(totalAdmission)
+  const formattedTotalCurrentAdmission = formattedNumber(totalCurrentAdmission)
+
   return {
     totalPercentageAdmission,
-    totalAdmission,
-    totalCurrentAdmission
+    totalAdmission: formattedTotalAdmission,
+    totalCurrentAdmission: formattedTotalCurrentAdmission
   }
 }

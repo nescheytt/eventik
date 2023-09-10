@@ -1,28 +1,31 @@
-import type { GetAdmissionData } from '@/utils/getAdmissionData'
+import type { GetAdmissionsData } from '@/utils/getAdmissionsData'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
-import formatVariationName from '@/utils/formatVariationName'
+  DialogTrigger } from '@/components/ui/dialog'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent } from '@/components/ui/card'
+import {
+  Table,
+  TableRow,
+  TableBody,
+  TableCell } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { formattedVariationName } from '@/utils/setFormatValues'
 
-type Preset = {
-  count: string
-  status: string
-  percentage: number
-  tickets: GetAdmissionData
-}
-
-export default function PresetAdmission({ count, status, percentage, tickets } : Preset) {
+export default function PresetAdmission({ data } : { data: GetAdmissionsData }) {
   const {
     admissions,
-    totalData: { totalPercentageAdmission, totalAdmission, totalCurrentAdmission }
-  } = tickets
+    totalData: {
+      totalPercentageAdmission,
+      totalAdmission,
+      totalCurrentAdmission
+    }} = data
 
   return (
     <Dialog>
@@ -30,7 +33,7 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
         <Card className='cursor-pointer'> 
           <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
             <CardTitle className='text-sm font-medium'>
-              {status}
+              Admisión
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -64,11 +67,15 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
         <Table>
           <TableBody>
             {admissions.map((admission) => {
-              const { variation_Name, percentageForVariationName, totalCompletedWithChecked, totalCompletedWithNotChecked } = admission
+              const {
+                variation_Name,
+                percentageForVariationName,
+                totalCompletedWithChecked,
+                totalCompletedWithNotChecked } = admission
 
               return (
                 <TableRow key={variation_Name}>
-                  <TableCell className="px-0 text-primary">{formatVariationName(variation_Name)}</TableCell>
+                  <TableCell className="px-0 text-primary">{formattedVariationName(variation_Name)}</TableCell>
                   <TableCell className='pr-0 flex items-center justify-end'>
                     <Badge variant="outline" className="rounded-md px-2">
                       <span className="font-semibold text-xs">{percentageForVariationName}%</span> 

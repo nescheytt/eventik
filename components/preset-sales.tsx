@@ -1,3 +1,4 @@
+import type { GetSalesData } from '@/utils/getSalesData'
 import Link from 'next/link'
 import {
   Dialog,
@@ -7,36 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
-import formatVariationName from '@/utils/formatVariationName'
-import formatCurrency from '@/utils/formatCurrency'
-import formatNumber from '@/utils/formatNumber'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent } from '@/components/ui/card'
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell } from '@/components/ui/table'
 
-type Tickets = {
-  variation_Name: string
-  ticket_Count: number
-  ticket_Price: string
-}
-
-function getTotalCount(tickets: Tickets[]) {
-  const total = tickets.reduce((acc, { ticket_Count }) => {
-    const count = ticket_Count
-    return acc + count
-  }, 0)
-
-  return formatNumber(total)
-}
-
-type Preset = {
-  count: string
-  status: string
-  percentage: number
-  tickets: Tickets[]
-}
-
-export default function PresetSales({ count, status, percentage, tickets } : Preset) {
-  const totalCount = getTotalCount(tickets)
+export default function PresetSales({ data } : { data: GetSalesData }) {
+  const { variations, totalData: { totalCount, totalPrice }  } = data
 
   return (
     <Dialog>
@@ -44,15 +30,12 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
         <Card className='cursor-pointer'> 
           <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
             <CardTitle className='text-sm font-medium'>
-              {status}
+              Ventas
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className='text-2xl font-semibold'>
-              {count}
-              <span className='text-sm ml-2 text-muted-foreground'>
-                {percentage ? `${percentage.toFixed(2)}% of total` : ''}
-              </span>
+              {totalPrice}
             </div>
           </CardContent>
         </Card>
@@ -60,7 +43,7 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
 
       <DialogContent className='sm:max-w-[475px]'>
         <DialogHeader>
-          <DialogTitle>{status}</DialogTitle>
+          <DialogTitle>Ventas</DialogTitle>
         </DialogHeader>
 
         <Table>
@@ -72,14 +55,14 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tickets.map((ticket) => {
-              const { variation_Name, ticket_Count, ticket_Price } = ticket
+            {variations.map((ticket) => {
+              const { variation_Name, ticketCount, ticketPrice } = ticket
 
               return (
                 <TableRow key={variation_Name} className="border-0">
-                  <TableCell className="pl-0">{formatVariationName(variation_Name)}</TableCell>
-                  <TableCell className="text-right text-primary">{formatNumber(ticket_Count)}</TableCell>
-                  <TableCell className="pr-0 text-right font-bold">{formatCurrency(parseInt(ticket_Price))}</TableCell>
+                  <TableCell className="pl-0">{variation_Name}</TableCell>
+                  <TableCell className="text-right text-primary">{ticketCount}</TableCell>
+                  <TableCell className="pr-0 text-right font-bold">{ticketPrice}</TableCell>
                 </TableRow>
               )
             })}
@@ -87,7 +70,7 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
             <TableRow>
               <TableCell className="pl-0 pt-5">Total</TableCell>
               <TableCell className="text-right text-primary">{totalCount}</TableCell>
-              <TableCell className="pr-0 text-right font-bold">{count}</TableCell>
+              <TableCell className="pr-0 text-right font-bold">{totalPrice}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

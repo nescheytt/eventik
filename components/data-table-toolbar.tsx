@@ -1,15 +1,17 @@
 "use client"
 
+import type { Ticket } from "@/types/ticket"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
+
 import { Button } from "@/components/ui/button"
-import { DataTableViewOptions } from "./data-table-view-options"
-import DebouncedInput from "./ui/debounced-input"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import formatVariationName from "@/utils/formatVariationName"
-import queryIdTranslate from "@/utils/queryIdTranslate"
-import { orderStatusTranslate } from "@/utils/valuesTranslate"
-import { Ticket } from "@/types/ticket"
+import DebouncedInput from "@/components/ui/debounced-input"
+import { DataTableViewOptions } from "@/components/data-table-view-options"
+import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
+
+import setTranslateQueryId from "@/utils/setTranslateQueryId"
+import { orderStatusTranslate } from "@/utils/setTranslateValues"
+import { formattedVariationName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -36,7 +38,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
     value: name
   }));
   const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
-    label: formatVariationName(name),
+    label: formattedVariationName(name),
     value: name
   }));
 
@@ -54,14 +56,14 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
         {table.getColumn("order_Status") && (
           <DataTableFacetedFilter
             column={table.getColumn("order_Status")}
-            title={queryIdTranslate('order_Status')}
+            title={setTranslateQueryId('order_Status')}
             options={orderStatusOptions}
           />
         )}
         {table.getColumn("variation_Name") && (
           <DataTableFacetedFilter
             column={table.getColumn("variation_Name")}
-            title={queryIdTranslate('variation_Name')}
+            title={setTranslateQueryId('variation_Name')}
             options={variationNameOptions}
           />
         )}
