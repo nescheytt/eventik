@@ -1,4 +1,4 @@
-import type { GetSalesData, TicketData } from '@/utils/getSalesData'
+import type { GetSalesData } from '@/utils/getSalesData'
 import Link from 'next/link'
 import {
   Dialog,
@@ -20,7 +20,6 @@ import {
   TableHead,
   TableBody,
   TableCell } from '@/components/ui/table'
-import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
 export default function PresetSales({ data } : { data: GetSalesData }) {
   const { variations, totalData: { totalCount, totalPrice }  } = data
@@ -61,7 +60,7 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
 
               return (
                 <TableRow key={variation_Name} className="border-0">
-                  <TableCell className="pl-0">{formattedVariationName(variation_Name)}</TableCell>
+                  <TableCell className="pl-0">{variation_Name}</TableCell>
                   <TableCell className="text-right text-primary">{ticketCount}</TableCell>
                   <TableCell className="pr-0 text-right font-bold">{ticketPrice}</TableCell>
                 </TableRow>

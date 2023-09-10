@@ -8,7 +8,6 @@ import getTicketsData from '@/utils/getTicketsData'
 import getAdmissionsData from '@/utils/getAdmissionsData'
 
 type StatusDistribution = {
-  count?: string
   status: string
   data: any
 }

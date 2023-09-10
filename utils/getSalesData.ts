@@ -1,5 +1,5 @@
 import type { Ticket } from '@/types/ticket'
-import { formattedAmount, formattedNumber } from './setFormatValues'
+import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
 export type TicketData = {
   variation_Name: string
@@ -31,14 +31,14 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
     if (!acc.find((variation: TicketData) => variation.variation_Name === variationName)) {
       acc.push({
         variation_Name: variationName,
-        ticketCount: 1,
+        ticketCount: 0,
         ticketPrice: parseInt(ticket.ticket_Price),
         ticketTotalPrice: 0
       })
     } else {
       // Si la variación existe en el arreglo, incrementamos el contador
       acc.find((variation: TicketData) => {
-        return variation.variation_Name === variationName && formattedNumber(variation.ticketCount++)
+        return variation.variation_Name === variationName && variation.ticketCount++
       })
     }
 
@@ -51,10 +51,11 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
   }, [])
 
   const totalData = sumTotalSalesData(variations)
+  const formattedData = formattedVariations(variations)
 
   // Devolvemos el arreglo con las variaciones
   return {
-    variations,
+    variations: formattedData,
     totalData
   }
 }
@@ -67,4 +68,17 @@ function sumTotalSalesData(data: TicketData[]): TotalSalesData {
     totalCount,
     totalPrice,
   }
+}
+
+function formattedVariations(data: TicketData[]): any {
+  const formattedData = data.map(ticket => {
+    return {
+      variation_Name: formattedVariationName(ticket.variation_Name),
+      ticketCount: formattedNumber(ticket.ticketCount),
+      ticketPrice: formattedAmount(ticket.ticketPrice),
+      ticketTotalPrice: ticket.ticketTotalPrice
+    }
+  })
+
+  return formattedData
 }
