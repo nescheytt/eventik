@@ -1,10 +1,12 @@
 'use client'
 
+import type { Ticket } from '@/types/ticket'
 import { QueryID } from '@/types/query-id'
+
 import { ColumnDef } from '@tanstack/react-table'
-import { DataTableColumnHeader } from './data-table-column-header'
-import { DataTableRowActions } from './data-table-row-actions'
-import { Ticket } from '@/types/ticket'
+import { DataTableColumnHeader } from '@/components/data-table-column-header'
+import { DataTableRowActions } from '@/components/data-table-row-actions'
+
 import setTranslateQueryId from '@/utils/setTranslateQueryId'
 import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
 import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'

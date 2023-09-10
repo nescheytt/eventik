@@ -1,10 +1,12 @@
 import type { Ticket } from '@/types/ticket'
-import type { GetVariantNameData } from '@/utils/getVariantNameData'
+import type { GetSalesData } from '@/utils/getSalesData'
 import type { GetTicketData } from '@/utils/getTicketData'
 import type { GetAdmissionData } from '@/utils/getAdmissionData'
-import getVariantNameData from '@/utils/getVariantNameData'
-import getAdmissionData from '@/utils/getAdmissionData'
+
+import getSalesData from '@/utils/getSalesData'
 import getTicketData from '@/utils/getTicketData'
+import getAdmissionData from '@/utils/getAdmissionData'
+
 import { formattedAmount, formattedNumber } from '@/utils/setFormatValues'
 
 type StatusDistribution = {
@@ -22,7 +24,7 @@ export default function getStatusDistributionData(tickets: Ticket[]) {
     const totalOrderIdSum = tickets.reduce((sum: number, { ticket_Price }: any) => sum + parseInt(ticket_Price), 0)
     const totalCheckedIn = tickets.filter(({ admission_Status }: any) => admission_Status === 'Checked In').length
 
-    const dataSales: GetVariantNameData[] = getVariantNameData(tickets)
+    const dataSales: GetSalesData[] = getSalesData(tickets)
     const dataTickets: GetTicketData = getTicketData(tickets)
     const dataAdmission: GetAdmissionData = getAdmissionData(tickets)
 

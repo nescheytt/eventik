@@ -1,22 +1,22 @@
 import type { Ticket } from '@/types/ticket'
 
-export type GetVariantNameData = {
+export type GetSalesData = {
   variation_Name: string
   ticket_Count: number
   ticket_Price: string
 }
 
-export default function getVariantNameData(tickets: Ticket[]): GetVariantNameData[] {
+export default function getSalesData(tickets: Ticket[]): GetSalesData[] {
   // Creamos un arreglo vacío para almacenar las variaciones
-  let variations: GetVariantNameData[] = []
+  let variations: GetSalesData[] = []
 
   // Iteramos sobre el array de entradas usando el método reduce()
-  variations = tickets.reduce((acc: GetVariantNameData[], ticket) => {
+  variations = tickets.reduce((acc: GetSalesData[], ticket) => {
     // Obtenemos el nombre de la variación
     const variationName = ticket.variation_Name
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: GetVariantNameData) => variation.variation_Name === variationName)) {
+    if (!acc.find((variation: GetSalesData) => variation.variation_Name === variationName)) {
       acc.push({
         variation_Name: variationName,
         ticket_Count: 1,
@@ -24,7 +24,7 @@ export default function getVariantNameData(tickets: Ticket[]): GetVariantNameDat
       })
     } else {
       // Si la variación existe en el arreglo, incrementamos el contador
-      acc.find((variation: GetVariantNameData) => { return variation.variation_Name === variationName && variation.ticket_Count++ })
+      acc.find((variation: GetSalesData) => { return variation.variation_Name === variationName && variation.ticket_Count++ })
     }
 
     // Devolvemos el arreglo acumulado
