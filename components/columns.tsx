@@ -4,11 +4,10 @@ import { QueryID } from '@/types/query-id'
 import { ColumnDef } from '@tanstack/react-table'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
-import formatDate from '@/utils/formatDate'
-import formatVariationName from '@/utils/formatVariationName'
 import { Ticket } from '@/types/ticket'
 import queryIdTranslate from '@/utils/queryIdTranslate'
 import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/valuesTranslate'
+import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'
 
 export const columns: ColumnDef<Ticket>[] = [
   {
@@ -43,7 +42,7 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: QueryID.ORDER_DATE,
     header: ({ column }) => <DataTableColumnHeader column={column} title={queryIdTranslate(QueryID.ORDER_DATE)} />,
     cell: ({ row }) => {
-      const date = formatDate(row.getValue(QueryID.ORDER_DATE))
+      const date = formattedDate(row.getValue(QueryID.ORDER_DATE))
 
       return (
         <div className='text-muted-foreground'>{date}</div>
@@ -66,7 +65,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[180px] truncate font-medium text-muted-foreground'>
-            {formatVariationName(row.getValue(QueryID.VARIATION_NAME))}
+            {formattedVariationName(row.getValue(QueryID.VARIATION_NAME))}
           </span>
         </div>
       )

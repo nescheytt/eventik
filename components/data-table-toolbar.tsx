@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button"
 import { DataTableViewOptions } from "./data-table-view-options"
 import DebouncedInput from "./ui/debounced-input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import formatVariationName from "@/utils/formatVariationName"
 import queryIdTranslate from "@/utils/queryIdTranslate"
 import { orderStatusTranslate } from "@/utils/valuesTranslate"
 import { Ticket } from "@/types/ticket"
+import { formattedVariationName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -36,7 +36,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
     value: name
   }));
   const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
-    label: formatVariationName(name),
+    label: formattedVariationName(name),
     value: name
   }));
 

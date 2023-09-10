@@ -4,12 +4,19 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
-import formatVariationName from '@/utils/formatVariationName'
+  DialogTrigger } from '@/components/ui/dialog'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent } from '@/components/ui/card'
+import {
+  Table,
+  TableRow,
+  TableBody,
+  TableCell } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { formattedVariationName } from '@/utils/setFormatValues'
 
 type Preset = {
   count: string
@@ -68,7 +75,7 @@ export default function PresetAdmission({ count, status, percentage, tickets } :
 
               return (
                 <TableRow key={variation_Name}>
-                  <TableCell className="px-0 text-primary">{formatVariationName(variation_Name)}</TableCell>
+                  <TableCell className="px-0 text-primary">{formattedVariationName(variation_Name)}</TableCell>
                   <TableCell className='pr-0 flex items-center justify-end'>
                     <Badge variant="outline" className="rounded-md px-2">
                       <span className="font-semibold text-xs">{percentageForVariationName}%</span> 

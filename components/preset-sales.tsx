@@ -7,11 +7,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
-import formatVariationName from '@/utils/formatVariationName'
-import formatCurrency from '@/utils/formatCurrency'
-import formatNumber from '@/utils/formatNumber'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent } from '@/components/ui/card'
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell } from '@/components/ui/table'
+import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
 type Tickets = {
   variation_Name: string
@@ -25,7 +33,7 @@ function getTotalCount(tickets: Tickets[]) {
     return acc + count
   }, 0)
 
-  return formatNumber(total)
+  return formattedNumber(total)
 }
 
 type Preset = {
@@ -77,9 +85,9 @@ export default function PresetSales({ count, status, percentage, tickets } : Pre
 
               return (
                 <TableRow key={variation_Name} className="border-0">
-                  <TableCell className="pl-0">{formatVariationName(variation_Name)}</TableCell>
-                  <TableCell className="text-right text-primary">{formatNumber(ticket_Count)}</TableCell>
-                  <TableCell className="pr-0 text-right font-bold">{formatCurrency(parseInt(ticket_Price))}</TableCell>
+                  <TableCell className="pl-0">{formattedVariationName(variation_Name)}</TableCell>
+                  <TableCell className="text-right text-primary">{formattedNumber(ticket_Count)}</TableCell>
+                  <TableCell className="pr-0 text-right font-bold">{formattedAmount(parseInt(ticket_Price))}</TableCell>
                 </TableRow>
               )
             })}
