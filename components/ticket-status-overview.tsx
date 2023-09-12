@@ -9,7 +9,7 @@ export default function TicketStatusOverview({ tickets } : { tickets: Ticket[] }
   const statusDistribution = getStatusDistributionData(tickets)
 
   return (
-    <section className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+    <section className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
       {statusDistribution.map(({ status, data }) => {
         if (status === StatusDistribution.VENTAS) return <PresetSales key={status} data={data} />
         if (status === StatusDistribution.ENTRADAS) return <PresetTickets key={status} data={data} />

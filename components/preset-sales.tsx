@@ -28,15 +28,15 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
     <Dialog>
       <DialogTrigger asChild>
         <Card className='cursor-pointer'> 
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+          <CardHeader className='p-4 md:p-6 pb-2 md:pb-2 flex flex-row items-center justify-between space-y-0'>
             <CardTitle className='text-sm font-medium'>
               Ventas
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-semibold'>
+          <CardContent className='p-4 md:p-6 pt-0 md:pt-0'>
+            <span className='text-2xl font-semibold'>
               {totalPrice}
-            </div>
+            </span>
           </CardContent>
         </Card>
       </DialogTrigger>

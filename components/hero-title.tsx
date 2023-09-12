@@ -5,10 +5,10 @@ import { CopyIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 
 export default function HeroTitle() {
   return (
-    <section className='flex items-center justify-between'>
-      <h2 className='text-2xl font-bold tracking-tight'>{process.env.NEXT_PUBLIC_EVENT_NAME}</h2>
+    <section className='flex flex-col md:flex-row items-center justify-between'>
+      <h2 className='text-xl md:text-2xl font-bold tracking-tight'>{process.env.NEXT_PUBLIC_EVENT_NAME}</h2>
 
-      <div className='flex items-center gap-x-2'>
+      <div className='hidden md:flex items-center gap-x-2'>
         <ButtonCopy variant='secondary' className='gap-1' url={process.env.NEXT_PUBLIC_EVENT_URL!}>
           <CopyIcon />
         </ButtonCopy>

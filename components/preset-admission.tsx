@@ -31,12 +31,12 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
     <Dialog>
       <DialogTrigger asChild>
         <Card className='cursor-pointer'> 
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+          <CardHeader className='p-4 md:p-6 pb-2 md:pb-2 flex flex-row items-center justify-between space-y-0'>
             <CardTitle className='text-sm font-medium'>
               Admisión
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className='p-4 md:p-6 pt-0 md:pt-0'>
             <div className="flex items-center gap-x-2">
               <span className='text-2xl text-primary font-bold'>{totalCurrentAdmission}</span>
               <span className='text-muted-foreground'>de {totalAdmission}</span>

@@ -54,7 +54,7 @@ export default function DataTable<TData, TValue>({ data }: DataTableProps<TData,
   })
 
   return (
-    <section className='space-y-4'>
+    <section className='flex flex-col gap-4'>
       <DataTableToolbar table={table} data={data} globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
 
       <div className='rounded-md border'>
