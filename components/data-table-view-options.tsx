@@ -27,7 +27,7 @@ export function DataTableViewOptions<TData>({
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-9 lg:flex"
+          className="ml-auto h-9"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
           Columnas

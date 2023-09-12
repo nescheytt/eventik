@@ -43,16 +43,17 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   }));
 
   return (
-    <div className="grid grid-flow-row grid-rows-2 grid-cols-1 gap-4">
-      {/* Filtro de tareas */}
-      <DebouncedInput
-        value={globalFilter ?? ''}
-        placeholder="Buscar"
-        onChange={value => setGlobalFilter(String(value))}
-        className="h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
-      />
-
+    // <div className="grid grid-flow-row grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-4">
+    <div className="flex items-center justify-between">
+      {/* Filtro de   tareas */}
       <div className="flex items-center gap-4">
+        <DebouncedInput
+          value={globalFilter ?? ''}
+          placeholder="Buscar"
+          onChange={value => setGlobalFilter(String(value))}
+          className="h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
+        />
+
         {table.getColumn("order_Status") && (
           <DataTableFacetedFilter
             column={table.getColumn("order_Status")}
@@ -83,7 +84,9 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
       </div>
       
       {/* Opciones adicionales para la vista de la tabla */}
-      <DataTableViewOptions table={table} />
+      <div className="hidden lg:flex lg:col-span-1 lg:self-end">
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   );
 };
