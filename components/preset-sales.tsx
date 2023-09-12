@@ -41,7 +41,7 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[475px]'>
+      <DialogContent className='max-w-none min-h-screen lg:max-w-[475px] lg:min-h-fit'>
         <DialogHeader>
           <DialogTitle>Ventas</DialogTitle>
         </DialogHeader>

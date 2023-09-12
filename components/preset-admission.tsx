@@ -45,7 +45,7 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[475px]'>
+      <DialogContent className='max-w-none min-h-screen lg:max-w-[475px] lg:min-h-fit'>
         <DialogHeader>
           <DialogTitle>Admisiones</DialogTitle>
         </DialogHeader>
