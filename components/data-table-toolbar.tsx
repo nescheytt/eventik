@@ -43,34 +43,32 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   }));
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between">
+    <div className="grid grid-flow-row grid-rows-2 grid-cols-1 gap-4">
       {/* Filtro de tareas */}
-      <div className="max-w-screen-md:w-full flex flex-col md:flex-row gap-4 items-center md:justify-start md:space-x-2">
-        <DebouncedInput
-          value={globalFilter ?? ''}
-          placeholder="Buscar"
-          onChange={value => setGlobalFilter(String(value))}
-          className="max-w-md:w-full h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
-        />
+      <DebouncedInput
+        value={globalFilter ?? ''}
+        placeholder="Buscar"
+        onChange={value => setGlobalFilter(String(value))}
+        className="h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
+      />
 
-        <div className="max-w-md:w-full flex items-center justify-end md:justify-start gap-4">
-          {table.getColumn("order_Status") && (
-            <DataTableFacetedFilter
-              column={table.getColumn("order_Status")}
-              title={setTranslateQueryId('order_Status')}
-              options={orderStatusOptions}
-            />
-          )}
-          
-          {table.getColumn("variation_Name") && (
-            <DataTableFacetedFilter
-              column={table.getColumn("variation_Name")}
-              title={setTranslateQueryId('variation_Name')}
-              options={variationNameOptions}
-            />
-          )}
-        </div>
+      <div className="flex items-center gap-4">
+        {table.getColumn("order_Status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("order_Status")}
+            title={setTranslateQueryId('order_Status')}
+            options={orderStatusOptions}
+          />
+        )}
         
+        {table.getColumn("variation_Name") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("variation_Name")}
+            title={setTranslateQueryId('variation_Name')}
+            options={variationNameOptions}
+          />
+        )}
+
         {/* Botón para restablecer filtros */}
         {isFiltered && (
           <Button

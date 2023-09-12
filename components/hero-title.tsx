@@ -1,14 +1,13 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { ButtonCopy } from '@/components/ui/button-copy'
 import { CopyIcon, ExternalLinkIcon } from '@radix-ui/react-icons'
 
 export default function HeroTitle() {
   return (
-    <section className='flex flex-col md:flex-row items-center justify-between'>
+    <section className='flex lg:flex-row items-center lg:justify-between'>
       <h2 className='text-xl md:text-2xl font-bold tracking-tight'>{process.env.NEXT_PUBLIC_EVENT_NAME}</h2>
 
-      <div className='hidden md:flex items-center gap-x-2'>
+      <div className='hidden lg:flex items-center gap-x-2'>
         <ButtonCopy variant='secondary' className='gap-1' url={process.env.NEXT_PUBLIC_EVENT_URL!}>
           <CopyIcon />
         </ButtonCopy>

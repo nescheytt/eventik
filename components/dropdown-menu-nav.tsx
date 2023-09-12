@@ -12,7 +12,7 @@ import {
 
 export function DropdownMenuNav() {
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
