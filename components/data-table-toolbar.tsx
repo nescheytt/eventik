@@ -54,7 +54,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
           className="w-full lg:w-fit h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
         />
 
-        <div className="w-full lg:w-fit flex gap-4">
+        <div className="w-full lg:w-fit flex justify-center lg:justify-start  gap-4">
           {table.getColumn("order_Status") && (
             <DataTableFacetedFilter
               column={table.getColumn("order_Status")}
@@ -70,19 +70,19 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
               options={variationNameOptions}
             />
           )}
-
-          {/* Botón para restablecer filtros */}
-          {isFiltered && (
-            <Button
-              variant="ghost"
-              onClick={() => table.resetColumnFilters()}
-              className="h-8 px-2 lg:px-3"
-            >
-              Reset
-              <Cross2Icon className="ml-2 h-4 w-4" />
-            </Button>
-          )}
         </div>
+
+        {/* Botón para restablecer filtros */}
+        {isFiltered && (
+          <Button
+            variant="ghost"
+            onClick={() => table.resetColumnFilters()}
+            className="h-8 px-2 lg:px-3"
+          >
+            Reset
+            <Cross2Icon className="ml-2 h-4 w-4" />
+          </Button>
+        )}
       </div>
       
       {/* Opciones adicionales para la vista de la tabla */}
