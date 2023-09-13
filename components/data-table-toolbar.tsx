@@ -46,41 +46,43 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
     // <div className="grid grid-flow-row grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-4">
     <div className="flex items-center justify-between">
       {/* Filtro de   tareas */}
-      <div className="flex items-center gap-4">
+      <div className="w-full lg:w-fit flex flex-col lg:flex-row items-center gap-4">
         <DebouncedInput
           value={globalFilter ?? ''}
           placeholder="Buscar"
           onChange={value => setGlobalFilter(String(value))}
-          className="h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
+          className="w-full lg:w-fit h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
         />
 
-        {table.getColumn("order_Status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("order_Status")}
-            title={setTranslateQueryId('order_Status')}
-            options={orderStatusOptions}
-          />
-        )}
-        
-        {table.getColumn("variation_Name") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("variation_Name")}
-            title={setTranslateQueryId('variation_Name')}
-            options={variationNameOptions}
-          />
-        )}
+        <div className="w-full lg:w-fit flex gap-4">
+          {table.getColumn("order_Status") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("order_Status")}
+              title={setTranslateQueryId('order_Status')}
+              options={orderStatusOptions}
+            />
+          )}
+          
+          {table.getColumn("variation_Name") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("variation_Name")}
+              title={setTranslateQueryId('variation_Name')}
+              options={variationNameOptions}
+            />
+          )}
 
-        {/* Botón para restablecer filtros */}
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
-          </Button>
-        )}
+          {/* Botón para restablecer filtros */}
+          {isFiltered && (
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="h-8 px-2 lg:px-3"
+            >
+              Reset
+              <Cross2Icon className="ml-2 h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
       
       {/* Opciones adicionales para la vista de la tabla */}
