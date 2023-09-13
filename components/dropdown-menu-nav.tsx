@@ -21,22 +21,22 @@ export function DropdownMenuNav() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-36">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-base">
               <CopyIcon className="mr-2 h-4 w-4" />
               <span>Copiar</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-base">
               <ExternalLinkIcon className="mr-2 h-4 w-4" />
               <span>Visitar</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-base">
               <BookOpen className="mr-2 h-4 w-4" />
               <span>Guias</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="text-base">
               <LifeBuoy className="mr-2 h-4 w-4" />
               <span>Ayuda</span>
             </DropdownMenuItem>
