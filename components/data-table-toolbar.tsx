@@ -43,31 +43,35 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   }));
 
   return (
+    // <div className="grid grid-flow-row grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-4">
     <div className="flex items-center justify-between">
-      {/* Filtro de tareas */}
-      <div className="flex flex-1 items-center space-x-2">
+      {/* Filtro de   tareas */}
+      <div className="w-full lg:w-fit flex flex-col lg:flex-row items-center gap-4">
         <DebouncedInput
           value={globalFilter ?? ''}
           placeholder="Buscar"
           onChange={value => setGlobalFilter(String(value))}
-          className="h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
+          className="w-full lg:w-fit h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
         />
 
-        {table.getColumn("order_Status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("order_Status")}
-            title={setTranslateQueryId('order_Status')}
-            options={orderStatusOptions}
-          />
-        )}
-        {table.getColumn("variation_Name") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("variation_Name")}
-            title={setTranslateQueryId('variation_Name')}
-            options={variationNameOptions}
-          />
-        )}
-        
+        <div className="w-full lg:w-fit flex justify-center lg:justify-start  gap-4">
+          {table.getColumn("order_Status") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("order_Status")}
+              title={setTranslateQueryId('order_Status')}
+              options={orderStatusOptions}
+            />
+          )}
+          
+          {table.getColumn("variation_Name") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("variation_Name")}
+              title={setTranslateQueryId('variation_Name')}
+              options={variationNameOptions}
+            />
+          )}
+        </div>
+
         {/* Botón para restablecer filtros */}
         {isFiltered && (
           <Button
@@ -82,7 +86,9 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
       </div>
       
       {/* Opciones adicionales para la vista de la tabla */}
-      <DataTableViewOptions table={table} />
+      <div className="hidden lg:flex lg:col-span-1 lg:self-end">
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   );
 };

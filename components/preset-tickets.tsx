@@ -25,12 +25,12 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
     <Dialog>
       <DialogTrigger asChild>
         <Card className='cursor-pointer'> 
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+          <CardHeader className='p-4 md:p-6 pb-2 md:pb-2 flex flex-row items-center justify-between space-y-0'>
             <CardTitle className='text-sm font-medium'>
               Entradas
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className='p-4 md:p-6 pt-0 md:pt-0'>
             <div className="flex items-center gap-x-2">
               <span className='text-2xl font-semibold'>{totalCompleted}</span>
               <span className='text-muted-foreground'>de {process.env.NEXT_PUBLIC_EVENT_TOTAL_TICKETS}</span>
@@ -39,9 +39,9 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[475px]'>
+      <DialogContent className='max-w-none min-h-screen md:max-w-[475px] md:min-h-fit'>
         <DialogHeader>
-          <DialogTitle>Entradas</DialogTitle>
+          <DialogTitle className="text-2xl md:text-lg">Entradas</DialogTitle>
         </DialogHeader>
 
         <Table>
@@ -52,12 +52,16 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
 
               return (
                 <TableRow key={variation_Name}>
-                  <TableCell className="px-0 text-primary">{variation_Name}</TableCell>
-                  <TableCell className='pr-0 flex items-center justify-end'>
+                  <TableCell className="pl-0 max-w-[130px] lg:max-w-[180px] text-primary">
+                    <span>{variation_Name}</span>
+                  </TableCell>
+
+                  <TableCell className='text-right'>
                     <Badge variant={soldOut ? 'default' : 'outline'} className={`rounded-md px-2 ${soldOut && 'bg-orange-50 text-orange-700'}`}>
                       {soldOut ? 'Agotadas' : `Quedan ${totalRemain}`}
                     </Badge>
                   </TableCell>
+
                   <TableCell className="pr-0">
                     <div className="text-right">
                       <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>

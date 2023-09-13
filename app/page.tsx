@@ -20,7 +20,7 @@ export default function TicketPage() {
   }
 
   return (
-    <main className="hidden container relative md:flex md:flex-col py-8 px-16 gap-y-8">
+    <main className='container flex flex-col p-4 gap-y-4'>
       <HeroTitle />
       <TicketStatusOverview tickets={tickets} />
       <DataTable data={tickets} />

@@ -28,22 +28,22 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
     <Dialog>
       <DialogTrigger asChild>
         <Card className='cursor-pointer'> 
-          <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+          <CardHeader className='p-4 md:p-6 pb-2 md:pb-2 flex flex-row items-center justify-between space-y-0'>
             <CardTitle className='text-sm font-medium'>
               Ventas
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className='text-2xl font-semibold'>
+          <CardContent className='p-4 md:p-6 pt-0 md:pt-0'>
+            <span className='text-2xl font-semibold'>
               {totalPrice}
-            </div>
+            </span>
           </CardContent>
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[475px]'>
+      <DialogContent className='max-w-none min-h-screen md:max-w-[475px] md:min-h-fit'>
         <DialogHeader>
-          <DialogTitle>Ventas</DialogTitle>
+          <DialogTitle className="text-2xl md:text-lg">Ventas</DialogTitle>
         </DialogHeader>
 
         <Table>
@@ -69,8 +69,12 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
 
             <TableRow>
               <TableCell className="pl-0 pt-5">Total</TableCell>
-              <TableCell className="text-right text-primary">{totalCount}</TableCell>
-              <TableCell className="pr-0 text-right font-bold">{totalPrice}</TableCell>
+              <TableCell className="pt-5 text-right">
+                <p className="text-primary">{totalCount}</p>
+              </TableCell>
+              <TableCell className="pr-0 pt-5 text-right">
+                <p className="font-bold">{totalPrice}</p>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
