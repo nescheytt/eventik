@@ -47,13 +47,13 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
         <Table>
           <TableBody>
             {tickets.map((ticket) => {
-              const { variation_Name, totalRemain, totalCompletedWithChecked, totalTickets } = ticket
+              const { ticketName, totalRemain, totalCompletedWithChecked, totalTickets } = ticket
               const soldOut = totalRemain <= 0
 
               return (
-                <TableRow key={variation_Name}>
+                <TableRow key={ticketName}>
                   <TableCell className="pl-0 max-w-[130px] lg:max-w-[180px] text-primary">
-                    <span>{variation_Name}</span>
+                    <span>{ticketName}</span>
                   </TableCell>
 
                   <TableCell className='text-right'>

@@ -1,8 +1,8 @@
-import type { Ticket } from '@/types/ticket'
+import type { TicketNew } from '@/types/ticket'
 import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
 
 export type TicketData = {
-  variation_Name: string
+  ticketName: string
   ticketCount: number
   ticketPrice: number
   ticketTotalPrice: number
@@ -18,32 +18,32 @@ export type GetSalesData = {
   totalData: TotalSalesData
 }
 
-export default function getSalesData(data: Ticket[]): GetSalesData {
+export default function getSalesData(data: TicketNew[]): GetSalesData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let variations: TicketData[] = []
 
   // Iteramos sobre el array de entradas usando el método reduce()
   variations = data.reduce((acc: TicketData[], ticket) => {
     // Obtenemos el nombre de la variación
-    const variationName = ticket.variation_Name
+    const ticketName = ticket.ticketName
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: TicketData) => variation.variation_Name === variationName)) {
+    if (!acc.find((variation: TicketData) => variation.ticketName === ticketName)) {
       acc.push({
-        variation_Name: variationName,
+        ticketName: ticketName,
         ticketCount: 0,
-        ticketPrice: parseInt(ticket.ticket_Price),
+        ticketPrice: 0,
         ticketTotalPrice: 0
       })
     } else {
       // Si la variación existe en el arreglo, incrementamos el contador
       acc.find((variation: TicketData) => {
-        return variation.variation_Name === variationName && variation.ticketCount++
+        return variation.ticketName === ticketName && variation.ticketCount++
       })
     }
 
     acc.find((variation: TicketData) => {
-      return variation.variation_Name === variationName && (variation.ticketTotalPrice = variation.ticketCount * variation.ticketPrice)
+      return variation.ticketName === ticketName && (variation.ticketTotalPrice = variation.ticketCount * variation.ticketPrice)
     })
 
     // Devolvemos el arreglo acumulado
@@ -76,7 +76,7 @@ function sumTotalSalesData(data: TicketData[]): TotalSalesData {
 function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
     return {
-      variation_Name: formattedVariationName(ticket.variation_Name),
+      ticketName: formattedVariationName(ticket.ticketName),
       ticketCount: formattedNumber(ticket.ticketCount),
       ticketPrice: formattedAmount(ticket.ticketPrice),
       ticketTotalPrice: ticket.ticketTotalPrice

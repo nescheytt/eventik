@@ -1,4 +1,4 @@
-import type { Ticket } from '@/types/ticket'
+import type { EventMagicTicket, TicketNew } from '@/types/ticket'
 import type { GetSalesData } from '@/utils/getSalesData'
 import type { GetTicketsData } from '@/utils/getTicketsData'
 import type { GetAdmissionsData } from '@/utils/getAdmissionsData'
@@ -12,7 +12,7 @@ type StatusDistribution = {
   data: any
 }
 
-export default function getStatusDistributionData(tickets: Ticket[]) {
+export default function getStatusDistributionData(tickets: TicketNew[]) {
   let statusDistribution: StatusDistribution[] = []
 
   if (tickets.length > 0) {

@@ -1,11 +1,11 @@
-import type { Ticket } from '@/types/ticket'
+import type { EventMagicTicket, TicketNew } from '@/types/ticket'
 import { StatusDistribution } from '@/types/status-distribution'
 import PresetSales from '@/components/preset-sales'
 import PresetTickets from '@/components/preset-tickets'
 import PresetAdmission from '@/components/preset-admission'
 import getStatusDistributionData from '@/utils/getStatusDistributionData'
 
-export default function TicketStatusOverview({ tickets } : { tickets: Ticket[] }) {
+export default function TicketStatusOverview({ tickets } : { tickets: TicketNew[] }) {
   const statusDistribution = getStatusDistributionData(tickets)
 
   return (

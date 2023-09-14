@@ -1,8 +1,8 @@
-import type { Ticket } from '@/types/ticket'
+import type { TicketNew } from '@/types/ticket'
 import { formattedNumber } from '@/utils/setFormatValues'
 
 type AdmissionData = {
-  variation_Name: string
+  ticketName: string
   totalCompletedWithChecked: number
   totalCompletedWithNotChecked: number
   percentageForVariationName: number
@@ -19,19 +19,19 @@ export type GetAdmissionsData = {
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData {
+export default function getAdmissionsData(tickets: TicketNew[]): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 
   // Iteramos sobre el array de entradas usando el método reduce()
   admissions = tickets.reduce((acc: AdmissionData[], ticket) => {
     // Obtenemos el nombre de la variación
-    const variationName = ticket.variation_Name
+    const ticketName = ticket.ticketName
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: AdmissionData) => variation.variation_Name === variationName)) {
+    if (!acc.find((variation: AdmissionData) => variation.ticketName === ticketName)) {
       acc.push({
-        variation_Name: variationName,
+        ticketName: ticketName,
         totalCompletedWithChecked: 0,
         totalCompletedWithNotChecked: 0,
         percentageForVariationName: 0
@@ -39,16 +39,16 @@ export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData 
     }
     
     // Actualizamos el contador de tickets completados con check-in
-    if (ticket.order_Status === "wc-completed" && ticket.admission_Status === "Checked In") {
+    if (ticket.orderStatus === "wc-completed" && ticket.ticketStatus === "Checked In") {
       acc.find((variation: AdmissionData) => {
-        return variation.variation_Name === variationName && variation.totalCompletedWithChecked++
+        return variation.ticketName === ticketName && variation.totalCompletedWithChecked++
       })
     }
 
     // Actualizamos el contador de tickets completados sin check-in
-    if (ticket.order_Status === "wc-completed" && ticket.admission_Status === "Not Checked In") {
+    if (ticket.orderStatus === "wc-completed" && ticket.ticketStatus === "Not Checked In") {
       acc.find((variation: AdmissionData) => {
-        return variation.variation_Name === variationName && variation.totalCompletedWithNotChecked++
+        return variation.ticketName === ticketName && variation.totalCompletedWithNotChecked++
       })
     }
 

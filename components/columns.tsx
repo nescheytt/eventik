@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ticket } from '@/types/ticket'
+import type { Ticket, TicketNew } from '@/types/ticket'
 import { QueryID } from '@/types/query-id'
 
 import { ColumnDef } from '@tanstack/react-table'
@@ -11,7 +11,7 @@ import setTranslateQueryId from '@/utils/setTranslateQueryId'
 import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
 import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'
 
-export const columns: ColumnDef<Ticket>[] = [
+export const columns: ColumnDef<TicketNew>[] = [
   {
     accessorKey: QueryID.ORDER_ID,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_ID)} />,
@@ -87,7 +87,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[140px] truncate font-medium'>
-            {row.original.attendee_Name} {row.original.attendee_LastName}
+            {row.original.attendeeName} {row.original.attendeeLastName}
           </span>
         </div>
       )
@@ -104,7 +104,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[140px] truncate text-muted-foreground'>
-            {row.original.purchaser_FirstName} {row.original.purchaser_LastName}
+            {row.original.purchaserFirstName} {row.original.purchaserLastName}
           </span>
         </div>
       )
@@ -127,7 +127,7 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: QueryID.ADMISSION_STATUS,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ADMISSION_STATUS)} />,
     cell: ({ row }) => {
-      const pending = admissionStatusTranslate(row.original.admission_Status) === 'Pendiente'
+      const pending = admissionStatusTranslate(row.original.ticketStatus) === 'Pendiente'
       const styleAccessed = 'bg-black text-white border-white'
 
       return (

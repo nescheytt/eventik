@@ -69,14 +69,14 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
             <TableBody>
               {admissions.map((admission) => {
                 const {
-                  variation_Name,
+                  ticketName,
                   percentageForVariationName,
                   totalCompletedWithChecked,
                   totalCompletedWithNotChecked } = admission
 
                 return (
-                  <TableRow key={variation_Name}>
-                    <TableCell className="px-0 text-primary">{formattedVariationName(variation_Name)}</TableCell>
+                  <TableRow key={ticketName}>
+                    <TableCell className="px-0 text-primary">{formattedVariationName(ticketName)}</TableCell>
                     <TableCell className='pr-0 flex items-center justify-end'>
                       <Badge variant="outline" className="rounded-md px-2">
                         <span className="font-semibold text-xs">{percentageForVariationName}%</span> 

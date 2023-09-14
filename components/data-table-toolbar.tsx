@@ -1,6 +1,6 @@
 "use client"
 
-import type { Ticket } from "@/types/ticket"
+import type { Ticket, TicketNew } from "@/types/ticket"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
@@ -15,7 +15,7 @@ import { formattedVariationName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  data: Ticket[];
+  data: TicketNew[];
   globalFilter: string
   setGlobalFilter: (value: string) => void
 }
@@ -30,8 +30,8 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.order_Status))];
-  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.variation_Name))];
+  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.orderStatus))];
+  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.ticketName))];
 
   const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
     label: orderStatusTranslate(name),
