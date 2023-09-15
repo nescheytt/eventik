@@ -38,7 +38,7 @@ export function formattedNumber(value: number): string {
  * El valor se formatea el string
  * @param value 
  */
-export function formattedTicketName(value: string) {
+export function formattedTicketName(value: string): string {
   // Utilizamos una expresión regular que busca 'attribute_entradas' seguido de ';' y luego el texto entre comillas dobles.
   const regex = /"attribute_entradas";s:\d+:"(.*?)";/;
   const match = regex.exec(value);
@@ -48,5 +48,5 @@ export function formattedTicketName(value: string) {
     return match[1];
   }
   
-  return null
+  return value
 }

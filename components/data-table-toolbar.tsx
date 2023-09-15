@@ -55,10 +55,10 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
         />
 
         <div className="w-full lg:w-fit flex justify-center lg:justify-start  gap-4">
-          {table.getColumn("order_Status") && (
+          {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
-              column={table.getColumn("order_Status")}
-              title={setTranslateQueryId('order_Status')}
+              column={table.getColumn("orderStatus")}
+              title={setTranslateQueryId('orderStatus')}
               options={orderStatusOptions}
             />
           )}
@@ -79,7 +79,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            Limpiar filtros
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
