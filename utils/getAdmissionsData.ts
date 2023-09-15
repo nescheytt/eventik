@@ -1,11 +1,11 @@
-import type { TicketNew } from '@/types/ticket'
+import type { Ticket } from '@/types/ticket'
 import { formattedNumber } from '@/utils/setFormatValues'
 
 type AdmissionData = {
   ticketName: string
   totalCompletedWithChecked: number
   totalCompletedWithNotChecked: number
-  percentageForVariationName: number
+  percentageForTicketName: number
 }
 
 type TotalAdmisionData = {
@@ -19,7 +19,7 @@ export type GetAdmissionsData = {
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionsData(tickets: TicketNew[]): GetAdmissionsData {
+export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 
@@ -34,7 +34,7 @@ export default function getAdmissionsData(tickets: TicketNew[]): GetAdmissionsDa
         ticketName: ticketName,
         totalCompletedWithChecked: 0,
         totalCompletedWithNotChecked: 0,
-        percentageForVariationName: 0
+        percentageForTicketName: 0
       })
     }
     
@@ -54,7 +54,7 @@ export default function getAdmissionsData(tickets: TicketNew[]): GetAdmissionsDa
 
     // Calculamos el porcentaje
     acc.find((variation: AdmissionData) => {
-      variation.percentageForVariationName = variation.totalCompletedWithChecked / Math.max(variation.totalCompletedWithChecked, variation.totalCompletedWithNotChecked) * 100
+      variation.percentageForTicketName = variation.totalCompletedWithChecked / Math.max(variation.totalCompletedWithChecked, variation.totalCompletedWithNotChecked) * 100
     })
 
     // Devolvemos el arreglo acumulado
@@ -72,7 +72,7 @@ export default function getAdmissionsData(tickets: TicketNew[]): GetAdmissionsDa
 }
 
 function sumTotalAdmissionData(data: AdmissionData[]): TotalAdmisionData {
-  const totalPercentageAdmission = data.reduce((acc, item) => acc + item.percentageForVariationName, 0)
+  const totalPercentageAdmission = data.reduce((acc, item) => acc + item.percentageForTicketName, 0)
   const totalAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithNotChecked, 0)
   const totalCurrentAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithChecked, 0)
 

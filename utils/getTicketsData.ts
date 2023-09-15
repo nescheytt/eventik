@@ -1,5 +1,5 @@
-import type { TicketNew } from '@/types/ticket'
-import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
+import type { Ticket } from '@/types/ticket'
+import { formattedAmount, formattedNumber, formattedTicketName } from '@/utils/setFormatValues'
 
 type TicketData = {
   ticketName: string
@@ -18,7 +18,7 @@ export type GetTicketsData = {
   totalData: TotalTicketData
 }
 
-export default function getTicketsData(data: TicketNew[]): GetTicketsData {
+export default function getTicketsData(data: Ticket[]): GetTicketsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let tickets: TicketData[] = []
 
@@ -39,7 +39,7 @@ export default function getTicketsData(data: TicketNew[]): GetTicketsData {
     }
     
     // Actualizamos el contador de tickets completados con check-in
-    if (ticket.orderStatus === "wc-completed" && ticket.ticketStatus === "Checked In") {
+    if (ticket.orderStatus === "wc-completed") {
       acc.find((variation: TicketData) => {
         return variation.ticketName === ticketName && variation.totalCompletedWithChecked++
       })
@@ -80,7 +80,7 @@ function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
 function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
     return {
-      ticketName: formattedVariationName(ticket.ticketName),
+      ticketName: formattedTicketName(ticket.ticketName),
       totalCompleted: formattedNumber(ticket.totalCompleted),
       totalCompletedWithChecked: formattedNumber(ticket.totalCompletedWithChecked),
       totalTickets: formattedNumber(ticket.totalTickets),

@@ -35,14 +35,18 @@ export function formattedNumber(value: number): string {
 }
 
 /**
- * El valor se formatea removiendo el string "Entradas: "
- * "Entradas: Apple" a "Apple"
+ * El valor se formatea el string
  * @param value 
  */
-export function formattedVariationName(value: string): string {
-  if (typeof value === 'string' && value.startsWith('Entradas:')) {
-    return value.substring(10)
-  }
+export function formattedTicketName(value: string) {
+  // Utilizamos una expresión regular que busca 'attribute_entradas' seguido de ';' y luego el texto entre comillas dobles.
+  const regex = /"attribute_entradas";s:\d+:"(.*?)";/;
+  const match = regex.exec(value);
 
-  return value
+  // Si se encontró una coincidencia y se extrajo el nombre, lo retornamos; de lo contrario, retornamos null.
+  if (match && match[1]) {
+    return match[1];
+  }
+  
+  return null
 }

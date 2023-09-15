@@ -6,15 +6,15 @@ export default function setTranslateQueryId(id: string): string | undefined {
   }
 
   // basics ids
-  if (id === QueryID.ORDER_DATE) return 'Fecha';
+  if (id === QueryID.TICKET_POST_DATE) return 'Fecha';
   if (id === QueryID.ORDER_ID) return 'Pedido';
   if (id === QueryID.ORDER_STATUS) return 'Estado';
   if (id === QueryID.PRODUCT_NAME) return 'Producto';
-  if (id === QueryID.VARIATION_NAME) return 'Tipo de entrada';
+  if (id === QueryID.TICKET_NAME) return 'Tipo de entrada';
   if (id === QueryID.TICKET_ID) return 'Entrada';
   if (id === QueryID.TICKET_NUMBER) return 'Número de entrada';
   if (id === QueryID.TICKET_PRICE) return 'Precio de entrada';
-  if (id === QueryID.ADMISSION_STATUS) return '¿Admitido?';
+  if (id === QueryID.TICKET_STATUS) return '¿Admitido?';
   // assistant ids
   if (id === QueryID.ATTENDEE) return 'Asistente';
   if (id === QueryID.ATTENDEE_FIRST_NAME) return 'Nombre asistente';

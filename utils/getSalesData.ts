@@ -1,5 +1,5 @@
-import type { TicketNew } from '@/types/ticket'
-import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
+import type { Ticket } from '@/types/ticket'
+import { formattedAmount, formattedNumber, formattedTicketName } from '@/utils/setFormatValues'
 
 export type TicketData = {
   ticketName: string
@@ -18,7 +18,7 @@ export type GetSalesData = {
   totalData: TotalSalesData
 }
 
-export default function getSalesData(data: TicketNew[]): GetSalesData {
+export default function getSalesData(data: Ticket[]): GetSalesData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let variations: TicketData[] = []
 
@@ -76,7 +76,7 @@ function sumTotalSalesData(data: TicketData[]): TotalSalesData {
 function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
     return {
-      ticketName: formattedVariationName(ticket.ticketName),
+      ticketName: formattedTicketName(ticket.ticketName),
       ticketCount: formattedNumber(ticket.ticketCount),
       ticketPrice: formattedAmount(ticket.ticketPrice),
       ticketTotalPrice: ticket.ticketTotalPrice
