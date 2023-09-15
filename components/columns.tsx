@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ticket, TicketNew } from '@/types/ticket'
+import type { Ticket } from '@/types/ticket'
 import { QueryID } from '@/types/query-id'
 
 import { ColumnDef } from '@tanstack/react-table'
@@ -9,9 +9,9 @@ import { DataTableRowActions } from '@/components/data-table-row-actions'
 
 import setTranslateQueryId from '@/utils/setTranslateQueryId'
 import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
-import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'
+import { formattedDate, formattedTicketName } from '@/utils/setFormatValues'
 
-export const columns: ColumnDef<TicketNew>[] = [
+export const columns: ColumnDef<Ticket>[] = [
   {
     accessorKey: QueryID.ORDER_ID,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_ID)} />,
@@ -41,10 +41,10 @@ export const columns: ColumnDef<TicketNew>[] = [
     },
   },
   {
-    accessorKey: QueryID.ORDER_DATE,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_DATE)} />,
+    accessorKey: QueryID.TICKET_POST_DATE,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_POST_DATE)} />,
     cell: ({ row }) => {
-      const date = formattedDate(row.getValue(QueryID.ORDER_DATE))
+      const date = formattedDate(row.getValue(QueryID.TICKET_POST_DATE))
 
       return (
         <div className='text-muted-foreground'>{date}</div>
@@ -61,13 +61,13 @@ export const columns: ColumnDef<TicketNew>[] = [
     },
   },
   {
-    accessorKey: QueryID.VARIATION_NAME,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.VARIATION_NAME)} />,
+    accessorKey: QueryID.TICKET_NAME,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_NAME)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
           <span className='max-w-[180px] truncate font-medium text-muted-foreground'>
-            {formattedVariationName(row.getValue(QueryID.VARIATION_NAME))}
+            {formattedTicketName(row.getValue(QueryID.TICKET_NAME))}
           </span>
         </div>
       )
@@ -87,7 +87,7 @@ export const columns: ColumnDef<TicketNew>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[140px] truncate font-medium'>
-            {row.original.attendeeName} {row.original.attendeeLastName}
+            {row.original.attendeeFirstName} {row.original.attendeeLastName}
           </span>
         </div>
       )
@@ -124,8 +124,8 @@ export const columns: ColumnDef<TicketNew>[] = [
     },
   },
   {
-    accessorKey: QueryID.ADMISSION_STATUS,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ADMISSION_STATUS)} />,
+    accessorKey: QueryID.TICKET_STATUS,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_STATUS)} />,
     cell: ({ row }) => {
       const pending = admissionStatusTranslate(row.original.ticketStatus) === 'Pendiente'
       const styleAccessed = 'bg-black text-white border-white'
@@ -133,7 +133,7 @@ export const columns: ColumnDef<TicketNew>[] = [
       return (
         <div className={`${!pending && styleAccessed} max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md`}>
           <p className='text-xs font-medium leading-4'>
-            {admissionStatusTranslate(row.getValue(QueryID.ADMISSION_STATUS))}
+            {admissionStatusTranslate(row.getValue(QueryID.TICKET_STATUS))}
           </p>
         </div>
       )
@@ -141,6 +141,11 @@ export const columns: ColumnDef<TicketNew>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <DataTableRowActions row={row} />
+    cell: ({ row }) => (
+      <DataTableRowActions
+        ticketHash={row.original.ticketHash}
+        ticketID={row.original.ticketID}
+      />
+    )
   },
 ]

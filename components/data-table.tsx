@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { TicketNew } from '@/types/ticket'
+import type { Ticket } from '@/types/ticket'
 import {
   ColumnFiltersState,
   SortingState,
@@ -20,7 +20,7 @@ import { DataTablePagination } from '@/components/data-table-pagination'
 import { DataTableToolbar } from '@/components/data-table-toolbar'
 
 interface DataTableProps<TData, TValue> {
-  data: TicketNew[]
+  data: Ticket[]
 }
 
 export default function DataTable<TData, TValue>({ data }: DataTableProps<TData, TValue>) {

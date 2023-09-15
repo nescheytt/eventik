@@ -1,6 +1,6 @@
 "use client"
 
-import type { Ticket, TicketNew } from "@/types/ticket"
+import type { Ticket } from "@/types/ticket"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
@@ -11,11 +11,11 @@ import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
 import { orderStatusTranslate } from "@/utils/setTranslateValues"
-import { formattedVariationName } from "@/utils/setFormatValues"
+import { formattedTicketName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  data: TicketNew[];
+  data: Ticket[];
   globalFilter: string
   setGlobalFilter: (value: string) => void
 }
@@ -31,14 +31,14 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   const isFiltered = table.getState().columnFilters.length > 0;
 
   const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.orderStatus))];
-  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.ticketName))];
+  const uniqueTicketNames: string[] = [...new Set(data?.map((ticket) => ticket.ticketName))];
 
   const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
     label: orderStatusTranslate(name),
     value: name
   }));
-  const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
-    label: formattedVariationName(name),
+  const ticketNameOptions: Options[] = uniqueTicketNames.map((name: string) => ({
+    label: formattedTicketName(name),
     value: name
   }));
 
@@ -63,11 +63,11 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
             />
           )}
           
-          {table.getColumn("variation_Name") && (
+          {table.getColumn("ticketName") && (
             <DataTableFacetedFilter
-              column={table.getColumn("variation_Name")}
-              title={setTranslateQueryId('variation_Name')}
-              options={variationNameOptions}
+              column={table.getColumn("ticketName")}
+              title={setTranslateQueryId('ticketName')}
+              options={ticketNameOptions}
             />
           )}
         </div>
