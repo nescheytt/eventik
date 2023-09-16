@@ -1,10 +1,10 @@
 import type { Ticket } from '@/types/ticket'
-import { formattedAmount, formattedNumber, formattedTicketName } from '@/utils/setFormatValues'
+import { formattedAmount, formattedNumber, formattedPrice, formattedTicketName } from '@/utils/setFormatValues'
 
 export type TicketData = {
   ticketName: string
   ticketCount: number
-  ticketPrice: number
+  ticketPrice: string
   ticketTotalPrice: number
 }
 
@@ -26,13 +26,14 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
   variations = data.reduce((acc: TicketData[], ticket) => {
     // Obtenemos el nombre de la variación
     const ticketName = ticket.ticketName
+    const ticketPrice = formattedPrice(ticket.ticketPrice) // formateamos ticketPrice valur para obtener solo el precio
 
     // Si la variación no existe en el arreglo, la agregamos
     if (!acc.find((variation: TicketData) => variation.ticketName === ticketName)) {
       acc.push({
         ticketName: ticketName,
         ticketCount: 0,
-        ticketPrice: 0,
+        ticketPrice: '0,00',
         ticketTotalPrice: 0
       })
     } else {
@@ -43,7 +44,12 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
     }
 
     acc.find((variation: TicketData) => {
-      return variation.ticketName === ticketName && (variation.ticketTotalPrice = variation.ticketCount * variation.ticketPrice)
+      return variation.ticketName === ticketName && (variation.ticketPrice = ticketPrice) // convertimos ticketPrice string a number
+    })
+
+    acc.find((variation: TicketData) => {
+      return variation.ticketName === ticketName &&
+        (variation.ticketTotalPrice = parseInt(formattedPrice(variation.ticketPrice)) * parseInt(formattedNumber(variation.ticketCount)))
     })
 
     // Devolvemos el arreglo acumulado
@@ -52,6 +58,8 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
 
   const totalData = sumTotalSalesData(variations)
   const formattedSalesData = formattedVariationValues(variations)
+
+  // console.log('formattedSalesData', formattedSalesData)
 
   // Devolvemos el arreglo con las variaciones
   return {
@@ -75,10 +83,12 @@ function sumTotalSalesData(data: TicketData[]): TotalSalesData {
 
 function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
+    const priceForCount = parseInt(formattedPrice(ticket.ticketPrice)) * parseInt(formattedNumber(ticket.ticketCount))
+
     return {
       ticketName: formattedTicketName(ticket.ticketName),
       ticketCount: formattedNumber(ticket.ticketCount),
-      ticketPrice: formattedAmount(ticket.ticketPrice),
+      ticketPrice: formattedAmount(priceForCount),
       ticketTotalPrice: ticket.ticketTotalPrice
     }
   })

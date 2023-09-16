@@ -50,3 +50,17 @@ export function formattedTicketName(value: string): string {
   
   return value
 }
+
+export function formattedPrice(value: string) {
+  // Utilizamos una expresión regular que busca 'attribute_entradas' seguido de ';' y luego el texto entre comillas dobles.
+  const regex = /(\d+\.\d+)/;
+  const match = regex.exec(value);
+
+  // Si se encontró una coincidencia y se extrajo el nombre, lo retornamos; de lo contrario, retornamos null.
+  if (match && match[1]) {
+    const removeDot = match[1].replace(/\./g, '');
+    return removeDot
+  }
+  
+  return value
+}

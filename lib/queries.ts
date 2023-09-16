@@ -12,6 +12,7 @@ query GetTickets($product_id: Int) {
     ticketID,
     ticketName,
     ticketHash,
+    ticketPrice,
     orderAdminAddTicket,
     attendeeFirstName,
     attendeeLastName,
