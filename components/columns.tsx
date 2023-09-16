@@ -28,11 +28,18 @@ export const columns: ColumnDef<Ticket>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_STATUS)} />,
     cell: ({ row }) => {
       let value = orderStatusTranslate(row.getValue(QueryID.ORDER_STATUS))
-      const pending = value === 'Pendiente'
+      const completed = value === 'Completa'
+      const refunded = value === 'Devuelta'
+
+      const styles = {
+        default: 'px-2 py-1 w-fit rounded-md flex justify-center text-xs font-semibold leading-4',
+        completed: 'bg-green-50 text-green-700',
+        refunded: 'bg-secondary text-muted-foreground'
+      }
 
       return (
-        <div className={`${!pending ? 'bg-green-50' : 'bg-orange-50'} px-2 py-1 w-fit rounded-md flex justify-center`}>
-          <p className={`${!pending ? 'text-green-700' : 'text-orange-700'} text-xs font-semibold leading-4 `}>{value}</p>  
+        <div className={`${styles.default} ${completed && styles.completed} ${refunded && styles.refunded}`}>
+          {value}
         </div>
       )
     },
@@ -127,11 +134,17 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: QueryID.TICKET_STATUS,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_STATUS)} />,
     cell: ({ row }) => {
-      const pending = admissionStatusTranslate(row.original.ticketStatus) === 'Pendiente'
-      const styleAccessed = 'bg-black text-white border-white'
+      const checked = admissionStatusTranslate(row.original.ticketStatus) === 'Ingresó'
+      const canceled = admissionStatusTranslate(row.original.ticketStatus) === 'Cancelado'
+
+      const styles = {
+        default: 'max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md',
+        checked: 'bg-black text-white border-white',
+        canceled: 'bg-secondary text-muted-foreground border-0'
+      }
 
       return (
-        <div className={`${!pending && styleAccessed} max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md`}>
+        <div className={`${styles.default} ${checked && styles.checked} ${canceled && styles.canceled}`}>
           <p className='text-xs font-medium leading-4'>
             {admissionStatusTranslate(row.getValue(QueryID.TICKET_STATUS))}
           </p>

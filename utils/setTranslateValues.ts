@@ -1,7 +1,7 @@
-export function orderStatusTranslate(value: string): string {
+export function orderStatusTranslate(value: string): string | null {
   if (value === 'wc-completed') return 'Completa';
-  if (value === 'wc-refunded') return 'Reintegrado';
-  if (value === null) return 'Null';
+  if (value === 'wc-refunded') return 'Devuelta';
+  if (value === null) return null;
   return value;
 };
 
