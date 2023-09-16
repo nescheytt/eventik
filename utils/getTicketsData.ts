@@ -1,8 +1,8 @@
 import type { Ticket } from '@/types/ticket'
-import { formattedAmount, formattedNumber, formattedVariationName } from '@/utils/setFormatValues'
+import { formattedAmount, formattedNumber, formattedTicketName } from '@/utils/setFormatValues'
 
 type TicketData = {
-  variation_Name: string
+  ticketName: string
   totalCompleted: number
   totalCompletedWithChecked: number
   totalTickets: number
@@ -25,12 +25,12 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
   // Iteramos sobre el array de entradas usando el método reduce()
   tickets = data.reduce((acc: TicketData[], ticket) => {
     // Obtenemos el nombre de la variación
-    const variationName = ticket.variation_Name
+    const ticketName = ticket.ticketName
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: TicketData) => variation.variation_Name === variationName)) {
+    if (!acc.find((variation: TicketData) => variation.ticketName === ticketName)) {
       acc.push({
-        variation_Name: variationName,
+        ticketName: ticketName,
         totalCompleted: 0,
         totalCompletedWithChecked: 0,
         totalTickets: 700, // TODO: por el momento queda harcodeado hasta definir el valor
@@ -39,16 +39,16 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
     }
     
     // Actualizamos el contador de tickets completados con check-in
-    if (ticket.order_Status === "wc-completed" && ticket.admission_Status === "Checked In") {
+    if (ticket.orderStatus === "wc-completed") {
       acc.find((variation: TicketData) => {
-        return variation.variation_Name === variationName && variation.totalCompletedWithChecked++
+        return variation.ticketName === ticketName && variation.totalCompletedWithChecked++
       })
     }
 
     // Actualizamos el contador de tickets con estado "wc-completed"
-    if (ticket.order_Status === "wc-completed") {
+    if (ticket.orderStatus === "wc-completed") {
       acc.find((variation: TicketData) => {
-        return variation.variation_Name === variationName && variation.totalCompleted++
+        return variation.ticketName === ticketName && variation.totalCompleted++
       })
     }
 
@@ -80,7 +80,7 @@ function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
 function formattedVariationValues(data: TicketData[]): any[] {
   const formattedData = data.map(ticket => {
     return {
-      variation_Name: formattedVariationName(ticket.variation_Name),
+      ticketName: formattedTicketName(ticket.ticketName),
       totalCompleted: formattedNumber(ticket.totalCompleted),
       totalCompletedWithChecked: formattedNumber(ticket.totalCompletedWithChecked),
       totalTickets: formattedNumber(ticket.totalTickets),

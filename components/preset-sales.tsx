@@ -56,11 +56,11 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
           </TableHeader>
           <TableBody>
             {variations.map((ticket) => {
-              const { variation_Name, ticketCount, ticketPrice } = ticket
+              const { ticketName, ticketCount, ticketPrice } = ticket
 
               return (
-                <TableRow key={variation_Name} className="border-0">
-                  <TableCell className="pl-0">{variation_Name}</TableCell>
+                <TableRow key={ticketName} className="border-0">
+                  <TableCell className="pl-0">{ticketName}</TableCell>
                   <TableCell className="text-right text-primary">{ticketCount}</TableCell>
                   <TableCell className="pr-0 text-right font-bold">{ticketPrice}</TableCell>
                 </TableRow>

@@ -9,7 +9,7 @@ import { DataTableRowActions } from '@/components/data-table-row-actions'
 
 import setTranslateQueryId from '@/utils/setTranslateQueryId'
 import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
-import { formattedDate, formattedVariationName } from '@/utils/setFormatValues'
+import { formattedDate, formattedTicketName } from '@/utils/setFormatValues'
 
 export const columns: ColumnDef<Ticket>[] = [
   {
@@ -28,11 +28,18 @@ export const columns: ColumnDef<Ticket>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_STATUS)} />,
     cell: ({ row }) => {
       let value = orderStatusTranslate(row.getValue(QueryID.ORDER_STATUS))
-      const pending = value === 'Pendiente'
+      const completed = value === 'Completa'
+      const refunded = value === 'Devuelta'
+
+      const styles = {
+        default: 'px-2 py-1 w-fit rounded-md flex justify-center text-xs font-semibold leading-4',
+        completed: 'bg-green-50 text-green-700',
+        refunded: 'bg-secondary text-muted-foreground'
+      }
 
       return (
-        <div className={`${!pending ? 'bg-green-50' : 'bg-orange-50'} px-2 py-1 w-fit rounded-md flex justify-center`}>
-          <p className={`${!pending ? 'text-green-700' : 'text-orange-700'} text-xs font-semibold leading-4 `}>{value}</p>  
+        <div className={`${styles.default} ${completed && styles.completed} ${refunded && styles.refunded}`}>
+          {value}
         </div>
       )
     },
@@ -41,10 +48,10 @@ export const columns: ColumnDef<Ticket>[] = [
     },
   },
   {
-    accessorKey: QueryID.ORDER_DATE,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_DATE)} />,
+    accessorKey: QueryID.TICKET_POST_DATE,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_POST_DATE)} />,
     cell: ({ row }) => {
-      const date = formattedDate(row.getValue(QueryID.ORDER_DATE))
+      const date = formattedDate(row.getValue(QueryID.TICKET_POST_DATE))
 
       return (
         <div className='text-muted-foreground'>{date}</div>
@@ -61,13 +68,13 @@ export const columns: ColumnDef<Ticket>[] = [
     },
   },
   {
-    accessorKey: QueryID.VARIATION_NAME,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.VARIATION_NAME)} />,
+    accessorKey: QueryID.TICKET_NAME,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_NAME)} />,
     cell: ({ row }) => {
       return (
         <div className='flex'>
           <span className='max-w-[180px] truncate font-medium text-muted-foreground'>
-            {formattedVariationName(row.getValue(QueryID.VARIATION_NAME))}
+            {formattedTicketName(row.getValue(QueryID.TICKET_NAME))}
           </span>
         </div>
       )
@@ -87,7 +94,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[140px] truncate font-medium'>
-            {row.original.attendee_Name} {row.original.attendee_LastName}
+            {row.original.attendeeFirstName} {row.original.attendeeLastName}
           </span>
         </div>
       )
@@ -104,7 +111,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className='flex'>
           <span className='max-w-[140px] truncate text-muted-foreground'>
-            {row.original.purchaser_FirstName} {row.original.purchaser_LastName}
+            {row.original.purchaserFirstName} {row.original.purchaserLastName}
           </span>
         </div>
       )
@@ -124,16 +131,22 @@ export const columns: ColumnDef<Ticket>[] = [
     },
   },
   {
-    accessorKey: QueryID.ADMISSION_STATUS,
-    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ADMISSION_STATUS)} />,
+    accessorKey: QueryID.TICKET_STATUS,
+    header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_STATUS)} />,
     cell: ({ row }) => {
-      const pending = admissionStatusTranslate(row.original.admission_Status) === 'Pendiente'
-      const styleAccessed = 'bg-black text-white border-white'
+      const checked = admissionStatusTranslate(row.original.ticketStatus) === 'Ingresó'
+      const canceled = admissionStatusTranslate(row.original.ticketStatus) === 'Cancelado'
+
+      const styles = {
+        default: 'max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md',
+        checked: 'bg-black text-white border-white',
+        canceled: 'bg-secondary text-muted-foreground border-0'
+      }
 
       return (
-        <div className={`${!pending && styleAccessed} max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md`}>
+        <div className={`${styles.default} ${checked && styles.checked} ${canceled && styles.canceled}`}>
           <p className='text-xs font-medium leading-4'>
-            {admissionStatusTranslate(row.getValue(QueryID.ADMISSION_STATUS))}
+            {admissionStatusTranslate(row.getValue(QueryID.TICKET_STATUS))}
           </p>
         </div>
       )
@@ -141,6 +154,11 @@ export const columns: ColumnDef<Ticket>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <DataTableRowActions row={row} />
+    cell: ({ row }) => (
+      <DataTableRowActions
+        ticketHash={row.original.ticketHash}
+        ticketID={row.original.ticketID}
+      />
+    )
   },
 ]

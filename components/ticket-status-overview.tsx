@@ -1,4 +1,4 @@
-import type { Ticket } from '@/types/ticket'
+import type { EventMagicTicket, Ticket } from '@/types/ticket'
 import { StatusDistribution } from '@/types/status-distribution'
 import PresetSales from '@/components/preset-sales'
 import PresetTickets from '@/components/preset-tickets'

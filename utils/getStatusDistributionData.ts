@@ -1,4 +1,4 @@
-import type { Ticket } from '@/types/ticket'
+import type { EventMagicTicket, Ticket } from '@/types/ticket'
 import type { GetSalesData } from '@/utils/getSalesData'
 import type { GetTicketsData } from '@/utils/getTicketsData'
 import type { GetAdmissionsData } from '@/utils/getAdmissionsData'
@@ -19,6 +19,9 @@ export default function getStatusDistributionData(tickets: Ticket[]) {
     const dataSales: GetSalesData = getSalesData(tickets)
     const dataTickets: GetTicketsData = getTicketsData(tickets)
     const dataAdmissions: GetAdmissionsData = getAdmissionsData(tickets)
+
+    console.log(dataSales)
+    console.log(tickets)
 
     statusDistribution = [
       { status: 'Ventas', data: dataSales },

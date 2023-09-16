@@ -11,7 +11,7 @@ import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
 import { orderStatusTranslate } from "@/utils/setTranslateValues"
-import { formattedVariationName } from "@/utils/setFormatValues"
+import { formattedTicketName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -30,15 +30,15 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.order_Status))];
-  const uniqueVariationNames: string[] = [...new Set(data?.map((ticket) => ticket.variation_Name))];
+  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.orderStatus))];
+  const uniqueTicketNames: string[] = [...new Set(data?.map((ticket) => ticket.ticketName))];
 
   const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
     label: orderStatusTranslate(name),
     value: name
   }));
-  const variationNameOptions: Options[] = uniqueVariationNames.map((name: string) => ({
-    label: formattedVariationName(name),
+  const ticketNameOptions: Options[] = uniqueTicketNames.map((name: string) => ({
+    label: formattedTicketName(name),
     value: name
   }));
 
@@ -55,19 +55,19 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
         />
 
         <div className="w-full lg:w-fit flex justify-center lg:justify-start  gap-4">
-          {table.getColumn("order_Status") && (
+          {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
-              column={table.getColumn("order_Status")}
-              title={setTranslateQueryId('order_Status')}
+              column={table.getColumn("orderStatus")}
+              title={setTranslateQueryId('orderStatus')}
               options={orderStatusOptions}
             />
           )}
           
-          {table.getColumn("variation_Name") && (
+          {table.getColumn("ticketName") && (
             <DataTableFacetedFilter
-              column={table.getColumn("variation_Name")}
-              title={setTranslateQueryId('variation_Name')}
-              options={variationNameOptions}
+              column={table.getColumn("ticketName")}
+              title={setTranslateQueryId('ticketName')}
+              options={ticketNameOptions}
             />
           )}
         </div>
@@ -79,7 +79,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            Limpiar filtros
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
