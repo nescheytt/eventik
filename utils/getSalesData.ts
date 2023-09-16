@@ -38,9 +38,11 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
       })
     } else {
       // Si la variación existe en el arreglo, incrementamos el contador
-      acc.find((variation: TicketData) => {
-        return variation.ticketName === ticketName && variation.ticketCount++
-      })
+      if (ticket.orderStatus === "wc-completed") {
+        acc.find((variation: TicketData) => {
+          return variation.ticketName === ticketName && variation.ticketCount++
+        })
+      }
     }
 
     acc.find((variation: TicketData) => {
