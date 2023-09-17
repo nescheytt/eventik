@@ -39,6 +39,8 @@ export function DataTableFacetedFilter<TData, TValue>({
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
+  console.log(column)
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -84,7 +86,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-fit p-0" align="start">
+      <PopoverContent className="min-w-max p-0" align="start">
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>

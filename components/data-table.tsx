@@ -3,32 +3,37 @@
 import { useState } from 'react'
 import type { Ticket } from '@/types/ticket'
 import {
+  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { columns } from '@/components/columns'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { DataTablePagination } from '@/components/data-table-pagination'
 import { DataTableToolbar } from '@/components/data-table-toolbar'
 
 interface DataTableProps<TData, TValue> {
-  data: Ticket[]
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
 }
 
-export default function DataTable<TData, TValue>({ data }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [globalFilter, setGlobalFilter] = useState<string>('')
+export default function DataTable<TData, TValue>({
+  columns,
+  data
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+  const [globalFilter, setGlobalFilter] = useState<string>('')
 
   const table = useReactTable({
     data,
@@ -50,6 +55,7 @@ export default function DataTable<TData, TValue>({ data }: DataTableProps<TData,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     onGlobalFilterChange: setGlobalFilter,
   })
 

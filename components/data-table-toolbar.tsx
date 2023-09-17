@@ -15,7 +15,7 @@ import { formattedTicketName } from "@/utils/setFormatValues"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  data: Ticket[];
+  data: any[];
   globalFilter: string
   setGlobalFilter: (value: string) => void
 }
@@ -27,6 +27,7 @@ type Options = {
 
 // Componente principal
 export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFilter }: DataTableToolbarProps<TData>) {
+  console.log('table get column', table.getColumn("orderStatus"));
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -54,7 +55,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
           className="w-full lg:w-fit h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
         />
 
-        <div className="w-full lg:w-fit flex justify-center lg:justify-start  gap-4">
+        <div className="w-full lg:w-fit flex justify-center lg:justify-start gap-4">
           {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
               column={table.getColumn("orderStatus")}
