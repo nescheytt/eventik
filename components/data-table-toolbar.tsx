@@ -36,10 +36,10 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
           onChange={(event) => 
             setGlobalFilter(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="h-10 lg:h-8 w-full lg:w-[250px]"
         />
 
-        <div className="w-full lg:w-fit flex justify-center lg:justify-start gap-4">
+        <div className="w-full lg:w-fit flex flex-col md:flex-row justify-center lg:justify-start gap-4">
           {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
               column={table.getColumn("orderStatus")}
