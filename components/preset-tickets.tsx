@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -39,9 +40,10 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='max-w-none min-h-screen md:max-w-[475px] md:min-h-fit'>
+      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Entradas</DialogTitle>
+          <DialogClose />
         </DialogHeader>
 
         <Table>
@@ -72,7 +74,7 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
               )
             })}
           </TableBody>
-        </Table>  
+        </Table>
       </DialogContent>
     </Dialog>
   )

@@ -2,6 +2,7 @@ import type { GetSalesData } from '@/utils/getSalesData'
 import Link from 'next/link'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -41,9 +42,10 @@ export default function PresetSales({ data } : { data: GetSalesData }) {
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='max-w-none min-h-screen md:max-w-[475px] md:min-h-fit'>
+      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Ventas</DialogTitle>
+          <DialogClose />
         </DialogHeader>
 
         <Table>

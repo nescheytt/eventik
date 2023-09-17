@@ -1,6 +1,7 @@
 import type { GetAdmissionsData } from '@/utils/getAdmissionsData'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -45,55 +46,56 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='max-w-none min-h-screen lg:max-w-[475px] lg:min-h-fit'>
+      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Admisiones</DialogTitle>
+          <DialogClose />
         </DialogHeader>
 
-        <div className="flex flex-col gap-4">
-          <Card className='shadow h-fit'>
-            <div className='flex'>
-              <div className="w-full p-6 flex items-center justify-center gap-x-2">
-                <span className='text-3xl text-primary font-bold'>{totalPercentageAdmission}%</span>
-                <span className='text-muted-foreground font-semibold'>Admitidos</span>
+          <div className="flex flex-col gap-4">
+            <Card className='shadow h-fit'>
+              <div className='flex'>
+                <div className="w-full p-6 flex items-center justify-center gap-x-2">
+                  <span className='text-3xl text-primary font-bold'>{totalPercentageAdmission}%</span>
+                  <span className='text-muted-foreground font-semibold'>Admitidos</span>
+                </div>
+
+                <div className="w-full p-6 flex items-center justify-center gap-x-1 border-l">
+                  <span className='text-3xl text-primary font-bold'>{totalCurrentAdmission}</span>
+                  <span className='text-muted-foreground font-semibold before:content-["/"] before:mx-1'>{totalAdmission}</span>
+                </div>
               </div>
+            </Card>
 
-              <div className="w-full p-6 flex items-center justify-center gap-x-1 border-l">
-                <span className='text-3xl text-primary font-bold'>{totalCurrentAdmission}</span>
-                <span className='text-muted-foreground font-semibold before:content-["/"] before:mx-1'>{totalAdmission}</span>
-              </div>
-            </div>
-          </Card>
+            <Table>
+              <TableBody>
+                {admissions.map((admission) => {
+                  const {
+                    ticketName,
+                    percentageForTicketName,
+                    totalCompletedWithChecked,
+                    totalCompletedWithNotChecked } = admission
 
-          <Table>
-            <TableBody>
-              {admissions.map((admission) => {
-                const {
-                  ticketName,
-                  percentageForTicketName,
-                  totalCompletedWithChecked,
-                  totalCompletedWithNotChecked } = admission
-
-                return (
-                  <TableRow key={ticketName}>
-                    <TableCell className="px-0 text-primary">{formattedTicketName(ticketName)}</TableCell>
-                    <TableCell className='pr-0 flex items-center justify-end'>
-                      <Badge variant="outline" className="rounded-md px-2">
-                        <span className="font-semibold text-xs">{percentageForTicketName}%</span> 
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="pr-0">
-                      <div className="text-right">
-                        <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
-                        <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </div>
+                  return (
+                    <TableRow key={ticketName}>
+                      <TableCell className="px-0 text-primary">{formattedTicketName(ticketName)}</TableCell>
+                      <TableCell className='pr-0 flex items-center justify-end'>
+                        <Badge variant="outline" className="rounded-md px-2">
+                          <span className="font-semibold text-xs">{percentageForTicketName}%</span> 
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="pr-0">
+                        <div className="text-right">
+                          <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
+                          <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </div>
       </DialogContent>
     </Dialog>
   )
