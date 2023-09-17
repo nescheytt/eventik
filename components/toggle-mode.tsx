@@ -22,7 +22,7 @@ export function ToggleMode() {
   }
 
   return (
-    <div className='hidden lg:flex items-center justify-center gap-4 lg:border-l lg:border-zinc-300 lg:pl-4'>
+    <div className='flex items-center justify-center gap-4'>
       <SunIcon />
       <Switch
         checked={darkMode}
