@@ -1,6 +1,5 @@
 "use client"
 
-import type { Ticket } from "@/types/ticket"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
@@ -10,41 +9,23 @@ import { DataTableViewOptions } from "@/components/data-table-view-options"
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
-import { orderStatusTranslate } from "@/utils/setTranslateValues"
-import { formattedTicketName } from "@/utils/setFormatValues"
+import getFilterOptions from "@/utils/getFilterOptions"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  data: any[];
+  data: TData[]
   globalFilter: string
   setGlobalFilter: (value: string) => void
 }
 
-type Options = {
-  label: string
-  value: string
-}
-
-// Componente principal
 export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFilter }: DataTableToolbarProps<TData>) {
-  console.log('table get column', table.getColumn("orderStatus"));
+  // generamos los options para cada filter
+  const { optionsStatus, optionsTickets } = getFilterOptions({ data })
+
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  const uniqueProductNames: string[] = [...new Set(data?.map((ticket) => ticket.orderStatus))];
-  const uniqueTicketNames: string[] = [...new Set(data?.map((ticket) => ticket.ticketName))];
-
-  const orderStatusOptions: Options[] = uniqueProductNames.map((name: string) => ({
-    label: orderStatusTranslate(name),
-    value: name
-  }));
-  const ticketNameOptions: Options[] = uniqueTicketNames.map((name: string) => ({
-    label: formattedTicketName(name),
-    value: name
-  }));
-
   return (
-    // <div className="grid grid-flow-row grid-rows-2 lg:grid-rows-1 grid-cols-1 lg:grid-cols-3 gap-4">
     <div className="flex items-center justify-between">
       {/* Filtro de   tareas */}
       <div className="w-full lg:w-fit flex flex-col lg:flex-row items-center gap-4">
@@ -60,7 +41,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
             <DataTableFacetedFilter
               column={table.getColumn("orderStatus")}
               title={setTranslateQueryId('orderStatus')}
-              options={orderStatusOptions}
+              options={optionsStatus}
             />
           )}
           
@@ -68,7 +49,7 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
             <DataTableFacetedFilter
               column={table.getColumn("ticketName")}
               title={setTranslateQueryId('ticketName')}
-              options={ticketNameOptions}
+              options={optionsTickets}
             />
           )}
         </div>

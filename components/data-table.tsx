@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { Ticket } from '@/types/ticket'
 import {
   ColumnDef,
   ColumnFiltersState,
