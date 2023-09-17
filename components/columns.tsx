@@ -140,7 +140,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const styles = {
         default: 'max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md',
         checked: 'bg-black text-white border-white',
-        canceled: 'bg-secondary text-muted-foreground border-0'
+        canceled: 'bg-secondary text-muted-foreground border-transparent'
       }
 
       return (
