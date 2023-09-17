@@ -46,7 +46,7 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6 items-center gap-0 sm:gap-4'>
+      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Admisiones</DialogTitle>
           <DialogClose />
@@ -67,36 +67,34 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
               </div>
             </Card>
 
-            {/* <div className="max-h-[300px] sm:max-h-none overflow-y-scroll"> */}
-              <Table>
-                <TableBody>
-                  {admissions.map((admission) => {
-                    const {
-                      ticketName,
-                      percentageForTicketName,
-                      totalCompletedWithChecked,
-                      totalCompletedWithNotChecked } = admission
+            <Table>
+              <TableBody>
+                {admissions.map((admission) => {
+                  const {
+                    ticketName,
+                    percentageForTicketName,
+                    totalCompletedWithChecked,
+                    totalCompletedWithNotChecked } = admission
 
-                    return (
-                      <TableRow key={ticketName}>
-                        <TableCell className="px-0 text-primary">{formattedTicketName(ticketName)}</TableCell>
-                        <TableCell className='pr-0 flex items-center justify-end'>
-                          <Badge variant="outline" className="rounded-md px-2">
-                            <span className="font-semibold text-xs">{percentageForTicketName}%</span> 
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="pr-0">
-                          <div className="text-right">
-                            <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
-                            <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            {/* </div> */}
+                  return (
+                    <TableRow key={ticketName}>
+                      <TableCell className="px-0 text-primary">{formattedTicketName(ticketName)}</TableCell>
+                      <TableCell className='pr-0 flex items-center justify-end'>
+                        <Badge variant="outline" className="rounded-md px-2">
+                          <span className="font-semibold text-xs">{percentageForTicketName}%</span> 
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="pr-0">
+                        <div className="text-right">
+                          <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
+                          <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalCompletedWithNotChecked}</span>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
           </div>
       </DialogContent>
     </Dialog>
