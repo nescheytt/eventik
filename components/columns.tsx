@@ -32,7 +32,7 @@ export const columns: ColumnDef<Ticket>[] = [
       const refunded = value === 'Devuelta'
 
       const styles = {
-        default: 'px-2 py-1 w-fit rounded-md flex justify-center text-xs font-semibold leading-4',
+        default: 'px-2 py-1 w-full max-w-[73px] rounded-md flex justify-center text-xs font-semibold leading-4',
         completed: 'bg-green-50 text-green-700',
         refunded: 'bg-secondary text-muted-foreground'
       }
