@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -39,40 +40,43 @@ export default function PresetTickets({ data } : { data: GetTicketsData }) {
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='max-w-none min-h-screen md:max-w-[475px] md:min-h-fit'>
+      <DialogContent className='max-w-none sm:max-w-[475px] min-h-screen py-16 sm:py-6'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Entradas</DialogTitle>
+          <DialogClose />
         </DialogHeader>
 
-        <Table>
-          <TableBody>
-            {tickets.map((ticket) => {
-              const { ticketName, totalRemain, totalCompletedWithChecked, totalTickets } = ticket
-              const soldOut = totalRemain <= 0
+        <div className="max-h-[300px] sm:max-h-none overflow-y-scroll">
+          <Table>
+            <TableBody>
+              {tickets.map((ticket) => {
+                const { ticketName, totalRemain, totalCompletedWithChecked, totalTickets } = ticket
+                const soldOut = totalRemain <= 0
 
-              return (
-                <TableRow key={ticketName}>
-                  <TableCell className="pl-0 max-w-[130px] lg:max-w-[180px] text-primary">
-                    <span>{ticketName}</span>
-                  </TableCell>
+                return (
+                  <TableRow key={ticketName}>
+                    <TableCell className="pl-0 max-w-[130px] lg:max-w-[180px] text-primary">
+                      <span>{ticketName}</span>
+                    </TableCell>
 
-                  <TableCell className='text-right'>
-                    <Badge variant={soldOut ? 'default' : 'outline'} className={`rounded-md px-2 ${soldOut && 'bg-orange-50 text-orange-700'}`}>
-                      {soldOut ? 'Agotadas' : `Quedan ${totalRemain}`}
-                    </Badge>
-                  </TableCell>
+                    <TableCell className='text-right'>
+                      <Badge variant={soldOut ? 'default' : 'outline'} className={`rounded-md px-2 ${soldOut && 'bg-orange-50 text-orange-700'}`}>
+                        {soldOut ? 'Agotadas' : `Quedan ${totalRemain}`}
+                      </Badge>
+                    </TableCell>
 
-                  <TableCell className="pr-0">
-                    <div className="text-right">
-                      <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
-                      <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalTickets}</span>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>  
+                    <TableCell className="pr-0">
+                      <div className="text-right">
+                        <span className='text-primary font-semibold'>{totalCompletedWithChecked}</span>
+                        <span className='text-muted-foreground before:content-["/"] before:mx-1'>{totalTickets}</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </DialogContent>
     </Dialog>
   )
