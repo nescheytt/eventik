@@ -46,7 +46,7 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
         </Card>
       </DialogTrigger>
 
-      <DialogContent className='max-w-none sm:max-w-[475px] min-h-screen py-16 sm:py-6'>
+      <DialogContent className='sm:max-w-[475px] min-h-screen sm:min-h-max py-16 sm:py-6 items-center gap-0 sm:gap-4'>
         <DialogHeader>
           <DialogTitle className="text-2xl md:text-lg">Admisiones</DialogTitle>
           <DialogClose />
@@ -67,7 +67,7 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
               </div>
             </Card>
 
-            <div className="max-h-[300px] sm:max-h-none overflow-y-scroll">
+            {/* <div className="max-h-[300px] sm:max-h-none overflow-y-scroll"> */}
               <Table>
                 <TableBody>
                   {admissions.map((admission) => {
@@ -96,7 +96,7 @@ export default function PresetAdmission({ data } : { data: GetAdmissionsData }) 
                   })}
                 </TableBody>
               </Table>
-            </div>
+            {/* </div> */}
           </div>
       </DialogContent>
     </Dialog>
