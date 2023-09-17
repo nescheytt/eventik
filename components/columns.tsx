@@ -2,8 +2,8 @@
 
 import type { Ticket } from '@/types/ticket'
 import { QueryID } from '@/types/query-id'
-
 import { ColumnDef } from '@tanstack/react-table'
+
 import { DataTableColumnHeader } from '@/components/data-table-column-header'
 import { DataTableRowActions } from '@/components/data-table-row-actions'
 

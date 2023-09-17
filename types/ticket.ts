@@ -1,24 +1,31 @@
-export interface EventMagicTicket {
-  eventMagicTickets:   Ticket[]
-}
+import { z } from "zod"
 
-export interface Ticket {
-  orderID:             string
-  orderStatus:         string
-  ticketPostDate:      null
-  ticketNumber:        number
-  ticketStatus:        string
-  ticketID:            string
-  ticketName:          string
-  ticketHash:          string
-  ticketPrice:         string
-  orderAdminAddTicket: null
-  attendeeFirstName:   string
-  attendeeLastName:    string
-  attendeeEmail:       string
-  purchaserFirstName:  string
-  purchaserLastName:   string
-  purchaserEmail:      string
-  purchaserTelephone:  string
-}
+// We're keeping a simple non-relational schema here.
+// IRL, you will have a schema for your data models.
+export const ticketSchema = z.object({
+  orderID:             z.string(),
+  orderStatus:         z.string(),
+  ticketPostDate:      z.string(),
+  ticketNumber:        z.number(),
+  ticketStatus:        z.string(),
+  ticketID:            z.string(),
+  ticketName:          z.string(),
+  ticketHash:          z.string(),
+  ticketPrice:         z.string(),
+  orderAdminAddTicket: z.string(),
+  attendeeFirstName:   z.string(),
+  attendeeLastName:    z.string(),
+  attendeeEmail:       z.string(),
+  purchaserFirstName:  z.string(),
+  purchaserLastName:   z.string(),
+  purchaserEmail:      z.string(),
+  purchaserTelephone:  z.string(),
+})
 
+export type Ticket = z.infer<typeof ticketSchema>
+
+export const eventMagicTicketSchema = z.object({
+  eventMagicTickets:   ticketSchema.array()
+})
+
+export type EventMagicTicket = z.infer<typeof eventMagicTicketSchema>
