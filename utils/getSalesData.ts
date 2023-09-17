@@ -61,8 +61,6 @@ export default function getSalesData(data: Ticket[]): GetSalesData {
   const totalData = sumTotalSalesData(variations)
   const formattedSalesData = formattedVariationValues(variations)
 
-  // console.log('formattedSalesData', formattedSalesData)
-
   // Devolvemos el arreglo con las variaciones
   return {
     variations: formattedSalesData,

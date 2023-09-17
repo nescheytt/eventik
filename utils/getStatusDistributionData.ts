@@ -20,9 +20,6 @@ export default function getStatusDistributionData(tickets: Ticket[]) {
     const dataTickets: GetTicketsData = getTicketsData(tickets)
     const dataAdmissions: GetAdmissionsData = getAdmissionsData(tickets)
 
-    console.log(dataSales)
-    console.log(tickets)
-
     statusDistribution = [
       { status: 'Ventas', data: dataSales },
       { status: 'Entradas', data: dataTickets },
