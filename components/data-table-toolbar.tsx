@@ -3,13 +3,14 @@
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import DebouncedInput from "@/components/ui/debounced-input"
 import { DataTableViewOptions } from "@/components/data-table-view-options"
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
 import getFilterOptions from "@/utils/getFilterOptions"
+import { QueryID } from "@/types/query-id"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -29,14 +30,16 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
     <div className="flex items-center justify-between">
       {/* Filtro de   tareas */}
       <div className="w-full lg:w-fit flex flex-col lg:flex-row items-center gap-4">
-        <DebouncedInput
-          value={globalFilter ?? ''}
+        <Input
           placeholder="Buscar"
-          onChange={value => setGlobalFilter(String(value))}
-          className="w-full lg:w-fit h-10 md:h-9 px-4 py-1 border rounded-md border-zinc-200 shadow-sm"
+          value={globalFilter ?? ""}
+          onChange={(event) => 
+            setGlobalFilter(event.target.value)
+          }
+          className="h-10 lg:h-8 w-full lg:w-[250px]"
         />
 
-        <div className="w-full lg:w-fit flex justify-center lg:justify-start gap-4">
+        <div className="w-full lg:w-fit flex flex-col md:flex-row justify-center lg:justify-start gap-4">
           {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
               column={table.getColumn("orderStatus")}

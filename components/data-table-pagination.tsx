@@ -50,8 +50,8 @@ export function DataTablePagination<TData>({
           </Select>
         </div>
 
-        <div className="flex md:w-[100px] items-center justify-center text-sm font-medium">
-          Página {table.getState().pagination.pageIndex + 1} of{" "}
+        <div className="flex items-center justify-center text-sm font-medium">
+          Página {table.getState().pagination.pageIndex + 1} de{" "}
           {table.getPageCount()}
         </div>
 
