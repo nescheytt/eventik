@@ -4,11 +4,12 @@ import { DropdownMenuNav } from '@/components/dropdown-menu-nav'
 
 export default function Header() {
   return (
-    <header className='border-b'>
-      <div className="container w-full py-4 flex items-center justify-between relative">
+    <header className='p-4 flex items-center justify-between border-b'>
+      <div className="2xl:container 2xl:px-4 w-full flex items-center justify-between relative">
         <UserNav />
         <MainNav />
       </div>
+      
       <DropdownMenuNav />
     </header>
   )
