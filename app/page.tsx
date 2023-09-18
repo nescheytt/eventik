@@ -20,7 +20,7 @@ export default function TicketPage() {
   if (error) return <div>Error</div>
 
   return (
-    <main className='container flex flex-col py-4 pb-12 gap-y-4'>
+    <main className='container flex flex-col px-4 py-4 pb-12 gap-y-4'>
       <HeroTitle />
       <TicketStatusOverview tickets={tickets} />
       <DataTable data={tickets} columns={columns} />
