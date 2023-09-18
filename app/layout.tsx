@@ -2,8 +2,9 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ApolloWrapper } from '@/lib/apollo-wrapper'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +20,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang='es' suppressHydrationWarning>
       <body className={inter.className}>
-        <Header />
-        <ApolloWrapper>{children}</ApolloWrapper>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <ApolloWrapper>{children}</ApolloWrapper>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )
