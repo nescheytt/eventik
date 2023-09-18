@@ -1,7 +1,4 @@
-'use client'
-
-import type { EventMagicTicket } from '@/types/ticket'
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr'
+import { getClient } from '@/lib/client'
 import { GET_TICKETS } from '@/lib/queries'
 import HeroTitle from '@/components/hero-title'
 import DataTable from '@/components/data-table'
@@ -10,20 +7,26 @@ import { columns } from '@/components/columns'
 
 const NEXT_PUBLIC_EVENT_PRODUCT_ID = parseInt(process.env.NEXT_PUBLIC_EVENT_PRODUCT_ID!)
 
-export default function TicketPage() {
-  const { error, data } = useSuspenseQuery<EventMagicTicket>(GET_TICKETS, {
-    variables: { product_id: NEXT_PUBLIC_EVENT_PRODUCT_ID }
+export default async function TicketPage() {
+  const client = getClient()
+
+  const { data } = await client.query({
+    query: GET_TICKETS,
+    variables: {
+      product_id: NEXT_PUBLIC_EVENT_PRODUCT_ID
+    },
+    context: {
+      fetchOptions: {
+        next: { revalidate: 5 },
+      },
+    },
   })
-
-  const tickets = data?.eventMagicTickets || []
-
-  if (error) return <div>Error</div>
 
   return (
     <main className='container flex flex-col px-4 py-4 pb-12 gap-y-4'>
       <HeroTitle />
-      <TicketStatusOverview tickets={tickets} />
-      <DataTable data={tickets} columns={columns} />
+      <TicketStatusOverview tickets={data.eventMagicTickets} />
+      <DataTable data={data.eventMagicTickets} columns={columns} />
     </main>
   )
 }
