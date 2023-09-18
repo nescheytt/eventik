@@ -1,4 +1,4 @@
-import { orderStatusTranslate } from './setTranslateValues'
+import { getTranslateOrderStatus } from './getTranslateOrderStatus'
 import { formattedTicketName } from './setFormatValues'
 import { Ticket } from '@/types/ticket'
 
@@ -19,7 +19,7 @@ export default function getFilterOptions<TData>({
   const uniqueTicketNames: string[] = [...new Set(data?.map((ticket: Ticket) => ticket.ticketName))];
 
   const optionsStatus: Options[] = uniqueProductNames.map((name: string) => ({
-    label: orderStatusTranslate(name),
+    label: getTranslateOrderStatus(name),
     value: name
   }));
 
