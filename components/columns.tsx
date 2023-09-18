@@ -8,7 +8,8 @@ import { DataTableColumnHeader } from '@/components/data-table-column-header'
 import { DataTableRowActions } from '@/components/data-table-row-actions'
 
 import setTranslateQueryId from '@/utils/setTranslateQueryId'
-import { admissionStatusTranslate, orderStatusTranslate } from '@/utils/setTranslateValues'
+import { getTranslateOrderStatus } from '@/utils/getTranslateOrderStatus'
+import { getTranslateAdmissionStatus } from '@/utils/getTranslateAdmissionStatus'
 import { formattedDate, formattedTicketName } from '@/utils/setFormatValues'
 
 export const columns: ColumnDef<Ticket>[] = [
@@ -27,7 +28,7 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: QueryID.ORDER_STATUS,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.ORDER_STATUS)} />,
     cell: ({ row }) => {
-      let value = orderStatusTranslate(row.getValue(QueryID.ORDER_STATUS))
+      let value = getTranslateOrderStatus(row.getValue(QueryID.ORDER_STATUS))
       const completed = value === 'Completa'
       const refunded = value === 'Devuelta'
 
@@ -134,8 +135,8 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: QueryID.TICKET_STATUS,
     header: ({ column }) => <DataTableColumnHeader column={column} title={setTranslateQueryId(QueryID.TICKET_STATUS)} />,
     cell: ({ row }) => {
-      const checked = admissionStatusTranslate(row.original.ticketStatus) === 'Ingresó'
-      const canceled = admissionStatusTranslate(row.original.ticketStatus) === 'Cancelado'
+      const checked = getTranslateAdmissionStatus(row.original.ticketStatus) === 'Ingresó'
+      const canceled = getTranslateAdmissionStatus(row.original.ticketStatus) === 'Cancelado'
 
       const styles = {
         default: 'max-w-[75px] px-2 py-1 w-fit flex justify-center border rounded-md',
@@ -146,7 +147,7 @@ export const columns: ColumnDef<Ticket>[] = [
       return (
         <div className={`${styles.default} ${checked && styles.checked} ${canceled && styles.canceled}`}>
           <p className='text-xs font-medium leading-4'>
-            {admissionStatusTranslate(row.getValue(QueryID.TICKET_STATUS))}
+            {getTranslateAdmissionStatus(row.getValue(QueryID.TICKET_STATUS))}
           </p>
         </div>
       )
