@@ -14,6 +14,14 @@
     "downlevelIteration": true,
     "jsx": "preserve",
     "incremental": true,
+    "composite": false, 
+    "declaration": true,
+    "declarationMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
     "plugins": [
       {
         "name": "next"
