@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "pnpm exec prettier . --write"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.2",
@@ -34,6 +34,8 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "graphql": "^16.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "lucide-react": "^0.274.0",
     "next": "13.4.19",
     "next-themes": "^0.2.1",

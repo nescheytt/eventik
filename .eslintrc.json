@@ -1,6 +1,7 @@
 {
   "extends": [
     "next/core-web-vitals",
+    "eslint:recommend",
     "prettier",
     "plugin:tailwindcss/recommended"
   ],
