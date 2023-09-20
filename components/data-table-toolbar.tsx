@@ -19,39 +19,42 @@ interface DataTableToolbarProps<TData> {
   setGlobalFilter: (value: string) => void
 }
 
-export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFilter }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({
+  table,
+  data,
+  globalFilter,
+  setGlobalFilter,
+}: DataTableToolbarProps<TData>) {
   // generamos los options para cada filter
   const { optionsStatus, optionsTickets } = getFilterOptions({ data })
 
   // Comprueba si hay filtros aplicados en las columnas
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const isFiltered = table.getState().columnFilters.length > 0
 
   return (
     <div className="flex items-center justify-between">
       {/* Filtro de   tareas */}
-      <div className="w-full lg:w-fit flex flex-col lg:flex-row items-center gap-4">
+      <div className="flex w-full flex-col items-center gap-4 lg:w-fit lg:flex-row">
         <Input
           placeholder="Buscar"
           value={globalFilter ?? ""}
-          onChange={(event) => 
-            setGlobalFilter(event.target.value)
-          }
-          className="h-10 lg:h-8 w-full lg:w-[250px]"
+          onChange={(event) => setGlobalFilter(event.target.value)}
+          className="h-10 w-full lg:h-8 lg:w-[250px]"
         />
 
-        <div className="w-full lg:w-fit flex flex-col md:flex-row justify-center lg:justify-start gap-4">
+        <div className="flex w-full flex-col justify-center gap-4 md:flex-row lg:w-fit lg:justify-start">
           {table.getColumn("orderStatus") && (
             <DataTableFacetedFilter
               column={table.getColumn("orderStatus")}
-              title={setTranslateQueryId('orderStatus')}
+              title={setTranslateQueryId("orderStatus")}
               options={optionsStatus}
             />
           )}
-          
+
           {table.getColumn("ticketName") && (
             <DataTableFacetedFilter
               column={table.getColumn("ticketName")}
-              title={setTranslateQueryId('ticketName')}
+              title={setTranslateQueryId("ticketName")}
               options={optionsTickets}
             />
           )}
@@ -69,11 +72,11 @@ export function DataTableToolbar<TData>({ table, data, globalFilter, setGlobalFi
           </Button>
         )}
       </div>
-      
+
       {/* Opciones adicionales para la vista de la tabla */}
-      <div className="hidden lg:flex lg:col-span-1 lg:self-end">
+      <div className="hidden lg:col-span-1 lg:flex lg:self-end">
         <DataTableViewOptions table={table} />
       </div>
     </div>
-  );
-};
+  )
+}

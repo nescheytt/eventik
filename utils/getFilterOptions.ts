@@ -1,8 +1,8 @@
-import { getTranslateOrderStatus } from './getTranslateOrderStatus'
-import { formattedTicketName } from './setFormatValues'
-import { Ticket } from '@/types/ticket'
+import { getTranslateOrderStatus } from "./getTranslateOrderStatus"
+import { formattedTicketName } from "./setFormatValues"
+import { Ticket } from "@/types/ticket"
 
-interface GetFilterOptionsProps<TData> {
+interface GetFilterOptionsProps {
   data: any[]
 }
 
@@ -11,25 +11,26 @@ type Options = {
   value: string
 }
 
-export default function getFilterOptions<TData>({
-  data
-} : GetFilterOptionsProps<TData>) {
-  
-  const uniqueProductNames: string[] = [...new Set(data?.map((ticket: Ticket) => ticket.orderStatus))];
-  const uniqueTicketNames: string[] = [...new Set(data?.map((ticket: Ticket) => ticket.ticketName))];
+export default function getFilterOptions({ data }: GetFilterOptionsProps) {
+  const uniqueProductNames: string[] = [
+    ...new Set(data?.map((ticket: Ticket) => ticket.orderStatus)),
+  ]
+  const uniqueTicketNames: string[] = [
+    ...new Set(data?.map((ticket: Ticket) => ticket.ticketName)),
+  ]
 
   const optionsStatus: Options[] = uniqueProductNames.map((name: string) => ({
     label: getTranslateOrderStatus(name),
-    value: name
-  }));
+    value: name,
+  }))
 
   const optionsTickets: Options[] = uniqueTicketNames.map((name: string) => ({
     label: formattedTicketName(name),
-    value: name
-  }));
+    value: name,
+  }))
 
   return {
     optionsStatus,
-    optionsTickets
+    optionsTickets,
   }
 }

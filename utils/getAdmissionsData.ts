@@ -1,5 +1,5 @@
-import type { Ticket } from '@/types/ticket'
-import { formattedNumber } from '@/utils/setFormatValues'
+import type { Ticket } from "@/types/ticket"
+import { formattedNumber } from "@/utils/setFormatValues"
 
 type AdmissionData = {
   ticketName: string
@@ -19,7 +19,9 @@ export type GetAdmissionsData = {
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData {
+export default function getAdmissionsData(
+  tickets: Ticket[]
+): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 
@@ -29,32 +31,54 @@ export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData 
     const ticketName = ticket.ticketName
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: AdmissionData) => variation.ticketName === ticketName)) {
+    if (
+      !acc.find(
+        (variation: AdmissionData) => variation.ticketName === ticketName
+      )
+    ) {
       acc.push({
         ticketName: ticketName,
         totalCompletedWithChecked: 0,
         totalCompletedWithNotChecked: 0,
-        percentageForTicketName: 0
+        percentageForTicketName: 0,
       })
     }
-    
+
     // Actualizamos el contador de tickets completados con check-in
-    if (ticket.orderStatus === "wc-completed" && ticket.ticketStatus === "Checked In") {
+    if (
+      ticket.orderStatus === "wc-completed" &&
+      ticket.ticketStatus === "Checked In"
+    ) {
       acc.find((variation: AdmissionData) => {
-        return variation.ticketName === ticketName && variation.totalCompletedWithChecked++
+        return (
+          variation.ticketName === ticketName &&
+          variation.totalCompletedWithChecked++
+        )
       })
     }
 
     // Actualizamos el contador de tickets completados sin check-in
-    if (ticket.orderStatus === "wc-completed" && ticket.ticketStatus === "Not Checked In") {
+    if (
+      ticket.orderStatus === "wc-completed" &&
+      ticket.ticketStatus === "Not Checked In"
+    ) {
       acc.find((variation: AdmissionData) => {
-        return variation.ticketName === ticketName && variation.totalCompletedWithNotChecked++
+        return (
+          variation.ticketName === ticketName &&
+          variation.totalCompletedWithNotChecked++
+        )
       })
     }
 
     // Calculamos el porcentaje
     acc.find((variation: AdmissionData) => {
-      variation.percentageForTicketName = variation.totalCompletedWithChecked / Math.max(variation.totalCompletedWithChecked, variation.totalCompletedWithNotChecked) * 100
+      variation.percentageForTicketName =
+        (variation.totalCompletedWithChecked /
+          Math.max(
+            variation.totalCompletedWithChecked,
+            variation.totalCompletedWithNotChecked
+          )) *
+        100
     })
 
     // Devolvemos el arreglo acumulado
@@ -67,14 +91,23 @@ export default function getAdmissionsData(tickets: Ticket[]): GetAdmissionsData 
   // Devolvemos el arreglo con las admisiones y su dato extra totalData
   return {
     admissions,
-    totalData
+    totalData,
   }
 }
 
 function sumTotalAdmissionData(data: AdmissionData[]): TotalAdmisionData {
-  const totalPercentageAdmission = data.reduce((acc, item) => acc + item.percentageForTicketName, 0)
-  const totalAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithNotChecked, 0)
-  const totalCurrentAdmission = data.reduce((acc, item) => acc + item.totalCompletedWithChecked, 0)
+  const totalPercentageAdmission = data.reduce(
+    (acc, item) => acc + item.percentageForTicketName,
+    0
+  )
+  const totalAdmission = data.reduce(
+    (acc, item) => acc + item.totalCompletedWithNotChecked,
+    0
+  )
+  const totalCurrentAdmission = data.reduce(
+    (acc, item) => acc + item.totalCompletedWithChecked,
+    0
+  )
 
   const formattedTotalAdmission = formattedNumber(totalAdmission)
   const formattedTotalCurrentAdmission = formattedNumber(totalCurrentAdmission)
@@ -82,6 +115,6 @@ function sumTotalAdmissionData(data: AdmissionData[]): TotalAdmisionData {
   return {
     totalPercentageAdmission,
     totalAdmission: formattedTotalAdmission,
-    totalCurrentAdmission: formattedTotalCurrentAdmission
+    totalCurrentAdmission: formattedTotalCurrentAdmission,
   }
 }
