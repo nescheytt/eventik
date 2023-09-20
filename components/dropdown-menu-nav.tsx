@@ -1,4 +1,8 @@
-import { CopyIcon, ExternalLinkIcon, HamburgerMenuIcon } from "@radix-ui/react-icons"
+import {
+  CopyIcon,
+  ExternalLinkIcon,
+  HamburgerMenuIcon,
+} from "@radix-ui/react-icons"
 import { BookOpen, LifeBuoy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {

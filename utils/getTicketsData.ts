@@ -1,5 +1,5 @@
-import type { Ticket } from '@/types/ticket'
-import { formattedAmount, formattedNumber, formattedTicketName } from '@/utils/setFormatValues'
+import type { Ticket } from "@/types/ticket"
+import { formattedNumber, formattedTicketName } from "@/utils/setFormatValues"
 
 type TicketData = {
   ticketName: string
@@ -28,20 +28,25 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
     const ticketName = ticket.ticketName
 
     // Si la variación no existe en el arreglo, la agregamos
-    if (!acc.find((variation: TicketData) => variation.ticketName === ticketName)) {
+    if (
+      !acc.find((variation: TicketData) => variation.ticketName === ticketName)
+    ) {
       acc.push({
         ticketName: ticketName,
         totalCompleted: 0,
         totalCompletedWithChecked: 0,
         totalTickets: 700, // TODO: por el momento queda harcodeado hasta definir el valor
-        totalRemain: 0
+        totalRemain: 0,
       })
     }
-    
+
     // Actualizamos el contador de tickets completados con check-in
     if (ticket.orderStatus === "wc-completed") {
       acc.find((variation: TicketData) => {
-        return variation.ticketName === ticketName && variation.totalCompletedWithChecked++
+        return (
+          variation.ticketName === ticketName &&
+          variation.totalCompletedWithChecked++
+        )
       })
     }
 
@@ -54,7 +59,8 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
 
     // Calculamos la cantidad de tickets que quedan disponibles
     acc.find((variation: TicketData) => {
-      variation.totalRemain = variation.totalTickets - variation.totalCompletedWithChecked
+      variation.totalRemain =
+        variation.totalTickets - variation.totalCompletedWithChecked
     })
 
     // Devolvemos el arreglo acumulado
@@ -69,7 +75,10 @@ export default function getTicketsData(data: Ticket[]): GetTicketsData {
 }
 
 function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
-  const totalCompleted = data.reduce((acc, item) => acc + item.totalCompleted, 0)
+  const totalCompleted = data.reduce(
+    (acc, item) => acc + item.totalCompleted,
+    0
+  )
   const formattedTotalCompleted = formattedNumber(totalCompleted)
 
   return {
@@ -78,13 +87,15 @@ function sumTotalTicketsData(data: TicketData[]): TotalTicketData {
 }
 
 function formattedVariationValues(data: TicketData[]): any[] {
-  const formattedData = data.map(ticket => {
+  const formattedData = data.map((ticket) => {
     return {
       ticketName: formattedTicketName(ticket.ticketName),
       totalCompleted: formattedNumber(ticket.totalCompleted),
-      totalCompletedWithChecked: formattedNumber(ticket.totalCompletedWithChecked),
+      totalCompletedWithChecked: formattedNumber(
+        ticket.totalCompletedWithChecked
+      ),
       totalTickets: formattedNumber(ticket.totalTickets),
-      totalRemain: formattedNumber(ticket.totalRemain)
+      totalRemain: formattedNumber(ticket.totalRemain),
     }
   })
 

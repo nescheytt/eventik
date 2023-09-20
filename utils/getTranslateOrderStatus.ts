@@ -1,19 +1,19 @@
 enum Status {
-  WC_COMPLETED = 'wc-completed',
-  WC_REFUNDED = 'wc-refunded',
+  WC_COMPLETED = "wc-completed",
+  WC_REFUNDED = "wc-refunded",
 }
 
 export function getTranslateOrderStatus(value: string): string {
   if (value === null || value === undefined) {
-    return '';
+    return ""
   }
 
   switch (value) {
     case Status.WC_COMPLETED:
-      return 'Completa';
+      return "Completa"
     case Status.WC_REFUNDED:
-      return 'Devuelta';
+      return "Devuelta"
     default:
-      return value;
+      return value
   }
-};
+}

@@ -42,7 +42,11 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-10 w-full lg:w-fit lg:h-8 border-dashed">
+        <Button
+          variant="outline"
+          size="sm"
+          className="h-10 w-full border-dashed lg:h-8 lg:w-fit"
+        >
           <PlusCircledIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
@@ -93,7 +97,7 @@ export function DataTableFacetedFilter<TData, TValue>({
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
                 if (option.label === null) return null // evitamos render de un filtro vacio
-                
+
                 return (
                   <CommandItem
                     key={option.value}
