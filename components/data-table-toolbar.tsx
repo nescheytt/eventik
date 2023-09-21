@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button"
 import { DataTableViewOptions } from "@/components/data-table-view-options"
 import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
-import setTranslateQueryId from "@/utils/setTranslateQueryId"
-import getFilterOptions from "@/utils/getFilterOptions"
+import { setTranslateQueryId } from "@/utils/set-translate-query-id"
+import { getFilterOptions } from "@/utils/get-filter-options"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>

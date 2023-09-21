@@ -3,7 +3,7 @@ enum Status {
   WC_REFUNDED = "wc-refunded",
 }
 
-export function getTranslateOrderStatus(value: string): string {
+export function setTranslateOrderStatus(value: string): string {
   if (value === null || value === undefined) {
     return ""
   }

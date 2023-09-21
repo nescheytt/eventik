@@ -1,6 +1,6 @@
 import { QueryID } from "@/types/query-id"
 
-export default function setTranslateQueryId(id: string): string | undefined {
+export function setTranslateQueryId(id: string): string | undefined {
   if (typeof id !== "string") {
     throw new Error("El valor debe ser un string")
   }

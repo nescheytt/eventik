@@ -12,7 +12,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
-import setTranslateQueryId from "@/utils/setTranslateQueryId"
+
+import { setTranslateQueryId } from "@/utils/set-translate-query-id"
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>

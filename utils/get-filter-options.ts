@@ -1,6 +1,6 @@
-import { getTranslateOrderStatus } from "./getTranslateOrderStatus"
-import { formattedTicketName } from "./setFormatValues"
-import { Ticket } from "@/types/ticket"
+import type { Ticket } from "@/types/ticket"
+import { setTranslateOrderStatus } from "@/utils/set-translate-order-status"
+import { formattedTicketName } from "@/utils/set-format-values"
 
 interface GetFilterOptionsProps {
   data: any[]
@@ -11,7 +11,7 @@ type Options = {
   value: string
 }
 
-export default function getFilterOptions({ data }: GetFilterOptionsProps) {
+export function getFilterOptions({ data }: GetFilterOptionsProps) {
   const uniqueProductNames: string[] = [
     ...new Set(data?.map((ticket: Ticket) => ticket.orderStatus)),
   ]
@@ -20,7 +20,7 @@ export default function getFilterOptions({ data }: GetFilterOptionsProps) {
   ]
 
   const optionsStatus: Options[] = uniqueProductNames.map((name: string) => ({
-    label: getTranslateOrderStatus(name),
+    label: setTranslateOrderStatus(name),
     value: name,
   }))
 

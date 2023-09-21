@@ -1,5 +1,5 @@
 import type { Ticket } from "@/types/ticket"
-import { formattedNumber, formattedTicketName } from "@/utils/setFormatValues"
+import { formattedNumber, formattedTicketName } from "@/utils/set-format-values"
 
 type TicketData = {
   ticketName: string
@@ -18,7 +18,7 @@ export type GetTicketsData = {
   totalData: TotalTicketData
 }
 
-export default function getTicketsData(data: Ticket[]): GetTicketsData {
+export function getDataTickets(data: Ticket[]): GetTicketsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let tickets: TicketData[] = []
 

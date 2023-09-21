@@ -7,10 +7,10 @@ import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "@/components/data-table-column-header"
 import { DataTableRowActions } from "@/components/data-table-row-actions"
 
-import setTranslateQueryId from "@/utils/setTranslateQueryId"
-import { getTranslateOrderStatus } from "@/utils/getTranslateOrderStatus"
-import { getTranslateAdmissionStatus } from "@/utils/getTranslateAdmissionStatus"
-import { formattedDate, formattedTicketName } from "@/utils/setFormatValues"
+import { setTranslateQueryId } from "@/utils/set-translate-query-id"
+import { setTranslateOrderStatus } from "@/utils/set-translate-order-status"
+import { setTranslateAdmissionStatus } from "@/utils/set-translate-admissions-status"
+import { formattedDate, formattedTicketName } from "@/utils/set-format-values"
 
 export const columns: ColumnDef<Ticket>[] = [
   {
@@ -40,7 +40,7 @@ export const columns: ColumnDef<Ticket>[] = [
       />
     ),
     cell: ({ row }) => {
-      let value = getTranslateOrderStatus(row.getValue(QueryID.ORDER_STATUS))
+      let value = setTranslateOrderStatus(row.getValue(QueryID.ORDER_STATUS))
       const completed = value === "Completa"
       const refunded = value === "Devuelta"
 
@@ -194,9 +194,9 @@ export const columns: ColumnDef<Ticket>[] = [
     ),
     cell: ({ row }) => {
       const checked =
-        getTranslateAdmissionStatus(row.original.ticketStatus) === "Ingresó"
+        setTranslateAdmissionStatus(row.original.ticketStatus) === "Ingresó"
       const canceled =
-        getTranslateAdmissionStatus(row.original.ticketStatus) === "Cancelado"
+        setTranslateAdmissionStatus(row.original.ticketStatus) === "Cancelado"
 
       const styles = {
         default:
@@ -212,7 +212,7 @@ export const columns: ColumnDef<Ticket>[] = [
           }`}
         >
           <p className="text-xs font-medium leading-4">
-            {getTranslateAdmissionStatus(row.getValue(QueryID.TICKET_STATUS))}
+            {setTranslateAdmissionStatus(row.getValue(QueryID.TICKET_STATUS))}
           </p>
         </div>
       )

@@ -1,4 +1,4 @@
-import type { GetSalesData } from "@/utils/getSalesData"
+import type { GetSalesData } from "@/utils/get-data-sales"
 import Link from "next/link"
 import {
   Dialog,

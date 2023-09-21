@@ -4,7 +4,7 @@ enum Status {
   CANCELED = "Canceled",
 }
 
-export function getTranslateAdmissionStatus(value: string): string {
+export function setTranslateAdmissionStatus(value: string): string {
   if (value === null || value === undefined) {
     return ""
   }

@@ -1,4 +1,4 @@
-import type { GetAdmissionsData } from "@/utils/getAdmissionsData"
+import type { GetAdmissionsData } from "@/utils/get-data-admissions"
 import {
   Dialog,
   DialogClose,
@@ -10,7 +10,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableRow, TableBody, TableCell } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { formattedTicketName } from "@/utils/setFormatValues"
+import { formattedTicketName } from "@/utils/set-format-values"
 
 export default function PresetAdmission({ data }: { data: GetAdmissionsData }) {
   const {
