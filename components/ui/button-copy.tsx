@@ -33,7 +33,7 @@ const ButtonCopy = React.forwardRef<HTMLButtonElement, ButtonCopyProps>(
 
     return (
       <Button
-        className={cn("animation duration-700 ease-out", className)}
+        className={cn("duration-700 ease-out", className)}
         onClick={handleClick}
         variant={variant}
         ref={ref}
