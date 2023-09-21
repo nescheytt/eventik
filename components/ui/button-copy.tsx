@@ -9,14 +9,14 @@ export interface ButtonCopyProps
   children?: React.ReactNode
   url: string
   variant:
-  | "default"
-  | "destructive"
-  | "outline"
-  | "secondary"
-  | "ghost"
-  | "link"
-  | null
-  | undefined
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link"
+    | null
+    | undefined
 }
 
 const ButtonCopy = React.forwardRef<HTMLButtonElement, ButtonCopyProps>(
