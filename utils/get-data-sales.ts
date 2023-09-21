@@ -4,7 +4,7 @@ import {
   formattedNumber,
   formattedPrice,
   formattedTicketName,
-} from "@/utils/setFormatValues"
+} from "@/utils/set-format-values"
 
 export type TicketData = {
   ticketName: string
@@ -23,7 +23,7 @@ export type GetSalesData = {
   totalData: TotalSalesData
 }
 
-export default function getSalesData(data: Ticket[]): GetSalesData {
+export function getDataSales(data: Ticket[]): GetSalesData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let variations: TicketData[] = []
 

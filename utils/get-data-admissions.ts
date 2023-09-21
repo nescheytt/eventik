@@ -1,5 +1,5 @@
 import type { Ticket } from "@/types/ticket"
-import { formattedNumber } from "@/utils/setFormatValues"
+import { formattedNumber } from "@/utils/set-format-values"
 
 type AdmissionData = {
   ticketName: string
@@ -19,9 +19,7 @@ export type GetAdmissionsData = {
   totalData: TotalAdmisionData
 }
 
-export default function getAdmissionsData(
-  tickets: Ticket[]
-): GetAdmissionsData {
+export function getDataAdmissions(tickets: Ticket[]): GetAdmissionsData {
   // Creamos un arreglo vacío para almacenar las variaciones
   let admissions: AdmissionData[] = []
 

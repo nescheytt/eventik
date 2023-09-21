@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Table, TableRow, TableBody, TableCell } from "@/components/ui/table"
-import { GetTicketsData } from "@/utils/getTicketsData"
+import { GetTicketsData } from "@/utils/get-data-tickets"
 import { Badge } from "@/components/ui/badge"
 
 export default function PresetTickets({ data }: { data: GetTicketsData }) {

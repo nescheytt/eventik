@@ -3,14 +3,14 @@ import { StatusDistribution } from "@/types/status-distribution"
 import PresetSales from "@/components/preset-sales"
 import PresetTickets from "@/components/preset-tickets"
 import PresetAdmission from "@/components/preset-admission"
-import getStatusDistributionData from "@/utils/getStatusDistributionData"
+import { getStatusDistribution } from "@/utils/get-status-distribution"
 
 export default function TicketStatusOverview({
   tickets,
 }: {
   tickets: Ticket[]
 }) {
-  const statusDistribution = getStatusDistributionData(tickets)
+  const statusDistribution = getStatusDistribution(tickets)
 
   return (
     <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
