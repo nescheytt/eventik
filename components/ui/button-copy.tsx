@@ -9,14 +9,14 @@ export interface ButtonCopyProps
   children?: React.ReactNode
   url: string
   variant:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link"
-    | null
-    | undefined
+  | "default"
+  | "destructive"
+  | "outline"
+  | "secondary"
+  | "ghost"
+  | "link"
+  | null
+  | undefined
 }
 
 const ButtonCopy = React.forwardRef<HTMLButtonElement, ButtonCopyProps>(
@@ -33,7 +33,7 @@ const ButtonCopy = React.forwardRef<HTMLButtonElement, ButtonCopyProps>(
 
     return (
       <Button
-        className={cn("animation duration-700 ease-out", className)}
+        className={cn("duration-700 ease-out", className)}
         onClick={handleClick}
         variant={variant}
         ref={ref}
