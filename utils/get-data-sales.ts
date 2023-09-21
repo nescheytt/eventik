@@ -81,13 +81,21 @@ export function getDataSales(data: Ticket[]): GetSalesData {
     totalData,
   }
 }
+// Función para sumar el porcentaje de producto, sobre el precio total de las ventas
+function calculatePercentage(valor: number, porcentaje: number) {
+  const resultado = (valor * porcentaje) / 100
+  return resultado + valor
+}
 
 function sumTotalSalesData(data: TicketData[]): TotalSalesData {
   const totalCount = data.reduce((acc, item) => acc + item.ticketCount, 0)
   const totalPrice = data.reduce((acc, item) => acc + item.ticketTotalPrice, 0)
 
+  // calculamos el valor de las ventas con el IVA del producto
+  const totalCountWithProductPorcentage = calculatePercentage(totalPrice, 3)
+
   const formattedTotalCount = formattedNumber(totalCount)
-  const formattedTotalPrice = formattedAmount(totalPrice)
+  const formattedTotalPrice = formattedAmount(totalCountWithProductPorcentage)
 
   return {
     totalCount: formattedTotalCount,
