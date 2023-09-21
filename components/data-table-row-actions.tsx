@@ -4,15 +4,15 @@ import Link from "next/link"
 import { PinBottomIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
 
-interface DataTableRowActionsProps<TData> {
+interface DataTableRowActionsProps {
   ticketHash: string
   ticketID: string
 }
 
-export function DataTableRowActions<TData>({
+export function DataTableRowActions({
   ticketHash,
   ticketID,
-}: DataTableRowActionsProps<TData>) {
+}: DataTableRowActionsProps) {
   return (
     <div className="flex items-center justify-center">
       <Button

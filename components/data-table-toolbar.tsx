@@ -1,5 +1,6 @@
 "use client"
 
+import { Dispatch, SetStateAction } from "react"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
@@ -10,13 +11,12 @@ import { DataTableFacetedFilter } from "@/components/data-table-faceted-filter"
 
 import setTranslateQueryId from "@/utils/setTranslateQueryId"
 import getFilterOptions from "@/utils/getFilterOptions"
-import { QueryID } from "@/types/query-id"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   data: TData[]
   globalFilter: string
-  setGlobalFilter: (value: string) => void
+  setGlobalFilter: Dispatch<SetStateAction<string>>
 }
 
 export function DataTableToolbar<TData>({
