@@ -1,6 +1,6 @@
-import HeroTitle from "@/components/hero-title"
-import DataTable from "@/components/data-table"
-import TicketStatusOverview from "@/components/ticket-status-overview"
+import { HeroTitle } from "@/components/hero-title"
+import { DataTable } from "@/components/data-table"
+import { TicketStatusOverview } from "@/components/ticket-status-overview"
 import { columns } from "@/components/columns"
 import { Tickets } from "@/services/tickets"
 

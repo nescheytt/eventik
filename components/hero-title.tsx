@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ButtonCopy } from "@/components/ui/button-copy"
 import { CopyIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
 
-export default function HeroTitle() {
+export function HeroTitle() {
   return (
     <section className="flex items-center lg:flex-row lg:justify-between">
       <h2 className="text-xl font-bold tracking-tight md:text-2xl">
