@@ -1,13 +1,61 @@
-import Link from "next/link"
-import { ButtonCopy } from "@/components/ui/button-copy"
-import { CopyIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+"use client"
 
-export function HeroTitle() {
+import { Dispatch, SetStateAction } from "react"
+import Link from "next/link"
+import { CopyIcon, ExternalLinkIcon } from "@radix-ui/react-icons"
+import { ButtonCopy } from "@/components/ui/button-copy"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+type HeroTitleProps = {
+  selectedProduct: number
+  setSelectedProduct: Dispatch<SetStateAction<number>>
+}
+
+export function HeroTitle({
+  selectedProduct,
+  setSelectedProduct,
+}: HeroTitleProps) {
+  // TODO: Esta hardcodeado hasta que se defina como retornar multiple productos activos @joniko
+  const hasMultiProducts = true
+
   return (
     <section className="flex items-center lg:flex-row lg:justify-between">
-      <h2 className="text-xl font-bold tracking-tight md:text-2xl">
-        {process.env.NEXT_PUBLIC_EVENT_NAME}
-      </h2>
+      <div>
+        {hasMultiProducts ? (
+          <Select
+            onValueChange={(value) => setSelectedProduct(parseInt(value))}
+          >
+            <SelectTrigger className="w-fit text-xl font-bold tracking-tight md:text-2xl">
+              <SelectValue
+                defaultValue={selectedProduct}
+                placeholder={process.env.NEXT_PUBLIC_EVENT_NAME!}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Eventos activos</SelectLabel>
+                <SelectItem value="253">
+                  {process.env.NEXT_PUBLIC_EVENT_NAME!}
+                </SelectItem>
+                <SelectItem value="254">Evento 2</SelectItem>
+                <SelectItem value="255">Evento 3</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        ) : (
+          <h2 className="text-xl font-bold tracking-tight md:text-2xl">
+            {process.env.NEXT_PUBLIC_EVENT_NAME}
+          </h2>
+        )}
+      </div>
 
       <div className="hidden items-center gap-x-2 lg:flex">
         <ButtonCopy
