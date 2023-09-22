@@ -33,7 +33,7 @@ export function HeroTitle({
           <Select
             onValueChange={(value) => setSelectedProduct(parseInt(value))}
           >
-            <SelectTrigger className="w-fit text-xl font-bold tracking-tight md:text-2xl">
+            <SelectTrigger className="h-auto w-fit text-xl font-bold tracking-tight md:text-2xl">
               <SelectValue
                 defaultValue={selectedProduct}
                 placeholder={process.env.NEXT_PUBLIC_EVENT_NAME!}
