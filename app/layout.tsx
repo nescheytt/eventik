@@ -29,9 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <Header />
-          <ApolloWrapper>
-            {children}
-          </ApolloWrapper>
+          <ApolloWrapper>{children}</ApolloWrapper>
           <Footer />
         </ThemeProvider>
       </body>

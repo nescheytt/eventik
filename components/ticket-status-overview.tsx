@@ -5,11 +5,7 @@ import PresetTickets from "@/components/preset-tickets"
 import PresetAdmission from "@/components/preset-admission"
 import { getStatusDistribution } from "@/utils/get-status-distribution"
 
-export function TicketStatusOverview({
-  tickets,
-}: {
-  tickets: Ticket[]
-}) {
+export function TicketStatusOverview({ tickets }: { tickets: Ticket[] }) {
   const statusDistribution = getStatusDistribution(tickets)
 
   return (
