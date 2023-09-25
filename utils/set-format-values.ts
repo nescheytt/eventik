@@ -41,16 +41,14 @@ export function formattedNumber(value: number): string {
  * @param value
  */
 export function formattedTicketName(value: string): string {
-  // Utilizamos una expresión regular que busca 'attribute_entradas' seguido de ';' y luego el texto entre comillas dobles.
-  const regex = /"attribute_entradas";s:\d+:"(.*?)";/
-  const match = regex.exec(value)
+  const regex = /"attribute_entradas?";s:\d+:"(.*?)";/
+  const matches = value.match(regex) || []
 
-  // Si se encontró una coincidencia y se extrajo el nombre, lo retornamos; de lo contrario, retornamos null.
-  if (match && match[1]) {
-    return match[1]
+  if (matches.length > 0) {
+    return matches[matches.length - 1]
   }
 
-  return value
+  return "Ticket inválido."
 }
 
 export function formattedPrice(value: string) {
