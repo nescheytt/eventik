@@ -1,16 +1,18 @@
-import type { Ticket } from "@/types/ticket"
+import type { Ticket, TicketSales } from "@/types/ticket"
 import { StatusDistribution } from "@/types/status-distribution"
 import PresetSales from "@/components/preset-sales"
 import PresetTickets from "@/components/preset-tickets"
 import PresetAdmission from "@/components/preset-admission"
 import { getStatusDistribution } from "@/utils/get-status-distribution"
 
-export default function TicketStatusOverview({
+export function TicketStatusOverview({
   tickets,
+  ticketSales,
 }: {
   tickets: Ticket[]
+  ticketSales: TicketSales[]
 }) {
-  const statusDistribution = getStatusDistribution(tickets)
+  const statusDistribution = getStatusDistribution(tickets, ticketSales)
 
   return (
     <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

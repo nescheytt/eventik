@@ -5,6 +5,7 @@ import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { ApolloWrapper } from "@/lib/apollo-wrapper"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <ApolloWrapper>{children}</ApolloWrapper>
           <Footer />
         </ThemeProvider>
       </body>
