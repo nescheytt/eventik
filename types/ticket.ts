@@ -22,10 +22,18 @@ export const ticketSchema = z.object({
   purchaserTelephone: z.string(),
 })
 
-export type Ticket = z.infer<typeof ticketSchema>
-
-export const eventMagicTicketSchema = z.object({
-  eventMagicTickets: ticketSchema.array(),
+export const ticketSalesSchema = z.object({
+  variationName: z.string(),
+  totalRevenue: z.string(),
+  totalVariationsSold: z.string(),
 })
 
-export type EventMagicTicket = z.infer<typeof eventMagicTicketSchema>
+export type Ticket = z.infer<typeof ticketSchema>
+export type TicketSales = z.infer<typeof ticketSalesSchema>
+
+export const getTicketsSchema = z.object({
+  eventMagicTickets: ticketSchema.array(),
+  eventTicketSales: ticketSalesSchema.array(),
+})
+
+export type GetTickets = z.infer<typeof getTicketsSchema>
