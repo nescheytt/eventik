@@ -45,8 +45,9 @@ export function HeroTitle({
                 <SelectItem value="253">
                   {process.env.NEXT_PUBLIC_EVENT_NAME!}
                 </SelectItem>
-                <SelectItem value="254">Evento 2</SelectItem>
-                <SelectItem value="255">Evento 3</SelectItem>
+                <SelectItem value="4219">
+                  Evento 4219: Otro evento activo
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
