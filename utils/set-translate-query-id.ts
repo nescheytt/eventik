@@ -23,9 +23,9 @@ export function setTranslateQueryId(id: string): string | undefined {
     case QueryID.TICKET_STATUS:
       return "¿Admitido?"
     case QueryID.ORDER_ADMIN_ADD_TICKET:
-      return "¿Entrada manual?"
+      return "Origen"
     case QueryID.USED_COUPON:
-      return "¿Entrada cupón?"
+      return "Cupón"
     case QueryID.ATTENDEE:
       return "Asistente"
     case QueryID.ATTENDEE_FIRST_NAME:

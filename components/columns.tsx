@@ -62,9 +62,8 @@ export const columns: ColumnDef<Ticket>[] = [
 
       return (
         <div
-          className={`${styles.default} ${completed && styles.completed} ${
-            refunded && styles.refunded
-          }`}
+          className={`${styles.default} ${completed && styles.completed} ${refunded && styles.refunded
+            }`}
         >
           {value}
         </div>
@@ -216,9 +215,8 @@ export const columns: ColumnDef<Ticket>[] = [
 
       return (
         <div
-          className={`${styles.default} ${checked && styles.checked} ${
-            canceled && styles.canceled
-          }`}
+          className={`${styles.default} ${checked && styles.checked} ${canceled && styles.canceled
+            }`}
         >
           <p className="text-xs font-medium leading-4">
             {setTranslateAdmissionStatus(row.getValue(QueryID.TICKET_STATUS))}
@@ -231,12 +229,12 @@ export const columns: ColumnDef<Ticket>[] = [
     accessorKey: `${QueryID.USED_COUPON}`,
     header: "",
     cell: ({ row }) => {
-      const isCoupon = setTranslateUsedCoupon(row.original.usedCoupon) === "Sí"
+      const isCoupon = setTranslateUsedCoupon(row.original.usedCoupon) === "Si"
       return isCoupon ? (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <CopyrightIcon className="h-4 w-4" />
+              <CopyrightIcon className="h-4 w-4 text-orange-400" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Entrada con cupón</p>
@@ -254,12 +252,12 @@ export const columns: ColumnDef<Ticket>[] = [
     header: "",
     cell: ({ row }) => {
       const isManual =
-        setTranslateTicketManual(row.original.orderAdminAddTicket) === "Sí"
+        setTranslateTicketManual(row.original.orderAdminAddTicket) === "Manual"
       return isManual ? (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <MSquareIcon className="h-4 w-4" />
+              <MSquareIcon className="h-4 w-4 text-orange-400" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Entrada ingresada manualmente</p>

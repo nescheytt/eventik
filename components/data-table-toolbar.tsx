@@ -60,19 +60,19 @@ export function DataTableToolbar<TData>({
             />
           )}
 
-          {table.getColumn("usedCoupon") && (
-            <DataTableFacetedFilter
-              column={table.getColumn("usedCoupon")}
-              title={setTranslateQueryId("usedCoupon")}
-              options={optionsCoupons}
-            />
-          )}
-
           {table.getColumn("orderAdminAddTicket") && (
             <DataTableFacetedFilter
               column={table.getColumn("orderAdminAddTicket")}
               title={setTranslateQueryId("orderAdminAddTicket")}
               options={optionsManual}
+            />
+          )}
+
+          {table.getColumn("usedCoupon") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("usedCoupon")}
+              title={setTranslateQueryId("usedCoupon")}
+              options={optionsCoupons}
             />
           )}
         </div>
