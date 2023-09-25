@@ -13,6 +13,7 @@ export const ticketSchema = z.object({
   ticketPostDate: z.string(),
   ticketStatus: z.string(),
   orderAdminAddTicket: z.string(),
+  usedCoupon: z.string(),
   attendeeFirstName: z.string(),
   attendeeLastName: z.string(),
   attendeeEmail: z.string(),
