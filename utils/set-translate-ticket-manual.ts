@@ -5,14 +5,14 @@ enum Status {
 
 export function setTranslateTicketManual(value: string): string {
   if (value === null || value === undefined) {
-    return "No"
+    return "Online"
   }
 
   switch (value) {
     case Status.NO:
-      return "No"
+      return "Online"
     case Status.YES:
-      return "Sí"
+      return "Manual"
     default:
       return value
   }
