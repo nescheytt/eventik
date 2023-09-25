@@ -12,7 +12,7 @@ export function setTranslateUsedCoupon(value: string): string {
     case Status.NO:
       return "No"
     case Status.YES:
-      return "Sí"
+      return "Si"
     default:
       return value
   }
