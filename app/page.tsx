@@ -17,17 +17,17 @@ export default function TicketPage() {
   })
 
   return (
-    <ErrorBoundary fallback={<div>Algo salió mal</div>}>
-      <Suspense fallback={<div>Cargando...</div>}>
-        <main className="container flex flex-col gap-y-4 px-4 pb-12 pt-4">
+    <main className="container flex flex-col gap-y-4 px-4 pb-12 pt-4">
+      <ErrorBoundary fallback={<div>Lo siento, algo salió mal</div>}>
+        <Suspense fallback={<div>Cargando...</div>}>
           <HeroTitle
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
           />
           <TicketStatusOverview tickets={data.eventMagicTickets} />
           <DataTable data={data.eventMagicTickets} columns={columns} />
-        </main>
-      </Suspense>
-    </ErrorBoundary>
+        </Suspense>
+      </ErrorBoundary>
+    </main>
   )
 }
