@@ -37,7 +37,7 @@ export function formattedNumber(value: number): string {
 }
 
 /**
- * El valor se formatea el string
+ * El valor de "ticketName" se formatea con un regex
  * @param value
  */
 export function formattedTicketName(value: string): string {
@@ -46,6 +46,22 @@ export function formattedTicketName(value: string): string {
 
   if (matches.length > 0) {
     return matches[matches.length - 1]
+  }
+
+  return "Ticket inválido."
+}
+
+/**
+ * El valor de "variationName" se formatea con un regex
+ * @param value
+ * @returns
+ */
+export function formattedVariationName(value: string): string {
+  const regex = /Entradas: (.+)/
+  const matches = regex.exec(value)
+
+  if (matches && matches.length > 1) {
+    return matches[1]
   }
 
   return "Ticket inválido."
