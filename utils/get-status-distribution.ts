@@ -1,4 +1,4 @@
-import type { Ticket } from "@/types/ticket"
+import type { Ticket, TicketSales } from "@/types/ticket"
 import type { GetSalesData } from "@/utils/get-data-sales"
 import type { GetTicketsData } from "@/utils/get-data-tickets"
 import type { GetAdmissionsData } from "@/utils/get-data-admissions"
@@ -12,11 +12,14 @@ type StatusDistribution = {
   data: any
 }
 
-export function getStatusDistribution(tickets: Ticket[]) {
+export function getStatusDistribution(
+  tickets: Ticket[],
+  ticketSales: TicketSales[]
+) {
   let statusDistribution: StatusDistribution[] = []
 
   if (tickets.length > 0) {
-    const dataSales: GetSalesData = getDataSales(tickets)
+    const dataSales: GetSalesData = getDataSales(ticketSales)
     const dataTickets: GetTicketsData = getDataTickets(tickets)
     const dataAdmissions: GetAdmissionsData = getDataAdmissions(tickets)
 

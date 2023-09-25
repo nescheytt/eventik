@@ -24,7 +24,10 @@ export default function TicketPage() {
             selectedProduct={selectedProduct}
             setSelectedProduct={setSelectedProduct}
           />
-          <TicketStatusOverview tickets={data.eventMagicTickets} />
+          <TicketStatusOverview
+            tickets={data.eventMagicTickets}
+            ticketSales={data.eventTicketSales}
+          />
           <DataTable data={data.eventMagicTickets} columns={columns} />
         </Suspense>
       </ErrorBoundary>
