@@ -26,7 +26,8 @@ export function DataTableToolbar<TData>({
   setGlobalFilter,
 }: DataTableToolbarProps<TData>) {
   // generamos los options para cada filter
-  const { optionsStatus, optionsTickets } = getFilterOptions({ data })
+  const { optionsStatus, optionsTickets, optionsCoupons, optionsManual } =
+    getFilterOptions({ data })
 
   // Comprueba si hay filtros aplicados en las columnas
   const isFiltered = table.getState().columnFilters.length > 0
@@ -56,6 +57,22 @@ export function DataTableToolbar<TData>({
               column={table.getColumn("ticketName")}
               title={setTranslateQueryId("ticketName")}
               options={optionsTickets}
+            />
+          )}
+
+          {table.getColumn("usedCoupon") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("usedCoupon")}
+              title={setTranslateQueryId("usedCoupon")}
+              options={optionsCoupons}
+            />
+          )}
+
+          {table.getColumn("orderAdminAddTicket") && (
+            <DataTableFacetedFilter
+              column={table.getColumn("orderAdminAddTicket")}
+              title={setTranslateQueryId("orderAdminAddTicket")}
+              options={optionsManual}
             />
           )}
         </div>

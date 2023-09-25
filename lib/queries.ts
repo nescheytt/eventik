@@ -14,6 +14,7 @@ export const GET_TICKETS: TypedDocumentNode<GetTickets> = gql`
       ticketHash
       ticketPrice
       orderAdminAddTicket
+      usedCoupon
       attendeeFirstName
       attendeeLastName
       attendeeEmail
